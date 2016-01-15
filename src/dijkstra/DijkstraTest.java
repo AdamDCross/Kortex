@@ -1,3 +1,7 @@
+package dijkstra;
+
+import main.*;
+
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
@@ -7,7 +11,7 @@ import org.jsfml.system.*;
  * Originally 'InterfaceTest' by Phil
  * Tweaked by Vince on 14/01/2016 by separating window functionality from core functionality.
  */
-public class DijkstraTest implements Render{
+public class DijkstraTest implements Render {
     private Pathfind d;
     private Vector2i currentPosition;
     private RenderWindow window;

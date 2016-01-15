@@ -1,3 +1,5 @@
+package fsm;
+
 import java.util.Vector;
 
 public class StateMachine 

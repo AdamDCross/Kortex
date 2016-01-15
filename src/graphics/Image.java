@@ -1,10 +1,13 @@
+package graphics;
+
+import main.Render;
+import main.Window;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Vector;
 
 /**
  * Created by Vince on 14/01/2016.

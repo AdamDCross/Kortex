@@ -1,8 +1,8 @@
+package main;
+
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
-import org.jsfml.system.Vector2i;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 
@@ -22,7 +22,7 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c){
         sansRegular = new Font();
 
-        FontFile = "src/Font/LucidaSansRegular.ttf";
+        FontFile = "src/font/LucidaSansRegular.ttf";
         fontSize = 48;
 
         try {

@@ -1,3 +1,6 @@
+package graphics;
+
+import main.Render;
 import org.jsfml.system.Vector2f;
 
 import java.util.Vector;
@@ -5,7 +8,7 @@ import java.util.Vector;
 /**
  * Created by Vince on 15/01/2016.
  */
-public class Animation implements Render{
+public class Animation implements Render {
     private Vector<Image> frames;
     private int noOfFrames;
     private int currentFrame;

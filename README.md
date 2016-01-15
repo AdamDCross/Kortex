@@ -1,2 +1,2 @@
-# Kortex
-Game being created for SCC.210
+# main.Kortex
+states.Game being created for SCC.210

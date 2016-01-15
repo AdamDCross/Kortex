@@ -1,3 +1,6 @@
+package main;
+
+import dijkstra.DijkstraQueue;
 import org.jsfml.system.Vector2i;
 
 import java.util.ArrayList;
@@ -13,7 +16,7 @@ public class Pathfind {
     public Cell[][] cells;
 
     /**
-     * A Pathfind's Algorithm implementation in java
+     * A main.Pathfind's Algorithm implementation in java
      *
      * @param cx The center cell's X position
      * @param cy The center cell's Y position
@@ -160,7 +163,7 @@ public class Pathfind {
         return true;
     }
 
-    Pathfind(int Cx, int Cy){
+    public Pathfind(int Cx, int Cy){
         //TODO when the main playing field is created, merge these classes, to reduce the amount of wasted variables;
         cells=new Cell[GRID_WIDTH][GRID_HEIGHT];
         for(int cx=0;cx<GRID_WIDTH;cx++){

@@ -1,3 +1,9 @@
+package main;
+
+import fsm.StateMachine;
+import states.Game;
+import states.MainMenu;
+
 /**
  * Created by Vince on 14/01/2016.
  */
