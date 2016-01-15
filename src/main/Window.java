@@ -1,7 +1,7 @@
+package main;
+
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
-import org.jsfml.window.WindowStyle;
-import org.jsfml.window.event.Event;
 
 /**
  * Created by Vince on 14/01/2016.
@@ -28,7 +28,7 @@ public class Window {
     public static Window getInstance() {
         if( instance == null )
         {
-            instance = new Window(640,480,"Kortex"); //Alter window specifics
+            instance = new Window(640,480,"main.Kortex"); //Alter window specifics
         }
 
         return instance;

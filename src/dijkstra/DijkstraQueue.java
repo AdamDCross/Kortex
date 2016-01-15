@@ -1,8 +1,11 @@
+package dijkstra;
+import main.*;
+
 /**
  * Created by Phillip on 18/12/2015.
  */
 public class DijkstraQueue {
-    DQItem start;
+    public DQItem start;
 
     class DQItem{
         DQItem next;
@@ -21,7 +24,7 @@ public class DijkstraQueue {
         }
     }
 
-    DijkstraQueue(){
+    public DijkstraQueue(){
         start=null;
     }
 
@@ -66,10 +69,10 @@ public class DijkstraQueue {
 
     /**
      *
-     * @return The Cell at the front of the queue
+     * @return The main.Cell at the front of the queue
      */
 
-    Cell getMin(){
+    public Cell getMin(){
         Cell pop=start.cell;
         start=start.next;
         return pop;
@@ -79,11 +82,11 @@ public class DijkstraQueue {
      * The decrease priority for the priority queue.
      * Will also put the item to the correct place.
      *
-     * @param cell The Cell to decrease.
+     * @param cell The main.Cell to decrease.
      * @param priority The priority to set the new cell to
      */
 
-    void decrease(Cell cell,int priority) {
+    public void decrease(Cell cell, int priority) {
         DQItem prev=null;
         for (DQItem d = start; d != null; d = d.next) {
             if (d.cell.equals(cell)) {

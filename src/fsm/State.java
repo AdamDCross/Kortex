@@ -1,3 +1,5 @@
+package fsm;
+
 public class State
 {
 	private String ID;

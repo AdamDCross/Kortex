@@ -1,23 +1,23 @@
+package main;
+
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.*;
 
-import java.util.Comparator;
-
 //Also doubling this as the cell class for the Heap
 
 public class Cell{
-    int distance;
-    int weight;
-    Cell pathNext;
-    Vector2i pos;
+    public int distance;
+    public int weight;
+    public Cell pathNext;
+    public Vector2i pos;
 
     /**
-     * The Basic Cell Structure
+     * The Basic main.Cell Structure
      *
      * @param pos The position vector of the cell
-     * @param weight The weight of the cell. Used in the Pathfind's Algorithm.
+     * @param weight The weight of the cell. Used in the main.Pathfind's Algorithm.
      *               The higher the value, the harder it is to move through
      */
 
@@ -37,7 +37,7 @@ public class Cell{
         return Math.abs(pos.x - other.pos.x) + Math.abs(pos.y - other.pos.y);
     }
 
-    void drawMe(RenderWindow w){
+    public void drawMe(RenderWindow w){
         if(weight==1){return;}
         RectangleShape r=new RectangleShape(new Vector2f(32,32));
         r.setFillColor(Color.BLUE);
