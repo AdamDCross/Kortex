@@ -22,22 +22,12 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c){
         sansRegular = new Font();
 
-        FontFile = "LucidaSansRegular.ttf";
+        FontFile = "src\\Font\\LucidaSansRegular.ttf";
         fontSize = 48;
-        JavaVersion = Runtime.class.getPackage().getImplementationVersion();
-        JdkFontPath = "C:\\Program Files\\Java\\jdk" + JavaVersion + "\\jre\\lib\\fonts\\";
-        JreFontPath = "C:\\Program Files\\Java\\jre" + JavaVersion + "\\lib\\fonts\\";
-
-        if ((new File(JreFontPath)).exists( )){
-            FontPath = JreFontPath;
-        }
-        else{
-            FontPath = JdkFontPath;
-        }
 
         try {
             sansRegular.loadFromFile(
-                    Paths.get(FontPath+FontFile));
+                    Paths.get(FontFile));
         } catch (IOException ex) {
             ex.printStackTrace( );
         }
