@@ -1,5 +1,6 @@
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.window.VideoMode;
+import org.jsfml.window.WindowStyle;
 import org.jsfml.window.event.Event;
 
 /**
@@ -13,6 +14,12 @@ public class Window {
 
     private Window(int screenWidth, int screenHeight, String title){
         gameWindow = new RenderWindow(new VideoMode(screenWidth,screenHeight),title);
+
+        /*gameWindow = new RenderWindow();
+        gameWindow.create(
+                new VideoMode(screenWidth, screenHeight),
+                                title, WindowStyle.DEFAULT);*/
+
         gameWindow.setFramerateLimit(30); // Avoid excessive updates, 30fps limit which can be changed later
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;

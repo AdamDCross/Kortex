@@ -11,7 +11,7 @@ import java.util.Vector;
 public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
-    private Message helloWorld;
+    //private Message helloWorld;
 
     public Game()
     {
@@ -22,8 +22,8 @@ public class Game extends State {
 
         gameObjects.addElement(test);
 
-        helloWorld = new Message("Hello World", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
-        helloWorld.setText("");
+        //helloWorld = new Message("Hello World", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
+        //helloWorld.setText("");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Game extends State {
             gameObjects.elementAt(i).render();
         }
 
-        helloWorld.renderText();
+        //helloWorld.renderText();
     }
 
     @Override
