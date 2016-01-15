@@ -22,7 +22,7 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c){
         sansRegular = new Font();
 
-        FontFile = "src\\Font\\LucidaSansRegular.ttf";
+        FontFile = "src/Font/LucidaSansRegular.ttf";
         fontSize = 48;
 
         try {

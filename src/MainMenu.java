@@ -7,15 +7,15 @@ import org.jsfml.window.event.Event;
  * Created by Vince on 14/01/2016.
  */
 public class MainMenu extends State {
-    //private Message mmText;
+    private Message mmText;
     //Image img;
     //Animation alien;
 
     public MainMenu(){
         super("MAIN_MENU");
 
-        //mmText = new Message("Welcome to the\n world of Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
-                //Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
+        mmText = new Message("Welcome to the\n world of Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
+                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
 
         //img = new Image("C:\\Users\\Vince\\IdeaProjects\\Kortex\\src\\team.jpg", new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2));
         //alien = new Animation("C:\\Users\\Vince\\IdeaProjects\\Kortex\\animation\\tmp-", ".gif", 22, 75, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2));
@@ -56,7 +56,7 @@ public class MainMenu extends State {
     public void render() {
         super.render();
 
-        //mmText.renderText();
+        mmText.renderText();
         //img.render(); //Uncomment if you want to text image rendering
         //alien.render();
     }
