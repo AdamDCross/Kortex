@@ -20,7 +20,7 @@ public class MainMenu extends State {
     public MainMenu(){
         super("MAIN_MENU");
 
-        mmText = new Message("Welcome to the\n world of main.Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
+        mmText = new Message("Welcome to the\n world of Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
                 Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
 
         //img = new graphics.Image("C:\\Users\\Vince\\IdeaProjects\\main.Kortex\\src\\team.jpg", new Vector2f(main.Window.getInstance().getScreenWidth() / 2, main.Window.getInstance().getScreenHeight() / 2));

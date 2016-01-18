@@ -14,7 +14,7 @@ public class Cell{
     public Vector2i pos;
 
     /**
-     * The Basic main.Cell Structure
+     * The Basic Cell Structure
      *
      * @param pos The position vector of the cell
      * @param weight The weight of the cell. Used in the main.Pathfind's Algorithm.
