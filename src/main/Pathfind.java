@@ -13,7 +13,7 @@ public class Pathfind {
     public static final int GRID_SIZE=32;
     public static final int GRID_WIDTH=20;
     public static final int GRID_HEIGHT=15;
-    public Cell[][] cells;
+    private Cell[][] cells;
 
     /**
      * A main.Pathfind's Algorithm implementation in java
@@ -25,12 +25,12 @@ public class Pathfind {
         DijkstraQueue hold = new DijkstraQueue();
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
-                cells[x][y].dReset();
-                hold.insert(cells[x][y]);
+                getCells()[x][y].dReset();
+                hold.insert(getCells()[x][y]);
             }
         }
-        hold.decrease(cells[cx][cy],0);
-        cells[cx][cy].pathNext = null;
+        hold.decrease(getCells()[cx][cy],0);
+        getCells()[cx][cy].pathNext = null;
         while(hold.start!=null) {
             Cell currCheck = hold.getMin();
             int dist = currCheck.distance + currCheck.weight;
@@ -39,16 +39,16 @@ public class Pathfind {
             //path(currCheck);
             if (currCheck.pos.y != 0) {
                 //up
-                if (cells[x][y - 1].distance > dist) {
-                    hold.decrease(cells[x][y - 1],dist);
-                    cells[x][y - 1].pathNext = currCheck;
+                if (getCells()[x][y - 1].distance > dist) {
+                    hold.decrease(getCells()[x][y - 1],dist);
+                    getCells()[x][y - 1].pathNext = currCheck;
                 }
             }
             if (currCheck.pos.x != 0) {
                 //left
-                if (cells[x - 1][y].distance > dist) {
-                    hold.decrease(cells[x - 1][y],dist);
-                    cells[x - 1][y].pathNext = currCheck;
+                if (getCells()[x - 1][y].distance > dist) {
+                    hold.decrease(getCells()[x - 1][y],dist);
+                    getCells()[x - 1][y].pathNext = currCheck;
                 }
                 //TODO uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
@@ -68,16 +68,16 @@ public class Pathfind {
             }
             if (currCheck.pos.y != (GRID_HEIGHT-1)) {
                 //down
-                if (cells[x][y + 1].distance > dist) {
-                    hold.decrease(cells[x][y + 1],dist);
-                    cells[x][y +1].pathNext = currCheck;
+                if (getCells()[x][y + 1].distance > dist) {
+                    hold.decrease(getCells()[x][y + 1],dist);
+                    getCells()[x][y +1].pathNext = currCheck;
                 }
             }
             if (currCheck.pos.x != (GRID_WIDTH-1)) {
                 //right
-                if (cells[x + 1][y].distance > dist) {
-                    hold.decrease(cells[x + 1][y],dist);
-                    cells[x + 1][y].pathNext = currCheck;
+                if (getCells()[x + 1][y].distance > dist) {
+                    hold.decrease(getCells()[x + 1][y],dist);
+                    getCells()[x + 1][y].pathNext = currCheck;
                 }
                 //TODO uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
@@ -135,7 +135,7 @@ public class Pathfind {
         //check vertical (as dy/dx=infinity when dx=0)
         if(dx==0){
             for(int i=y0;i<=y1;i+=dy/Math.abs(dy)){
-                hold.add(cells[x0][i]);
+                hold.add(getCells()[x0][i]);
             }
             return hold;
         }
@@ -143,7 +143,7 @@ public class Pathfind {
         int err=0;
         int y=y0;
         for(int x=x0;x<=x1;x++){
-            hold.add(cells[x][y]);
+            hold.add(getCells()[x][y]);
             if((err+dy)<<1<dx){
                 err+=dy;
             }else {
@@ -168,13 +168,16 @@ public class Pathfind {
         cells=new Cell[GRID_WIDTH][GRID_HEIGHT];
         for(int cx=0;cx<GRID_WIDTH;cx++){
             for(int cy=0;cy<GRID_HEIGHT;cy++){
-                cells[cx][cy]=new Cell(new Vector2i(cx,cy),((int)(Math.random()*5)==1)?5:1);
+                getCells()[cx][cy]=new Cell(new Vector2i(cx,cy),((int)(Math.random()*5)==1)?5:1);
             }
         }
         dijkstra(Cx,Cy);
     }
 
 
+    public Cell[][] getCells() {
+        return cells;
+    }
 }
 
 

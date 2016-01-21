@@ -2,6 +2,7 @@ package dijkstra;
 
 import main.*;
 
+import main.Window;
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
@@ -23,7 +24,7 @@ public class DijkstraTest implements Render {
 
         for (int cy = 0; cy < Pathfind.GRID_HEIGHT; cy++) {
             for(int cx = 0; cx< Pathfind.GRID_WIDTH; cx++) {
-                System.out.print(d.cells[cx][cy].weight+"\t");
+                System.out.print(d.getCells()[cx][cy].weight+"\t");
             }
             System.out.println(" ");
         }
@@ -31,32 +32,29 @@ public class DijkstraTest implements Render {
 
         for (int cy = 0; cy < Pathfind.GRID_HEIGHT; cy++) {
             for(int cx = 0; cx< Pathfind.GRID_WIDTH; cx++) {
-                System.out.print(d.cells[cx][cy].distance+"\t");
+                System.out.print(d.getCells()[cx][cy].distance+"\t");
             }
             System.out.println(" ");
         }
     }
 
     public void updateCurrentMousePosition(Vector2i currentPosition) {
-        this.currentPosition = currentPosition;
+        //fixes the mouse coords when the window is increased/decreased, and clamps them into the current view
+        Vector2f hold=Window.getInstance().getGameWindow().mapPixelToCoords(currentPosition);
+        this.currentPosition = new Vector2i((int)GameMaths.clamp(hold.x,0,Pathfind.GRID_WIDTH*Pathfind.GRID_SIZE),
+                (int) GameMaths.clamp(hold.y,0,Pathfind.GRID_HEIGHT*Pathfind.GRID_SIZE));
     }
 
     @Override
     public void render() {
         for(int i=0;i<20;i++){
             for(int j=0;j<15;j++){
-                d.cells[i][j].drawMe(window);
+                d.getCells()[i][j].drawMe(window);
             }
         }
     }
 
     @Override
     public void update() {
-        //now to recreate the path
-        Cell start=d.cells[currentPosition.x/32][currentPosition.y/32];
-        while(start.pathNext!=null){
-            window.draw(new Vertex[]{new Vertex(new Vector2f(start.pos.x*32+16,start.pos.y*32+16)),new Vertex(new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16))}, PrimitiveType.LINE_STRIP);
-            start=start.pathNext;
-        }
     }
 }

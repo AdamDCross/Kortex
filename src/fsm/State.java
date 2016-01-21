@@ -15,6 +15,7 @@ public class State
 	}
 	
 	public void onEntry() {
+		System.out.println("Current State is: "+getStateID());
 	}
 	
 	public void onExit() {

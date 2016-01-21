@@ -2,6 +2,7 @@ package states;
 
 import dijkstra.DijkstraTest;
 import fsm.State;
+import fsm.StateMachine;
 import main.Render;
 import main.Window;
 import org.jsfml.window.event.Event;
@@ -34,12 +35,16 @@ public class Game extends State {
         super.update();
 
         for (Event e : Window.getInstance().getGameWindow().pollEvents( )) {
-            if(e.type == Event.Type.CLOSED){  //Check for window close event
-                // the user pressed the close button
-                Window.getInstance().getGameWindow().close( );
-            }
-            else if(e.type == Event.Type.MOUSE_MOVED) { //Check for mouse move events
-                test.updateCurrentMousePosition(e.asMouseEvent().position);
+            switch(e.type) {
+                case CLOSED:
+                    Window.getInstance().getGameWindow().close();
+                    break;
+                case MOUSE_MOVED:
+                    test.updateCurrentMousePosition(e.asMouseEvent().position);
+                    break;
+                case MOUSE_BUTTON_PRESSED:
+                    StateMachine.getInstance().setState("PAUSE");
+                    break;
             }
         }
 
