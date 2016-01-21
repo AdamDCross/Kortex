@@ -1,10 +1,12 @@
 package states;
 
 import dijkstra.DijkstraTest;
+import enemy.PatrollingEnemy;
 import fsm.State;
 import fsm.StateMachine;
 import main.Render;
 import main.Window;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
 import java.util.Vector;
@@ -15,7 +17,7 @@ import java.util.Vector;
 public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
-    //private main.Message helloWorld;
+    private PatrollingEnemy red;
 
     public Game()
     {
@@ -24,10 +26,11 @@ public class Game extends State {
 
         test = new DijkstraTest();
 
-        gameObjects.addElement(test);
+        red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
 
-        //helloWorld = new main.Message("Hello World", Text.BOLD, new Vector2f(main.Window.getInstance().getScreenWidth() / 2, main.Window.getInstance().getScreenHeight() / 2), Color.WHITE);
-        //helloWorld.setText("");
+        gameObjects.addElement(test);
+        gameObjects.addElement(red);
+
     }
 
     @Override
@@ -62,8 +65,6 @@ public class Game extends State {
         {
             gameObjects.elementAt(i).render();
         }
-
-        //helloWorld.renderText();
     }
 
     @Override
