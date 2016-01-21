@@ -52,6 +52,11 @@ public class DijkstraTest implements Render {
                 d.getCells()[i][j].drawMe(window);
             }
         }
+        Cell start=d.getCells()[currentPosition.x/32][currentPosition.y/32];
+        while(start.pathNext!=null){
+            window.draw(new Vertex[]{new Vertex(new Vector2f(start.pos.x*32+16,start.pos.y*32+16)),new Vertex(new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16))}, PrimitiveType.LINE_STRIP);
+            start=start.pathNext;
+        }
     }
 
     @Override
