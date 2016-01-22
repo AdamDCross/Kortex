@@ -47,12 +47,12 @@ public class DijkstraTest implements Render {
 
     @Override
     public void render() {
-        for(int i=0;i<20;i++){
-            for(int j=0;j<15;j++){
+        for(int i=0;i<Pathfind.GRID_WIDTH;i++){
+            for(int j=0;j<Pathfind.GRID_HEIGHT;j++){
                 d.getCells()[i][j].drawMe(window);
             }
         }
-        Cell start=d.getCells()[currentPosition.x/32][currentPosition.y/32];
+        Cell start=d.getCells()[GameMaths.clamp(currentPosition.x/32,0,Pathfind.GRID_WIDTH-1)][GameMaths.clamp(currentPosition.y/32,0,Pathfind.GRID_HEIGHT-1)];
         while(start.pathNext!=null){
             window.draw(new Vertex[]{new Vertex(new Vector2f(start.pos.x*32+16,start.pos.y*32+16)),new Vertex(new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16))}, PrimitiveType.LINE_STRIP);
             start=start.pathNext;
