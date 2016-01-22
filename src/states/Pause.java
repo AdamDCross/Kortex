@@ -21,9 +21,6 @@ public class Pause extends State {
 
     public Pause(){
         super("PAUSE");
-        capture=Window.getInstance().getGameWindow().capture();
-        bcg=new Image(capture,new Vector2f(0,0));
-
     }
 
     @Override
