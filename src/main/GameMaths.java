@@ -1,5 +1,7 @@
 package main;
 
+import org.jsfml.system.Vector2i;
+
 /**
  * A class that contatins mathematical functions that might be useful throughout
  * the game
