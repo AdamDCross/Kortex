@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class Pathfind {
     public static final int GRID_SIZE=32;
-    public static final int GRID_WIDTH=20;
-    public static final int GRID_HEIGHT=15;
+    public static final int GRID_WIDTH=Window.getInstance().getScreenWidth()/GRID_SIZE;
+    public static final int GRID_HEIGHT=Window.getInstance().getScreenHeight()/GRID_SIZE;
     private Cell[][] cells;
 
     /**

@@ -22,7 +22,7 @@ public class Window {
     public static Window getInstance() {
         if( instance == null )
         {
-            instance = new Window(640,480,"main.Kortex"); //Alter window specifics
+            instance = new Window(800,600,"Kortex"); //Alter window specifics
         }
 
         return instance;
