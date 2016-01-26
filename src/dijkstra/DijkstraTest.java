@@ -7,6 +7,7 @@ import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
+import main.Line;
 
 /**
  * Originally 'InterfaceTest' by Phil
@@ -54,7 +55,7 @@ public class DijkstraTest implements Render {
         }
         Cell start=d.getCells()[GameMaths.clamp(currentPosition.x/32,0,Pathfind.GRID_WIDTH-1)][GameMaths.clamp(currentPosition.y/32,0,Pathfind.GRID_HEIGHT-1)];
         while(start.pathNext!=null){
-            window.draw(new Vertex[]{new Vertex(new Vector2f(start.pos.x*32+16,start.pos.y*32+16)),new Vertex(new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16))}, PrimitiveType.LINE_STRIP);
+            Line.drawLine(new Vector2f(start.pos.x*32+16,start.pos.y*32+16), new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16));
             start=start.pathNext;
         }
     }

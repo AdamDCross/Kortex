@@ -3,7 +3,9 @@ package actor;
 import main.Render;
 import org.jsfml.system.Vector2i;
 
-
+/**
+ * Actor class
+ */
 public class Actor implements Render {
     private Vector2i vel;
     private Vector2i pos;
