@@ -5,9 +5,6 @@ import states.Game;
 import states.MainMenu;
 import states.Pause;
 
-/**
- * Created by Vince on 14/01/2016.
- */
 public class Kortex {
     public static void main(String[] args)
     {
