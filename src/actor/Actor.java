@@ -1,4 +1,4 @@
-package Actor;
+package actor;
 
 import main.Render;
 import org.jsfml.system.Vector2i;
