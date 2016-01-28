@@ -1,9 +1,7 @@
 package main;
 
 import fsm.StateMachine;
-import states.Game;
-import states.MainMenu;
-import states.Pause;
+import states.*;
 
 public class Kortex {
     public static void main(String[] args)
@@ -11,6 +9,8 @@ public class Kortex {
         StateMachine.getInstance().addState(new Game());
         StateMachine.getInstance().addState(new MainMenu());
         StateMachine.getInstance().addState(new Pause());
+        StateMachine.getInstance().addState(new HighScore());
+        StateMachine.getInstance().addState(new Options());
         StateMachine.getInstance().setState("MAIN_MENU");
 
         while(Window.getInstance().getGameWindow().isOpen()) {
