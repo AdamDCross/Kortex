@@ -5,7 +5,7 @@ import org.jsfml.graphics.Vertex;
 import org.jsfml.system.Vector2f;
 
 /**
- * Created by vincentdealmeida on 26/01/2016.
+ * Line class for drawing a new line on the screen
  */
 public class Line {
     public static void drawLine(Vector2f startPos, Vector2f endPos){

@@ -10,7 +10,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
 /**
- * Created by vincentdealmeida on 26/01/2016.
+ * High score state class.
  */
 public class HighScore extends State {
     private Message msg;

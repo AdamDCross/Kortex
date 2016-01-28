@@ -10,7 +10,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
 /**
- * Created by vincentdealmeida on 26/01/2016.
+ * Class for the options menu state.
  */
 public class Options extends State {
     private Message msg;

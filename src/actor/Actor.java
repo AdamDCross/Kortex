@@ -4,7 +4,7 @@ import main.Render;
 import org.jsfml.system.Vector2i;
 
 /**
- * Created by Phillip on 21/01/2016.
+ * Actor class
  */
 public class Actor implements Render {
     private Vector2i vel;
