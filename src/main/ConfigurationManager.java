@@ -27,9 +27,9 @@ public class ConfigurationManager {
 	private static ConfigurationManager configManager = null;
 
 	// Default save values for the XML file:
-	private String gameName = "Project Abe is the best 5000";
-	private int screenResX = 1024;
-	private int screenResY = 720;
+	private String gameName = "Kortex";
+	private int screenResX = 1280;
+	private int screenResY = 1024;
 	private int gameDifficulty = 1;
 
 	public static ConfigurationManager getInstance() {
