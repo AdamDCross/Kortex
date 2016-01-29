@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- * Created by Vince on 14/01/2016.
+ * Class for showing text messages to the player.
  */
 public class Message {
     private Font sansRegular;
@@ -22,7 +22,7 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c){
         sansRegular = new Font();
 
-        FontFile = "src/font/LucidaSansRegular.ttf";
+        FontFile = "src/assets/LucidaSansRegular.ttf";
         fontSize = 48;
 
         try {
