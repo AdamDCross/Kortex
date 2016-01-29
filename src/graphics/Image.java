@@ -5,6 +5,7 @@ import main.Window;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
 import org.jsfml.graphics.TextureCreationException;
+import org.jsfml.graphics.Vertex;
 import org.jsfml.system.Vector2f;
 
 import java.io.IOException;
@@ -13,9 +14,13 @@ import java.nio.file.Paths;
 /**
  * Created by Vince on 14/01/2016.
  */
+
+
+//Old version
+
 public class Image implements Render {
-    Texture imgTexture;
-    Sprite img;
+    public Texture imgTexture;
+    public Sprite img;
 
     public Image(String filePath, Vector2f position){
         imgTexture = new Texture();
@@ -43,8 +48,7 @@ public class Image implements Render {
         imgTexture.setSmooth(true);
 
         img = new Sprite(imgTexture);
-        /*img.setOrigin(Vector2f.div(
-                new Vector2f(imgTexture.getSize()), 2));*/
+        //img.setOrigin(Vector2f.div(new Vector2f(imgTexture.getSize()), 2));
         img.setPosition(position);
     }
 
