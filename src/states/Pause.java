@@ -29,7 +29,7 @@ public class Pause extends State {
         RectangleShape r=new RectangleShape(new Vector2f(32,32));
         //r.setFillColor(new Color(Color.BLACK,48));
         Window.getInstance().getGameWindow().draw(r);
-        new Message("PAUSED...\n\n\nclock to unpause", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE).renderText();
+        new Message("PAUSED...\n\n\nClick to unpause", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE).renderText();
     }
 
     @Override

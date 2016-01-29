@@ -6,9 +6,8 @@ import org.jsfml.system.Vector2i;
 import java.util.ArrayList;
 
 /**
- * Created by Phillip on 05/12/2015.
+ * Contains the functions for pathfinding.
  */
-
 public class Pathfind {
     public static final int GRID_SIZE=32;
     public static final int GRID_WIDTH=Window.getInstance().getScreenWidth()/GRID_SIZE;
@@ -16,7 +15,7 @@ public class Pathfind {
     private Cell[][] cells;
 
     /**
-     * A main.Pathfind's Algorithm implementation in java
+     * A Pathfind's Algorithm implementation in java
      *
      * @param cx The center cell's X position
      * @param cy The center cell's Y position
@@ -50,7 +49,7 @@ public class Pathfind {
                     hold.decrease(getCells()[x - 1][y],dist);
                     getCells()[x - 1][y].pathNext = currCheck;
                 }
-                //TODO uncomment for diagonals
+                //Uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
                     //up
                     if (cells[x-1][y - 1].distance > dist) {
@@ -79,7 +78,7 @@ public class Pathfind {
                     hold.decrease(getCells()[x + 1][y],dist);
                     getCells()[x + 1][y].pathNext = currCheck;
                 }
-                //TODO uncomment for diagonals
+                //Uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
                     //up
                     if (cells[x+1][y - 1].distance > dist) {
@@ -105,7 +104,7 @@ public class Pathfind {
             return;
         }
         while (currentPoint.pathNext != null) {
-            //TODO, make the walkable
+            //Make the walkable
             if (walkable(checkPoint,currentPoint.pathNext)) {
                 currentPoint = currentPoint.pathNext;
                 checkPoint.pathNext=currentPoint;

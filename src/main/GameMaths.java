@@ -53,17 +53,13 @@ public class GameMaths {
      * @param max max of range
      * @return
      */
-    public static int clamp(int val,int min,int max){
-        if(val>max){
+    public static int clamp(int val,int min,int max) {
+        if (val > max) {
             return max;
         }
         if (val < min) {
             return min;
         }
         return val;
-    }
-
-    public static void main(String[] args) {
-        //use this to test out stuff
     }
 }
