@@ -1,13 +1,16 @@
 package main;
 
 import dijkstra.DijkstraQueue;
+import graphics.Tilemap;
 import org.jsfml.system.Vector2i;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
- * Contains the functions for pathfinding.
+ * Created by Phillip on 05/12/2015.
  */
+
 public class Pathfind {
     public static final int GRID_SIZE=32;
     public static final int GRID_WIDTH=Window.getInstance().getScreenWidth()/GRID_SIZE;
@@ -15,7 +18,7 @@ public class Pathfind {
     private Cell[][] cells;
 
     /**
-     * A Pathfind's Algorithm implementation in java
+     * A main.Pathfind's Algorithm implementation in java
      *
      * @param cx The center cell's X position
      * @param cy The center cell's Y position
@@ -49,7 +52,7 @@ public class Pathfind {
                     hold.decrease(getCells()[x - 1][y],dist);
                     getCells()[x - 1][y].pathNext = currCheck;
                 }
-                //Uncomment for diagonals
+                //TODO uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
                     //up
                     if (cells[x-1][y - 1].distance > dist) {
@@ -78,7 +81,7 @@ public class Pathfind {
                     hold.decrease(getCells()[x + 1][y],dist);
                     getCells()[x + 1][y].pathNext = currCheck;
                 }
-                //Uncomment for diagonals
+                //TODO uncomment for diagonals
                 /*if (currCheck.pos.y != 0) {
                     //up
                     if (cells[x+1][y - 1].distance > dist) {
@@ -104,7 +107,7 @@ public class Pathfind {
             return;
         }
         while (currentPoint.pathNext != null) {
-            //Make the walkable
+            //TODO, make the walkable
             if (walkable(checkPoint,currentPoint.pathNext)) {
                 currentPoint = currentPoint.pathNext;
                 checkPoint.pathNext=currentPoint;
@@ -168,6 +171,18 @@ public class Pathfind {
         for(int cx=0;cx<GRID_WIDTH;cx++){
             for(int cy=0;cy<GRID_HEIGHT;cy++){
                 getCells()[cx][cy]=new Cell(new Vector2i(cx,cy),((int)(Math.random()*5)==1)?5:1);
+            }
+        }
+        dijkstra(Cx,Cy);
+    }
+
+    public Pathfind(int Cx, int Cy, Tilemap t){
+        //TODO when the main playing field is created, merge these classes, to reduce the amount of wasted variables;
+        ArrayList<Integer> map=t.getMap();
+        cells=new Cell[GRID_WIDTH][GRID_HEIGHT];
+        for(int cx=0;cx<GRID_WIDTH;cx++){
+            for(int cy=0;cy<GRID_HEIGHT;cy++){
+                getCells()[cx][cy]=new Cell(new Vector2i(cx,cy),(map.get(cy*GRID_WIDTH+cx)!=2)?10:1);
             }
         }
         dijkstra(Cx,Cy);

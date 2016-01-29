@@ -2,7 +2,6 @@ package states;
 
 import fsm.State;
 import fsm.StateMachine;
-import main.Line;
 import main.Message;
 import main.Window;
 import org.jsfml.graphics.Color;
@@ -21,8 +20,8 @@ public class MainMenu extends State {
     public MainMenu() {
         super("MAIN_MENU");
 
-        mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, 60.0f), Color.WHITE);
+        mmText = new Message("Welcome to the\n world of Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
+                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
     }
     @Override
     public void onEntry() {
@@ -70,8 +69,6 @@ public class MainMenu extends State {
         super.render();
 
         mmText.renderText();
-
-        //Line.drawRect(new Vector2f(10.0f, 10.0f), new Vector2f(128.0f, 102.4f));
         //img.render(); //Uncomment if you want to text image rendering
         //alien.render();
     }

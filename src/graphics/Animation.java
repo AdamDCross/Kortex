@@ -16,10 +16,11 @@ public class Animation implements Render {
     private int noOfFrames;
     private int currentFrame;
     private int delay;
+    private Vector2f pos;
 
-    public Animation(String baseFilePath, String type, int noOfFrames, int delay, Vector2f position){ //type would be ".gif" for example
+    /*public Animation(String baseFilePath, String type, int noOfFrames, int delay, Vector2f position){ //type would be ".gif" for example
         frames = new Vector<Image>(noOfFrames);
-
+        pos=position;
 
 
         this.noOfFrames = noOfFrames;
@@ -31,10 +32,11 @@ public class Animation implements Render {
             frames.addElement( new Image(baseFilePath + i + type, position) );
             //System.out.println(baseFilePath + i);
         }
-    }
+    }*/
 
     public Animation(String filePath,int w,int h, int noOfFrames, int delay, Vector2f position){ //type would be ".gif" for example
         frames = new Vector<Image>(noOfFrames);
+        pos=position;
         this.noOfFrames = noOfFrames;
         currentFrame = 0;
         this.delay = delay;
@@ -52,12 +54,12 @@ public class Animation implements Render {
             org.jsfml.graphics.Image img=new org.jsfml.graphics.Image();
             img.copy(sheet,0,0,new IntRect(w*i,0,w,h));
             frames.addElement( new Image(img, position) );
-            //System.out.println(baseFilePath + i);
         }
     }
 
     public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position){
         frames = new Vector<Image>(row*col);
+        pos=position;
         noOfFrames=row*col;
         currentFrame = 0;
         this.delay = delay;
@@ -76,7 +78,7 @@ public class Animation implements Render {
                 org.jsfml.graphics.Image img = new org.jsfml.graphics.Image();
                 img.copy(sheet, 0, 0, new IntRect(w * r, h*c, w, h));
                 frames.addElement(new Image(img, position));
-                //System.out.println(baseFilePath + i);
+                System.out.println(r+" - "+c);
             }
         }
     }
@@ -91,8 +93,16 @@ public class Animation implements Render {
         }
     }
 
+    public void setPosition(Vector2f pos){
+        this.pos=pos;
+    }
+
     @Override
     public void render() {
         frames.elementAt(currentFrame).render();
+    }
+
+    public Image getFrame(int i){
+        return frames.elementAt(i);
     }
 }

@@ -1,5 +1,6 @@
 package states;
 
+import Test.TileTest;
 import dijkstra.DijkstraTest;
 import enemy.PatrollingEnemy;
 import fsm.State;
@@ -18,12 +19,14 @@ public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
     private PatrollingEnemy red;
+    private TileTest t;
 
     public Game()
     {
         super("GAME");
         gameObjects = new Vector<Render>(10);
-
+        /*t=new TileTest();
+        gameObjects.addElement(t);*/
         test = new DijkstraTest();
 
         red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);

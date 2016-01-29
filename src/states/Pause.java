@@ -26,8 +26,8 @@ public class Pause extends State {
     @Override
     public void render() {
         bcg.render();
-        RectangleShape r=new RectangleShape(new Vector2f(32,32));
-        //r.setFillColor(new Color(Color.BLACK,48));
+        RectangleShape r=new RectangleShape(new Vector2f(Window.getInstance().getScreenWidth(),Window.getInstance().getScreenHeight()));
+        r.setFillColor(new Color(Color.BLACK,128));
         Window.getInstance().getGameWindow().draw(r);
         new Message("PAUSED...\n\n\nClick to unpause", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE).renderText();
     }

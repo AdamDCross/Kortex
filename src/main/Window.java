@@ -1,6 +1,10 @@
 package main;
 
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
+import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.VideoMode;
 
 /**
@@ -22,7 +26,7 @@ public class Window {
     public static Window getInstance() {
         if( instance == null )
         {
-            instance = new Window(800,600,"Kortex"); //Alter window specifics
+            instance = new Window(640,480,"Kortex"); //Alter window specifics
         }
 
         return instance;

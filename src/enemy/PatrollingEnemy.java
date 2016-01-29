@@ -24,9 +24,7 @@ public class PatrollingEnemy implements Enemy {
 
         Vector2f direction = Vector2f.sub(this.endingPosition, this.startingPosition);
         float magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
-        Vector2f normalised = new Vector2f( (direction.x / magnitude), (direction.y / magnitude) );
-
-        velocity = new Vector2f( normalised.x * speed, normalised.y * speed );
+        velocity = Vector2f.mul(direction,speed/magnitude);
 
         //temp
         radius = 5;

@@ -1,5 +1,6 @@
 package dijkstra;
 
+import graphics.Tilemap;
 import main.*;
 
 import main.Window;
@@ -7,7 +8,6 @@ import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
-import main.Line;
 
 /**
  * Originally 'InterfaceTest' by Phil
@@ -17,9 +17,11 @@ public class DijkstraTest implements Render {
     private Pathfind d;
     private Vector2i currentPosition;
     private RenderWindow window;
+    private Tilemap tiles;
 
     public DijkstraTest() {
-        d = new Pathfind(9,10);
+        tiles=new Tilemap("assets/Tiles.gif","assets/MapTest2.csv",32,32,5,2);
+        d = new Pathfind(9,10,tiles);
         currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
 
@@ -48,14 +50,15 @@ public class DijkstraTest implements Render {
 
     @Override
     public void render() {
-        for(int i=0;i<Pathfind.GRID_WIDTH;i++){
+        /*for(int i=0;i<Pathfind.GRID_WIDTH;i++){
             for(int j=0;j<Pathfind.GRID_HEIGHT;j++){
                 d.getCells()[i][j].drawMe(window);
             }
-        }
+        }*/
+        tiles.drawMap();
         Cell start=d.getCells()[GameMaths.clamp(currentPosition.x/32,0,Pathfind.GRID_WIDTH-1)][GameMaths.clamp(currentPosition.y/32,0,Pathfind.GRID_HEIGHT-1)];
         while(start.pathNext!=null){
-            Line.drawLine(new Vector2f(start.pos.x*32+16,start.pos.y*32+16), new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16));
+            window.draw(new Vertex[]{new Vertex(new Vector2f(start.pos.x*32+16,start.pos.y*32+16)),new Vertex(new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16))}, PrimitiveType.LINE_STRIP);
             start=start.pathNext;
         }
     }
