@@ -62,6 +62,7 @@ public class ConfigurationManager {
 				save();
 			} catch (IOException e) {
 				e.printStackTrace();
+				//
 			}
 		}
 	}
