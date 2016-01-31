@@ -9,29 +9,36 @@ import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
-
-/**
- * Created by Phillip on 20/01/2016.
- */
 public class Pause extends State {
 
     int state;
     Image bcg;
     org.jsfml.graphics.Image capture;
 
+    /**
+     * This is a constructor for the Pause class it doesn't take any parameters but instead captures an image of the
+     * current screen being displayed
+     */
     public Pause(){
         super("PAUSE");
     }
 
+    /**
+     * This method renders the captured screen shot image with an over lay od text "paused.... Click to unpause"
+     */
     @Override
     public void render() {
         bcg.render();
         RectangleShape r=new RectangleShape(new Vector2f(Window.getInstance().getScreenWidth(),Window.getInstance().getScreenHeight()));
         r.setFillColor(new Color(Color.BLACK,128));
         Window.getInstance().getGameWindow().draw(r);
-        new Message("PAUSED...\n\n\nClick to unpause", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE).renderText();
+        new Message("PAUSED...\n\n\nClick to unpause", Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE, 48).renderText();
     }
 
+    /**
+     * This method checks whether or not the mouse has been clicked or not in order to change state from Pause back to
+     * whatever state was running before
+     */
     @Override
     public void update() {
         super.update();

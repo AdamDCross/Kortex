@@ -2,26 +2,44 @@ package states;
 
 import fsm.State;
 import fsm.StateMachine;
+import main.Button;
+import main.Line;
 import main.Message;
 import main.Window;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
+import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import java.util.Vector;
+
 /**
- * Created by Vince on 14/01/2016.
+ * MainMenu state which contains all code and rendering
+ * for all front-end related entities. It is the first
+ * state run when starting the game.
+ * -----------------------------------------------------
+ * Created by Vincent de Almeida | Updated: 29/01/2016
+ * -----------------------------------------------------
  */
 public class MainMenu extends State {
     private Message mmText;
-    //graphics.Image img;
-    //graphics.Animation alien;
+    private Vector<Button> btns;
 
     public MainMenu() {
         super("MAIN_MENU");
 
-        mmText = new Message("Welcome to the\n world of Kortex!\n\n Enter at your peril...\n\nClick to switch to game.",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
+        /*mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
+                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, 60.0f), Color.WHITE);*/
+        mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
+                Text.BOLD, new FloatRect(0.0f, 0.0f, 640.0f, 125.0f), Color.WHITE, 35);
+
+        btns = new Vector<>(5);
+
+        //main.Button btn = new main.Button("Button", new FloatRect(260.0f, 250.0f, 150.0f, 50.0f), 35);
+
+        //btns.addElement(btn);
     }
     @Override
     public void onEntry() {
@@ -41,17 +59,7 @@ public class MainMenu extends State {
     public void update() {
         super.update();
 
-        //alien.update();
-
         for (Event e : Window.getInstance().getGameWindow().pollEvents( )) {
-            /*
-            if(e.type == Event.Type.CLOSED){  //Check for window close event
-                // the user pressed the close button
-                Window.getInstance().getGameWindow().close( );
-            }
-            else if(e.type == Event.Type.MOUSE_BUTTON_PRESSED) { //Check for mouse move events
-                StateMachine.getInstance().setState("GAME");
-            }*/
             switch(e.type) {
                 case CLOSED:
                     Window.getInstance().getGameWindow().close();
@@ -62,6 +70,8 @@ public class MainMenu extends State {
             }
 
         }
+
+        for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).update(); }
     }
 
     @Override
@@ -69,7 +79,7 @@ public class MainMenu extends State {
         super.render();
 
         mmText.renderText();
-        //img.render(); //Uncomment if you want to text image rendering
-        //alien.render();
+
+        for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).render(); }
     }
 }
