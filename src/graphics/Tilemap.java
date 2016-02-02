@@ -58,15 +58,12 @@ public class Tilemap {
     }
 
     public void drawMap(){
-        //System.out.println("------------------------------------------");
-
         for (int y = 0; y < Pathfind.GRID_HEIGHT; y++) {
             for(int x = 0; x< Pathfind.GRID_WIDTH; x++) {
                 int m=map.get(x+y*Pathfind.GRID_WIDTH);
 
                 int tu=w*(m%row);
                 int tv=h*(m/row);
-                //System.out.println(m+": x "+tu+" y "+tv+" pos "+x+":"+y);
 
                 Vertex[] vArray={
                         new Vertex(new Vector2f(x*32,y*32),new Vector2f(tu,tv)),

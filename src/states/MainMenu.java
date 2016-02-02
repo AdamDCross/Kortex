@@ -51,8 +51,7 @@ public class MainMenu extends State {
     @Override
     public void onExit() {
         super.onExit();
-
-
+        Window.getInstance().resetClock();
     }
 
     @Override
@@ -68,7 +67,6 @@ public class MainMenu extends State {
                     StateMachine.getInstance().setState("GAME");
                     break;
             }
-
         }
 
         for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).update(); }

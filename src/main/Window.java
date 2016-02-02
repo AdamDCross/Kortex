@@ -2,6 +2,10 @@ package main;
 
 import org.jsfml.graphics.Image;
 import org.jsfml.graphics.RenderWindow;
+import org.jsfml.graphics.View;
+import org.jsfml.system.Clock;
+import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.VideoMode;
 
 import java.io.IOException;
@@ -12,6 +16,7 @@ public class Window {
     private RenderWindow gameWindow;
     private int screenWidth;
     private int screenHeight;
+    private Clock clock;
 
     private Window(int screenWidth, int screenHeight, String title){
         this.gameWindow = new RenderWindow(new VideoMode(screenWidth,screenHeight),title);
@@ -27,6 +32,9 @@ public class Window {
         catch(IOException e){
             System.out.println("error");
         }
+
+        clock=new Clock();
+        
     }
 
     public static Window getInstance() {
@@ -50,5 +58,12 @@ public class Window {
     //get screen height
     public int getScreenHeight() {
         return screenHeight;
+    }
+
+    public long getElapsedTime(){
+        return clock.getElapsedTime().asMilliseconds();
+    }
+    public void resetClock(){
+        clock.restart();
     }
 }
