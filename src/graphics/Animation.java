@@ -1,108 +1,70 @@
 package graphics;
 
 import main.Render;
+import main.Window;
 import org.jsfml.graphics.IntRect;
+import org.jsfml.graphics.Sprite;
+import org.jsfml.graphics.Texture;
 import org.jsfml.system.Vector2f;
 
-import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.Vector;
 
 /**
  * Created by Vince on 15/01/2016.
  */
 public class Animation implements Render {
-    private Vector<Image> frames;
+    private Sprite sprite;
+    private Texture tex;
     private int noOfFrames;
     private int currentFrame;
     private int delay;
+    private int w,h,col,row,offset;
+    private long start;
     private Vector2f pos;
 
-    /*public Animation(String baseFilePath, String type, int noOfFrames, int delay, Vector2f position){ //type would be ".gif" for example
-        frames = new Vector<Image>(noOfFrames);
-        pos=position;
-
-
-        this.noOfFrames = noOfFrames;
-        currentFrame = 0;
-        this.delay = delay;
-
-        //Initialises the frames and relies on padded filename
-        for(int i = 0; i < noOfFrames; i++){
-            frames.addElement( new Image(baseFilePath + i + type, position) );
-            //System.out.println(baseFilePath + i);
-        }
-    }*/
-
-    public Animation(String filePath,int w,int h, int noOfFrames, int delay, Vector2f position){ //type would be ".gif" for example
-        frames = new Vector<Image>(noOfFrames);
-        pos=position;
-        this.noOfFrames = noOfFrames;
-        currentFrame = 0;
-        this.delay = delay;
-        org.jsfml.graphics.Image sheet= new  org.jsfml.graphics.Image();
-        try{
-            sheet.loadFromFile(Paths.get(filePath));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        //Initialises the frames and relies on padded filename
-        for(int i = 0; i < noOfFrames; i++){
-            org.jsfml.graphics.Image img=new org.jsfml.graphics.Image();
-            img.copy(sheet,0,0,new IntRect(w*i,0,w,h));
-            frames.addElement( new Image(img, position) );
-        }
-    }
-
-    public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position){
-        frames = new Vector<Image>(row*col);
+    public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame){
         pos=position;
         noOfFrames=row*col;
-        currentFrame = 0;
+        currentFrame = startFrame%noOfFrames;
+        offset=startFrame;
         this.delay = delay;
-        org.jsfml.graphics.Image sheet= new  org.jsfml.graphics.Image();
+        tex= new Texture();
+        this.h=h;
+        this.w=w;
+        this.row=row;
+        this.col=col;
+        start=Window.getInstance().getElapsedTime();
         try{
-            sheet.loadFromFile(Paths.get(filePath));
+            tex.loadFromFile(Paths.get(filePath));
         }
         catch (Exception e){
             e.printStackTrace();
         }
 
-
-        //Initialises the frames and relies on padded filename
-        for(int r = 0; r < row; r++){
-            for(int c = 0; c < col; c++) {
-                org.jsfml.graphics.Image img = new org.jsfml.graphics.Image();
-                img.copy(sheet, 0, 0, new IntRect(w * r, h*c, w, h));
-                frames.addElement(new Image(img, position));
-                System.out.println(r+" - "+c);
-            }
-        }
+        int tu = w * (currentFrame % row);
+        int tv = h * (currentFrame / row);
+        sprite=new Sprite(tex,new IntRect(tu,tv,w,h));
+        sprite.setPosition(pos);
     }
 
     @Override
     public void update() {
-        try {
-            Thread.sleep(delay);
-            currentFrame=(currentFrame+1)%noOfFrames;
-        } catch (Exception e){
-            //catch something here
+        int oldFrame=currentFrame;
+        currentFrame=(int)(((Window.getInstance().getElapsedTime()+offset*delay)-start)/delay)%noOfFrames;
+        if(oldFrame!=currentFrame) {
+            int tu = w * (currentFrame % row);
+            int tv = h * (currentFrame / row);
+            sprite.setTextureRect(new IntRect(tu, tv, w, h));
         }
     }
 
     public void setPosition(Vector2f pos){
         this.pos=pos;
+        sprite.setPosition(pos);
     }
 
     @Override
     public void render() {
-        frames.elementAt(currentFrame).render();
-    }
-
-    public Image getFrame(int i){
-        return frames.elementAt(i);
+        Window.getInstance().getGameWindow().draw(sprite);
     }
 }

@@ -33,8 +33,7 @@ public class MainMenu extends State {
     @Override
     public void onExit() {
         super.onExit();
-
-
+        Window.getInstance().resetClock();
     }
 
     @Override
@@ -44,14 +43,6 @@ public class MainMenu extends State {
         //alien.update();
 
         for (Event e : Window.getInstance().getGameWindow().pollEvents( )) {
-            /*
-            if(e.type == Event.Type.CLOSED){  //Check for window close event
-                // the user pressed the close button
-                Window.getInstance().getGameWindow().close( );
-            }
-            else if(e.type == Event.Type.MOUSE_BUTTON_PRESSED) { //Check for mouse move events
-                StateMachine.getInstance().setState("GAME");
-            }*/
             switch(e.type) {
                 case CLOSED:
                     Window.getInstance().getGameWindow().close();
@@ -60,7 +51,6 @@ public class MainMenu extends State {
                     StateMachine.getInstance().setState("GAME");
                     break;
             }
-
         }
     }
 

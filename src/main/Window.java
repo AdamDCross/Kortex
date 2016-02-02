@@ -3,6 +3,7 @@ package main;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.View;
+import org.jsfml.system.Clock;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.VideoMode;
@@ -15,12 +16,14 @@ public class Window {
     private RenderWindow gameWindow;
     private int screenWidth;
     private int screenHeight;
+    private Clock clock;
 
     private Window(int screenWidth, int screenHeight, String title){
         gameWindow = new RenderWindow(new VideoMode(screenWidth,screenHeight),title);
         gameWindow.setFramerateLimit(30); // Avoid excessive updates, 30fps limit which can be changed later
         this.screenWidth = screenWidth;
         this.screenHeight = screenHeight;
+        clock=new Clock();
     }
 
     public static Window getInstance() {
@@ -44,5 +47,12 @@ public class Window {
     //get screen height
     public int getScreenHeight() {
         return screenHeight;
+    }
+
+    public long getElapsedTime(){
+        return clock.getElapsedTime().asMilliseconds();
+    }
+    public void resetClock(){
+        clock.restart();
     }
 }
