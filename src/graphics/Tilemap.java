@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Phillip on 22/01/2016.
+ * Tilemap Class
  */
 public class Tilemap {
     //private Animation tiles;
@@ -41,15 +41,13 @@ public class Tilemap {
         //grabs and converts string into map data
         try {
             BufferedReader r=new BufferedReader(new FileReader(map));
-            String buff="";
+            String buff;
             while((buff=r.readLine())!=null) {
                 String[] mapS = buff.split("[,]");
                 for (String s : Arrays.asList(mapS)) {
                     this.map.add(Integer.parseInt(s));
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,14 +58,12 @@ public class Tilemap {
     }
 
     public void drawMap(){
-
         for (int y = 0; y < Pathfind.GRID_HEIGHT; y++) {
             for(int x = 0; x< Pathfind.GRID_WIDTH; x++) {
                 int m=map.get(x+y*Pathfind.GRID_WIDTH);
 
                 int tu=w*(m%row);
                 int tv=h*(m/row);
-
 
                 Vertex[] vArray={
                         new Vertex(new Vector2f(x*32,y*32),new Vector2f(tu,tv)),
