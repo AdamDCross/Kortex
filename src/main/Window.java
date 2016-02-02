@@ -26,11 +26,11 @@ public class Window {
 
         try {
             Image tmp = new Image();
-            tmp.loadFromFile(Paths.get("src/graphics/icon/hazard.jpg"));
+            tmp.loadFromFile(Paths.get("src/graphics/icon/kortex-icon.png"));
             gameWindow.setIcon(tmp);
         }
         catch(IOException e){
-            System.out.println("error");
+            System.out.println("Error: Window class - Icon not found.");
         }
 
         clock=new Clock();

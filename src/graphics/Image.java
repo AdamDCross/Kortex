@@ -11,7 +11,9 @@ import org.jsfml.system.Vector2f;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-
+/**
+ * Image class
+ */
 public class Image implements Render {
     public Texture imgTexture;
     public Sprite img;

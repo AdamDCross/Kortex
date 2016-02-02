@@ -1,7 +1,7 @@
 package states;
 
-import Test.Anite;
-import Test.TileTest;
+import test.Anite;
+import test.TileTest;
 import dijkstra.DijkstraTest;
 import enemy.PatrollingEnemy;
 import fsm.State;

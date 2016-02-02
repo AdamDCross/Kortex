@@ -1,4 +1,4 @@
-package Test;
+package test;
 
 import graphics.Animation;
 import main.Render;
@@ -12,7 +12,7 @@ public class Anite implements Render {
     Animation a;
 
     public Anite(){
-        a=new Animation("assets/Tiles.gif",32,32,5,2,100,new Vector2f(320,320),3);
+        a=new Animation("src/assets/Tiles.gif",32,32,5,2,100,new Vector2f(320,320),3);
     }
     @Override
     public void render() {

@@ -4,7 +4,6 @@ import main.Render;
 import org.jsfml.system.Vector2i;
 
 /**
- * Created by Phillip on 22/01/2016.
  * An extention for path following Actors
  */
 public class PathActor extends Actor {

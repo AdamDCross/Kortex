@@ -10,7 +10,8 @@ import org.jsfml.system.Vector2f;
 import java.nio.file.Paths;
 
 /**
- * Created by Vince on 15/01/2016.
+ * Animation Class
+ * Renders the sprite and assigns a position to it.
  */
 public class Animation implements Render {
     private Sprite sprite;

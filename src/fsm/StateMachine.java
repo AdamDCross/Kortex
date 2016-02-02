@@ -3,10 +3,7 @@ package fsm;
 import java.util.Vector;
 
 /**
- *
- * -----------------------------------------------------
- * Created by Vincent de Almeida | Updated: 29/01/2016
- * -----------------------------------------------------
+ * State Machine class
  */
 public class StateMachine 
 {

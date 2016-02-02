@@ -4,12 +4,8 @@ import main.Render;
 import org.jsfml.system.Vector2f;
 
 /**
- * Created by vincentdealmeida on 21/01/2016.
- *
  * Abstract Enemy interface class which contains the basic enemy
- * functionality every enemy type needs to have
- *
- *
+ * functionality every enemy type needs to have.
  */
 public interface Enemy extends Render {
     @Override

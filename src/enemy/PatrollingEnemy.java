@@ -5,7 +5,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
 
 /**
- * Created by vincentdealmeida on 21/01/2016.
+ * Patrolling Enemy Class
  */
 public class PatrollingEnemy implements Enemy {
     private Vector2f startingPosition;
