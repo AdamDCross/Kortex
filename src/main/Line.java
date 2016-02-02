@@ -1,5 +1,6 @@
 package main;
 
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.Vector2f;
@@ -13,10 +14,10 @@ public class Line {
                 new Vertex[]{new Vertex(startPos), new Vertex(endPos)}, PrimitiveType.LINE_STRIP);
     }
 
-    public static void drawRect(Vector2f topLeftCoordinates, Vector2f bottomRightCoordinates){
-        drawLine(new Vector2f(topLeftCoordinates.x, topLeftCoordinates.y), new Vector2f(bottomRightCoordinates.x,topLeftCoordinates.y));
-        drawLine(new Vector2f(topLeftCoordinates.x, bottomRightCoordinates.y), new Vector2f(bottomRightCoordinates.x, bottomRightCoordinates.y));
-        drawLine(new Vector2f(topLeftCoordinates.x, topLeftCoordinates.y), new Vector2f(topLeftCoordinates.x, bottomRightCoordinates.y));
-        drawLine(new Vector2f(bottomRightCoordinates.x, topLeftCoordinates.y), new Vector2f(bottomRightCoordinates.x, bottomRightCoordinates.y));
+    public static void drawRect(FloatRect rectCoordinates){
+        drawLine(new Vector2f(rectCoordinates.left, rectCoordinates.top), new Vector2f(rectCoordinates.left + rectCoordinates.width, rectCoordinates.top));
+        drawLine(new Vector2f(rectCoordinates.left, rectCoordinates.top + rectCoordinates.height), new Vector2f(rectCoordinates.left + rectCoordinates.width, rectCoordinates.top + rectCoordinates.height));
+        drawLine(new Vector2f(rectCoordinates.left, rectCoordinates.top), new Vector2f(rectCoordinates.left, rectCoordinates.top + rectCoordinates.height));
+        drawLine(new Vector2f(rectCoordinates.left + rectCoordinates.width, rectCoordinates.top), new Vector2f(rectCoordinates.left + rectCoordinates.width, rectCoordinates.top + rectCoordinates.height));
     }
 }

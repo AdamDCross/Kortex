@@ -19,7 +19,7 @@ public class HighScore extends State {
         super("HIGH_SCORE");
 
         msg = new Message("Welcome to high score state!!!!!!1",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE);
+                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE, 48);
     }
 
     @Override

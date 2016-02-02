@@ -11,16 +11,16 @@ import org.jsfml.system.Vector2f;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-/**
- * Created by Vince on 14/01/2016.
- */
-
-
-//Old version
 
 public class Image implements Render {
     public Texture imgTexture;
     public Sprite img;
+
+    /**This class draws a sprite on screen at given position,The function gets the sprite image from a a specified directory
+     * and draws that to a given position
+     * @param filePath This string specifies the directory location of the sprite image
+     * @param position This specifies the location onscreen of the sprite
+     */
 
     public Image(String filePath, Vector2f position){
         imgTexture = new Texture();
@@ -38,6 +38,12 @@ public class Image implements Render {
         img.setPosition(position);
     }
 
+    /**
+     * This class draws a texture over the sprite at a given position
+     * @param texture idk
+     * @param position This specifies the location onscreen of the sprite
+     */
+
     public Image(org.jsfml.graphics.Image texture,Vector2f position){
         imgTexture=new Texture();
         try {
@@ -52,10 +58,15 @@ public class Image implements Render {
         img.setPosition(position);
     }
 
+    /**
+     * This renders both the sprite and texture to screen
+     *
+     */
     @Override
     public void render() {
         Window.getInstance().getGameWindow().draw(img);
     }
+
 
     @Override
     public void update() {
