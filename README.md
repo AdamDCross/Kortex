@@ -12,6 +12,16 @@ Kortex employs multiple game enhancing systems, such as a technology tree, and a
 With familiar game controls (mouse and keyboard as well as full touch screen support), Kortex allows the player to easily learn how to play the game and get stuck in quicker.
 
 ### List of controls
-
+| Control    | Button |
+| ---------- |:------:|
+| Pause Game |    P   |
 
 ## Meet the Team
+
+| Name               | Job Title                   |
+| ------------------ |:---------------------------:|
+| Adam Cross         | Lead Producer and Testing   |
+| Vincent de Almeida | Lead Programmer             |
+| Philip de Sousa    | Game Programmer             |
+| Tom Brown          | Game Programmer             |
+| Tesfa Bedane       | Project and Time Management |
