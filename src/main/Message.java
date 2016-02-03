@@ -11,12 +11,11 @@ import java.nio.file.Paths;
  */
 public class Message {
     private Font sansRegular;
-    private String FontFile;
+    public static final String FontFile = "src/assets/LucidaSansRegular.ttf";
     private int fontSize;
     private String JavaVersion;
     private String JdkFontPath;
     private String JreFontPath;
-    private String FontPath;
     private Text text;
 
     /**
@@ -29,7 +28,6 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c, int fontSize){
         sansRegular = new Font();
 
-        FontFile = "src/assets/LucidaSansRegular.ttf";
         this.fontSize = fontSize;
 
         try {
@@ -56,7 +54,6 @@ public class Message {
     public Message(String msg, int style, FloatRect bounds, Color c, int fontSize){
         sansRegular = new Font();
 
-        FontFile = "src/font/LucidaSansRegular.ttf";
         this.fontSize = fontSize;
 
         try {
@@ -70,26 +67,20 @@ public class Message {
         text.setStyle(style);
         text.setColor(c);
 
-
-        //text.setPosition(new Vector2f(bounds.left, bounds.top));
-
         FloatRect textBounds = text.getLocalBounds( ); //error in calculation when text spans more than one line, needs altering
 
-        System.out.println("Top left: (" + textBounds.left + "," + textBounds.top + ")");
-        System.out.println("Bottom right: (" + (textBounds.left+textBounds.width) + "," + (textBounds.top+ textBounds.height) + ")");
+        Vector2f topLeftText = new Vector2f(textBounds.left, textBounds.top);
+        Vector2f bottomRightText = new Vector2f(textBounds.left+textBounds.width, textBounds.top+ textBounds.height);
 
-        Vector2f topLeft = new Vector2f(textBounds.left, textBounds.top);
-        Vector2f bottomRight = new Vector2f(textBounds.left+textBounds.width, textBounds.top+ textBounds.height);
+        Vector2f topLeftBounds = new Vector2f(bounds.left, bounds.top);
+        Vector2f bottomRightBounds = new Vector2f(bounds.left+bounds.width, bounds.top+ bounds.height);
 
-        float paddingX = ((bounds.left + bounds.width) - (bottomRight.x - topLeft.x)) / 2;
-        float paddingY = ((bounds.top + bounds.height) - ((bottomRight.y - topLeft.y) * 2) + fontSize) / 2;
+        float paddingX = ((bottomRightBounds.x - topLeftBounds.x) - (bottomRightText.x - topLeftText.x)) / 2;
+        float paddingY = ((bottomRightBounds.y - topLeftBounds.y) - ((bottomRightText.y - topLeftText.y)*2)) / 2;
 
-        text.setPosition(new Vector2f(bounds.left + paddingX, bounds.top + paddingY));
+        text.setPosition(new Vector2f(bounds.left + paddingX, bounds.top - paddingY ) );
 
         //check to see if scaling is needed
-
-        // Find middle and set as origin/ reference point
-        text.setOrigin((bounds.left), (bounds.top));
     }
 
     /**
