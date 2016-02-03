@@ -17,7 +17,7 @@ public class Cell{
      * The Basic Cell Structure
      *
      * @param pos The position vector of the cell
-     * @param weight The weight of the cell. Used in the main.Pathfind's Algorithm.
+     * @param weight The weight of the cell. Used in the Pathfind's Algorithm.
      *               The higher the value, the harder it is to move through
      */
 

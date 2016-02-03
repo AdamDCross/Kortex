@@ -2,7 +2,7 @@ package dijkstra;
 import main.*;
 
 /**
- * Created by Phillip on 18/12/2015.
+ * Created by Phillip on 18/12/2015
  */
 public class DijkstraQueue {
     public DQItem start;
@@ -85,7 +85,6 @@ public class DijkstraQueue {
      * @param cell The main.Cell to decrease.
      * @param priority The priority to set the new cell to
      */
-
     public void decrease(Cell cell, int priority) {
         DQItem prev=null;
         for (DQItem d = start; d != null; d = d.next) {

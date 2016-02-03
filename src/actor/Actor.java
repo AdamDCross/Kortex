@@ -4,7 +4,7 @@ import main.Render;
 import org.jsfml.system.Vector2i;
 
 /**
- * Created by Phillip on 21/01/2016.
+ * Created by Phillip on 21/01/2016
  */
 public class Actor implements Render {
     private Vector2i vel;
@@ -24,6 +24,9 @@ public class Actor implements Render {
         img.render();
     }
 
+    /*
+     * Follows path until hits next part. calc new velocity, then call super for main update
+     */
     @Override
     public void update() {
         img.update();

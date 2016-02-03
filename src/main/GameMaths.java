@@ -3,7 +3,7 @@ package main;
 import org.jsfml.system.Vector2i;
 
 /**
- * A class that contatins mathematical functions that might be useful throughout
+ * A class that contains mathematical functions that might be useful throughout
  * the game
  * Current list so far is:
  * clamp: Fixes a value into a specific range
@@ -18,9 +18,9 @@ public class GameMaths {
      * @param val value to change
      * @param oMin original range min
      * @param oMax original range max
-     * @param nMin new range mon
+     * @param nMin new range min
      * @param nMax new range max
-     * @return
+     * @return nMin+((val-oMin)*dN/dO)
      */
     public static float map(float val,float oMin,float oMax,float nMin,float nMax){
         float dO=oMax-oMin;
@@ -34,7 +34,7 @@ public class GameMaths {
      * @param val value to clamp
      * @param min min of range
      * @param max max of range
-     * @return
+     * @return value
      */
     public static float clamp(float val,float min,float max){
         if(val>max){
@@ -51,7 +51,7 @@ public class GameMaths {
      * @param val value to clamp
      * @param min min of range
      * @param max max of range
-     * @return
+     * @return value
      */
     public static int clamp(int val,int min,int max) {
         if (val > max) {
