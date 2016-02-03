@@ -1,5 +1,7 @@
 package states;
 
+import main.Button;
+import org.jsfml.graphics.FloatRect;
 import test.Anite;
 import test.TileTest;
 import dijkstra.DijkstraTest;
@@ -22,6 +24,7 @@ public class Game extends State {
     private PatrollingEnemy red;
     private TileTest t;
     private Anite a;
+    private Button menu;
 
     public Game()
     {
@@ -39,6 +42,8 @@ public class Game extends State {
 
         gameObjects.addElement(a);
 
+        menu = new Button("Menu", new FloatRect(Window.getInstance().getScreenWidth() - 160.0f, 10.0f, 150.0f, 50.0f), 35, "MENU");
+
     }
 
     @Override
@@ -54,7 +59,12 @@ public class Game extends State {
                     test.updateCurrentMousePosition(e.asMouseEvent().position);
                     break;
                 case MOUSE_BUTTON_PRESSED:
-                    StateMachine.getInstance().setState("PAUSE");
+                     if(menu.isWithinRect(e.asMouseEvent().position)) {
+                         StateMachine.getInstance().setState("MAIN_MENU");
+                     }
+                     else {
+                         StateMachine.getInstance().setState("PAUSE");
+                     }
                     break;
             }
         }
@@ -73,6 +83,8 @@ public class Game extends State {
         {
             gameObjects.elementAt(i).render();
         }
+
+        menu.render();
     }
 
     @Override

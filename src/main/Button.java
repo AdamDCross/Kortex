@@ -21,8 +21,6 @@ public class Button implements Render {
     }
 
     public boolean isWithinRect(Vector2i pos){
-        System.out.println("Coords:" + pos.x + "," + pos.y);
-
         if( (((float)pos.x) >= dimensions.left) && (((float)pos.x) <= (dimensions.left+dimensions.width)) &&
                 (((float)pos.y) >= dimensions.top) && (((float)pos.y) <= (dimensions.top+dimensions.height)) ) {
                 return true;

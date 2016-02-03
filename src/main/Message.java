@@ -76,9 +76,9 @@ public class Message {
         Vector2f bottomRightBounds = new Vector2f(bounds.left+bounds.width, bounds.top+ bounds.height);
 
         float paddingX = ((bottomRightBounds.x - topLeftBounds.x) - (bottomRightText.x - topLeftText.x)) / 2;
-        float paddingY = ((bottomRightBounds.y - topLeftBounds.y) - ((bottomRightText.y - topLeftText.y)*2)) / 2;
+        float paddingY = ((bottomRightBounds.y - topLeftBounds.y) - ((bottomRightText.y - topLeftText.y)+fontSize)) / 2;
 
-        text.setPosition(new Vector2f(bounds.left + paddingX, bounds.top - paddingY ) );
+        text.setPosition(new Vector2f(bounds.left + paddingX, bounds.top + paddingY + 5 ) );
 
         //check to see if scaling is needed
     }

@@ -5,6 +5,7 @@ import fsm.StateMachine;
 import main.Message;
 import main.Window;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
@@ -18,8 +19,8 @@ public class Options extends State {
     public Options(){
         super("OPTIONS");
 
-        msg = new Message("Welcome to option state!!!!!!1",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE, 48);
+        msg = new Message("Welcome to the option state!\n     Click to switch to menu.",
+                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(),Window.getInstance().getScreenHeight()), Color.WHITE, 35);
     }
 
     @Override

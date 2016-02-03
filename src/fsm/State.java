@@ -36,7 +36,6 @@ public class State
 	 * This method performs any initialisation needed when the program enters this state. Method intended to be overwritten.
 	 */
 	public void onEntry() {
-		System.out.println("Current State is: "+getStateID());
 	}
 
 	/**

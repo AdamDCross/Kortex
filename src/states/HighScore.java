@@ -5,6 +5,7 @@ import fsm.StateMachine;
 import main.Message;
 import main.Window;
 import org.jsfml.graphics.Color;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
@@ -18,8 +19,8 @@ public class HighScore extends State {
     public HighScore(){
         super("HIGH_SCORE");
 
-        msg = new Message("Welcome to high score state!!!!!!1",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 2), Color.WHITE, 48);
+        msg = new Message("Welcome to the high score state!\n     Click to switch to menu.",
+                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), Color.WHITE, 35);
     }
 
     @Override

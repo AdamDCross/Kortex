@@ -31,17 +31,21 @@ public class MainMenu extends State {
     public MainMenu() {
         super("MAIN_MENU");
 
-        /*mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
-                Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, 60.0f), Color.WHITE);*/
         mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
-                Text.BOLD, new FloatRect(0.0f, 0.0f, 640.0f, 125.0f), Color.WHITE, 35);
+                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), 0.26f * Window.getInstance().getScreenHeight()), Color.WHITE, 35);
 
         btns = new Vector<>(5);
 
-        main.Button btn = new main.Button("New", new FloatRect(245.0f, 150.0f, 150.0f, 50.0f), 35, "GAME");
-        main.Button btn2 = new main.Button("Scores", new FloatRect(245.0f, 210.0f, 150.0f, 50.0f), 35, "HIGH_SCORE");
-        main.Button btn3 = new main.Button("Options", new FloatRect(245.0f, 270.0f, 150.0f, 50.0f), 35, "OPTIONS");
-        main.Button btn4 = new main.Button("Exit", new FloatRect(245.0f, 330.0f, 150.0f, 50.0f), 35, "EXIT");
+        float x = 0.383f * Window.getInstance().getScreenWidth();
+
+        main.Button btn = new main.Button("New",
+                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "GAME");
+        main.Button btn2 = new main.Button("Scores",
+                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "HIGH_SCORE");
+        main.Button btn3 = new main.Button("Options",
+                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "OPTIONS");
+        main.Button btn4 = new main.Button("Exit",
+                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "EXIT");
 
         btns.addElement(btn);
         btns.addElement(btn2);
@@ -76,19 +80,12 @@ public class MainMenu extends State {
                     for(int i = 0; i < btns.size(); i++) {
                         if (btns.elementAt(i).isWithinRect(e.asMouseEvent().position)) {
                             lastPressButtonID = btns.elementAt(i).getButtonID();
-                            //System.out.println("True");
                             break;
-                        }
-                        else{
-                            //System.out.println("False");
                         }
                     }
                     break;
             }
         }
-
-        //for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).update(); }
-        //System.out.println(lastPressButtonID);
 
         if( lastPressButtonID.equals("EXIT") ){
             Window.getInstance().getGameWindow().close();
