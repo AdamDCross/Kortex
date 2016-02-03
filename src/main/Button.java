@@ -4,6 +4,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 /**
  * Button class
@@ -11,14 +12,23 @@ import org.jsfml.system.Vector2f;
 public class Button implements Render {
     private Message txt;
     private FloatRect dimensions;
+    private String ID;
 
-    public Button(String text, FloatRect dimensions, int fontSize){
+    public Button(String text, FloatRect dimensions, int fontSize, String ID){
         txt = new Message(text, Text.BOLD, dimensions, Color.WHITE, fontSize);
         this.dimensions = dimensions;
+        this.ID = ID;
     }
 
-    private boolean isWithinRect(){
-        return true;
+    public boolean isWithinRect(Vector2i pos){
+        System.out.println("Coords:" + pos.x + "," + pos.y);
+
+        if( (((float)pos.x) >= dimensions.left) && (((float)pos.x) <= (dimensions.left+dimensions.width)) &&
+                (((float)pos.y) >= dimensions.top) && (((float)pos.y) <= (dimensions.top+dimensions.height)) ) {
+                return true;
+        }
+
+        return false;
     }
 
     @Override
@@ -33,5 +43,7 @@ public class Button implements Render {
 
     }
 
-
+    public String getButtonID(){
+        return this.ID;
+    }
 }

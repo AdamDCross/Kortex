@@ -32,7 +32,7 @@ public class HighScore extends State {
                     Window.getInstance().getGameWindow().close();
                     break;
                 case MOUSE_BUTTON_PRESSED:
-                    //StateMachine.getInstance().setState("GAME");
+                    StateMachine.getInstance().setState("MAIN_MENU");
                     break;
             }
 
