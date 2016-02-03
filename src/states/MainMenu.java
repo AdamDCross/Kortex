@@ -33,20 +33,22 @@ public class MainMenu extends State {
 
         /*mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
                 Text.BOLD, new Vector2f(Window.getInstance().getScreenWidth() / 2, 60.0f), Color.WHITE);*/
-        mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
-                Text.BOLD, new FloatRect(0.0f, 0.0f, 640.0f, 125.0f), Color.WHITE, 35);
+        mmText = new Message("Welcome to Kortex!\n",
+                Text.BOLD, new FloatRect(0.0f, 0.0f, 640.0f, 50.0f), Color.WHITE, 35);
+
+        //TODO: Add Kortex logo on left of main menu.
 
         btns = new Vector<>(5);
 
-        main.Button btn = new main.Button("New", new FloatRect(245.0f, 150.0f, 150.0f, 50.0f), 35, "GAME");
-        main.Button btn2 = new main.Button("Scores", new FloatRect(245.0f, 210.0f, 150.0f, 50.0f), 35, "HIGH_SCORE");
-        main.Button btn3 = new main.Button("Options", new FloatRect(245.0f, 270.0f, 150.0f, 50.0f), 35, "OPTIONS");
-        main.Button btn4 = new main.Button("Exit", new FloatRect(245.0f, 330.0f, 150.0f, 50.0f), 35, "EXIT");
+        main.Button NewGame = new main.Button("New", new FloatRect(450.0f, 150.0f, 150.0f, 50.0f), 35, "GAME");
+        main.Button Scoreboard = new main.Button("Scores", new FloatRect(450.0f, 210.0f, 150.0f, 50.0f), 35, "HIGH_SCORE");
+        main.Button Options = new main.Button("Options", new FloatRect(450.0f, 270.0f, 150.0f, 50.0f), 35, "OPTIONS");
+        main.Button Exit = new main.Button("Exit", new FloatRect(450.0f, 330.0f, 150.0f, 50.0f), 35, "EXIT");
 
-        btns.addElement(btn);
-        btns.addElement(btn2);
-        btns.addElement(btn3);
-        btns.addElement(btn4);
+        btns.addElement(NewGame);
+        btns.addElement(Scoreboard);
+        btns.addElement(Options);
+        btns.addElement(Exit);
 
         lastPressButtonID = "NONE";
     }
@@ -93,7 +95,7 @@ public class MainMenu extends State {
         if( lastPressButtonID.equals("EXIT") ){
             Window.getInstance().getGameWindow().close();
         }
-        else if( lastPressButtonID.equals("NONE") != true){
+        else if(!lastPressButtonID.equals("NONE")){
             StateMachine.getInstance().setState(lastPressButtonID);
         }
 
