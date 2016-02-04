@@ -1,5 +1,6 @@
 package states;
 
+import main.Beacon;
 import main.Button;
 import org.jsfml.graphics.FloatRect;
 import test.Anite;
@@ -15,9 +16,6 @@ import org.jsfml.window.event.Event;
 
 import java.util.Vector;
 
-/**
- * Created by Vince on 14/01/2016.
- */
 public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
@@ -66,6 +64,9 @@ public class Game extends State {
                          StateMachine.getInstance().setState("PAUSE");
                      }
                     break;
+                case RESIZED:
+                    Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
+                    break;
             }
         }
 
@@ -73,6 +74,8 @@ public class Game extends State {
         {
             gameObjects.elementAt(i).update();
         }
+
+        Beacon.getInstance().update();
     }
 
     @Override
@@ -84,12 +87,15 @@ public class Game extends State {
             gameObjects.elementAt(i).render();
         }
 
+        Beacon.getInstance().render();
+
         menu.render();
     }
 
     @Override
     public void onEntry() {
         super.onEntry();
+        Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
     }
 
     @Override

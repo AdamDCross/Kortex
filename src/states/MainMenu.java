@@ -2,10 +2,7 @@ package states;
 
 import fsm.State;
 import fsm.StateMachine;
-import main.Button;
-import main.Line;
-import main.Message;
-import main.Window;
+import main.*;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
@@ -57,8 +54,6 @@ public class MainMenu extends State {
     @Override
     public void onEntry() {
         super.onEntry();
-
-
     }
 
     @Override
@@ -84,13 +79,16 @@ public class MainMenu extends State {
                         }
                     }
                     break;
+                case RESIZED:
+                    Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
+                    break;
             }
         }
 
         if( lastPressButtonID.equals("EXIT") ){
             Window.getInstance().getGameWindow().close();
         }
-        else if( lastPressButtonID.equals("NONE") != true){
+        else if(!lastPressButtonID.equals("NONE")){
             StateMachine.getInstance().setState(lastPressButtonID);
         }
 
