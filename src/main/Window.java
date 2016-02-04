@@ -14,15 +14,13 @@ import java.nio.file.Paths;
 public class Window {
     private static Window instance = null;
     private RenderWindow gameWindow;
-    private int screenWidth;
-    private int screenHeight;
+    private Vector2i screenRes;
     private Clock clock;
 
     private Window(int screenWidth, int screenHeight, String title){
         this.gameWindow = new RenderWindow(new VideoMode(screenWidth,screenHeight),title);
         this.gameWindow.setFramerateLimit(30); // Avoid excessive updates, 30fps limit which can be changed later
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
+        screenRes = new Vector2i(screenWidth, screenHeight);
 
         try {
             Image tmp = new Image();
@@ -46,23 +44,31 @@ public class Window {
         return instance;
     }
 
+    public void recalculateScreenRes(Vector2i newRes) {
+        screenRes = newRes;
+
+        //gameWindow.setSize(newRes); Strange bug moves entire window when this line of code is executed, needs more investigating
+        //
+    }
+
     public RenderWindow getGameWindow(){
         return gameWindow;
     }
 
     //Get screen width
     public int getScreenWidth(){
-        return screenWidth;
+        return screenRes.x;
     }
 
     //get screen height
     public int getScreenHeight() {
-        return screenHeight;
+        return screenRes.y;
     }
 
     public long getElapsedTime(){
         return clock.getElapsedTime().asMilliseconds();
     }
+
     public void resetClock(){
         clock.restart();
     }
