@@ -178,13 +178,18 @@ public class Pathfind {
 
     public Pathfind(int Cx, int Cy, Tilemap t){
         //TODO when the main playing field is created, merge these classes, to reduce the amount of wasted variables;
-        ArrayList<Integer> map=t.getMap();
+
+
         cells=new Cell[GRID_WIDTH][GRID_HEIGHT];
-        for(int cx=0;cx<GRID_WIDTH;cx++){
-            for(int cy=0;cy<GRID_HEIGHT;cy++){
-                getCells()[cx][cy]=new Cell(new Vector2i(cx,cy),(map.get(cy*GRID_WIDTH+cx)!=2)?10:1);
+
+
+            for(int cx=0; cx < GRID_WIDTH; cx++){
+                for(int cy=0; cy < GRID_HEIGHT; cy++){
+                    cells[cx][cy]= new Cell(new Vector2i(cx,cy), (t.getMap().get(cy*GRID_WIDTH+cx)!=2) ? 10:1 );
+                }
             }
-        }
+
+
         dijkstra(Cx,Cy);
     }
 

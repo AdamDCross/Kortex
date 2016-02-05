@@ -48,6 +48,10 @@ public class DijkstraTest implements Render {
                 (int) GameMaths.clamp(hold.y,0,Pathfind.GRID_HEIGHT*Pathfind.GRID_SIZE));
     }
 
+    public Vector2i getRelTileForMousePosition(){
+        return currentPosition;
+    }
+
     @Override
     public void render() {
         /*for(int i=0;i<Pathfind.GRID_WIDTH;i++){

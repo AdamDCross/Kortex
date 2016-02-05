@@ -81,6 +81,7 @@ public class MainMenu extends State {
                     break;
                 case RESIZED:
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
+                    //resetButtonPositioning();
                     break;
             }
         }
@@ -102,5 +103,14 @@ public class MainMenu extends State {
         mmText.renderText();
 
         for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).render(); }
+    }
+
+    private void resetButtonPositioning(){
+        float x = 0.383f * Window.getInstance().getScreenWidth();
+
+        btns.elementAt(0).changeDimensions(new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
+        btns.elementAt(1).changeDimensions(new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
+        btns.elementAt(2).changeDimensions(new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
+        btns.elementAt(3).changeDimensions(new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
     }
 }

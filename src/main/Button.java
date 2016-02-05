@@ -11,10 +11,14 @@ import org.jsfml.system.Vector2i;
  */
 public class Button implements Render {
     private Message txt;
+    private String stringText;
     private FloatRect dimensions;
+    private int fontSize;
     private String ID;
 
     public Button(String text, FloatRect dimensions, int fontSize, String ID){
+        stringText = text;
+        this.fontSize = fontSize;
         txt = new Message(text, Text.BOLD, dimensions, Color.WHITE, fontSize);
         this.dimensions = dimensions;
         this.ID = ID;
@@ -27,6 +31,11 @@ public class Button implements Render {
         }
 
         return false;
+    }
+
+    public void changeDimensions(FloatRect dimensions){
+        txt = new Message(stringText, Text.BOLD, dimensions, Color.WHITE, fontSize);
+        this.dimensions = dimensions;
     }
 
     @Override
