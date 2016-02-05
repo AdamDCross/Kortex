@@ -38,7 +38,7 @@ public class Window {
     public static Window getInstance() {
         if( instance == null )
         {
-            instance = new Window(640,480,"Kortex"); //Alter window specifics
+            instance = new Window(1280,1024,"Kortex"); //Alter window specifics
         }
 
         return instance;
@@ -49,6 +49,7 @@ public class Window {
 
         //gameWindow.setSize(newRes); Strange bug moves entire window when this line of code is executed, needs more investigating
         //
+
     }
 
     public RenderWindow getGameWindow(){

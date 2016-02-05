@@ -24,6 +24,7 @@ public class MainMenu extends State {
     private Message mmText;
     private Vector<Button> btns;
     private String lastPressButtonID;
+    public static final float BUTTON_WIDTH = 150.0f;
 
     public MainMenu() {
         super("MAIN_MENU");
@@ -33,16 +34,16 @@ public class MainMenu extends State {
 
         btns = new Vector<>(5);
 
-        float x = 0.383f * Window.getInstance().getScreenWidth();
+        float x = (((Window.getInstance().getScreenWidth() / 2) - (BUTTON_WIDTH/2)) / Window.getInstance().getScreenWidth()) * Window.getInstance().getScreenWidth();
 
         main.Button btn = new main.Button("New",
-                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "GAME");
+                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "GAME");
         main.Button btn2 = new main.Button("Scores",
-                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "HIGH_SCORE");
+                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "HIGH_SCORE");
         main.Button btn3 = new main.Button("Options",
-                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "OPTIONS");
+                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "OPTIONS");
         main.Button btn4 = new main.Button("Exit",
-                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f), 35, "EXIT");
+                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "EXIT");
 
         btns.addElement(btn);
         btns.addElement(btn2);
@@ -81,7 +82,6 @@ public class MainMenu extends State {
                     break;
                 case RESIZED:
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
-                    //resetButtonPositioning();
                     break;
             }
         }
@@ -103,14 +103,5 @@ public class MainMenu extends State {
         mmText.renderText();
 
         for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).render(); }
-    }
-
-    private void resetButtonPositioning(){
-        float x = 0.383f * Window.getInstance().getScreenWidth();
-
-        btns.elementAt(0).changeDimensions(new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
-        btns.elementAt(1).changeDimensions(new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
-        btns.elementAt(2).changeDimensions(new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
-        btns.elementAt(3).changeDimensions(new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), 150.0f, 50.0f));
     }
 }

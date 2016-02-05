@@ -1,14 +1,10 @@
 package graphics;
 
-import dijkstra.DijkstraTest;
 import main.Pathfind;
-import main.Render;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
-import org.jsfml.window.Window;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -58,7 +54,7 @@ public class Tilemap {
     }
 
     public void drawMap(){
-        for (int y = 0; y < Pathfind.GRID_HEIGHT-1; y++) {
+        for (int y = 0; y < Pathfind.GRID_HEIGHT; y++) {
             for(int x = 0; x< Pathfind.GRID_WIDTH; x++) {
 
                 int m = map.get(x+y*Pathfind.GRID_WIDTH);

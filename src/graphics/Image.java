@@ -82,4 +82,8 @@ public class Image implements Render {
     public void setOrigin(Vector2f orig){
         img.setOrigin(orig);
     }
+
+    public void setColourMask(Color col){
+        img.setColor(col);
+    }
 }

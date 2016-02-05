@@ -13,8 +13,10 @@ import java.util.ArrayList;
 
 public class Pathfind {
     public static final int GRID_SIZE=32;
-    public static final int GRID_WIDTH=Window.getInstance().getScreenWidth()/GRID_SIZE;
-    public static final int GRID_HEIGHT=Window.getInstance().getScreenHeight()/GRID_SIZE;
+    public static final int MAX_TILES_X = 20;
+    public static final int MAX_TILES_Y = 15;
+    public static final int GRID_WIDTH = MAX_TILES_X;
+    public static final int GRID_HEIGHT = MAX_TILES_Y;
     private Cell[][] cells;
 
     /**
@@ -25,14 +27,18 @@ public class Pathfind {
      */
     void dijkstra(int cx,int cy) {
         DijkstraQueue hold = new DijkstraQueue();
+
         for (int x = 0; x < GRID_WIDTH; x++) {
             for (int y = 0; y < GRID_HEIGHT; y++) {
                 getCells()[x][y].dReset();
                 hold.insert(getCells()[x][y]);
             }
         }
+
         hold.decrease(getCells()[cx][cy],0);
+
         getCells()[cx][cy].pathNext = null;
+
         while(hold.start!=null) {
             Cell currCheck = hold.getMin();
             int dist = currCheck.distance + currCheck.weight;
