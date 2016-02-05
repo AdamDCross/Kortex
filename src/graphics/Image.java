@@ -2,10 +2,7 @@ package graphics;
 
 import main.Render;
 import main.Window;
-import org.jsfml.graphics.Sprite;
-import org.jsfml.graphics.Texture;
-import org.jsfml.graphics.TextureCreationException;
-import org.jsfml.graphics.Vertex;
+import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 
 import java.io.IOException;
@@ -72,5 +69,17 @@ public class Image implements Render {
 
     @Override
     public void update() {
+    }
+
+    public void rotate(float angle){
+        img.rotate(angle);
+    }
+
+    public void setRenderRect(IntRect rect){
+        img.setTextureRect(rect);
+    }
+
+    public void setOrigin(Vector2f orig){
+        img.setOrigin(orig);
     }
 }

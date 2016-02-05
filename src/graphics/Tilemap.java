@@ -58,9 +58,10 @@ public class Tilemap {
     }
 
     public void drawMap(){
-        for (int y = 0; y < Pathfind.GRID_HEIGHT; y++) {
+        for (int y = 0; y < Pathfind.GRID_HEIGHT-1; y++) {
             for(int x = 0; x< Pathfind.GRID_WIDTH; x++) {
-                int m=map.get(x+y*Pathfind.GRID_WIDTH);
+
+                int m = map.get(x+y*Pathfind.GRID_WIDTH);
 
                 int tu=w*(m%row);
                 int tv=h*(m/row);

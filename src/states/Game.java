@@ -76,6 +76,8 @@ public class Game extends State {
         }
 
         Beacon.getInstance().update();
+
+        //System.out.println("Mouse tile x:" + test.getRelTileForMousePosition().x + ", Mouse tile y:" + test.getRelTileForMousePosition().y);
     }
 
     @Override
