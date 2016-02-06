@@ -11,9 +11,9 @@ public class BasicConfiguration {
 
 	private static BasicConfiguration settingsConfig = null;
 
-	private String gameName = "Project Abe is the best 5000";
-	private int screenResX = 1024;
-	private int screenResY = 720;
+	private String gameName = "Kortex";
+	private int screenResX = 640;
+	private int screenResY = 480;
 	private int gameDifficulty = 1;
 
 	public static BasicConfiguration getInstance() {

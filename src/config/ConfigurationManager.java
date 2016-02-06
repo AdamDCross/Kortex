@@ -11,7 +11,7 @@ import javax.xml.bind.Unmarshaller;
 public class ConfigurationManager {
 
 	// Add all configurations to this array:
-	private final static Object[] configurationList = { BasicConfiguration.getInstance(), BasicTemplate.getInstance(), BasicGameSave.getInstance() };
+	private final static Object[] configurationList = { BasicConfiguration.getInstance(), BasicTemplate.getInstance(), BasicGameSave.getInstance()};
 
 	private static ConfigurationManager configManager = null;
 
