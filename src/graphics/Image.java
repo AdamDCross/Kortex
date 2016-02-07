@@ -83,7 +83,26 @@ public class Image implements Render {
         img.setOrigin(orig);
     }
 
+    public void setOriginTopleft(){
+        FloatRect localBounds = img.getLocalBounds();
+        img.setOrigin(new Vector2f(localBounds.left, localBounds.top));
+    }
+
+    public void setOriginCentre(){
+        FloatRect localBounds = img.getLocalBounds();
+        img.setOrigin(new Vector2f( (localBounds.left + localBounds.width) / 2,
+                                                                (localBounds.top + localBounds.height) / 2));
+    }
+
+    public void setScale(float scaleFactorX, float scaleFactorY){
+        img.setScale(new Vector2f(scaleFactorX, scaleFactorY));
+    }
+
     public void setColourMask(Color col){
         img.setColor(col);
+    }
+
+    public FloatRect getRectofImage(){
+        return img.getLocalBounds();
     }
 }

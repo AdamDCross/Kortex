@@ -95,11 +95,6 @@ public class Message {
         text.setString(str);
         text.setPosition(position);
         text.setStyle(style);
-
-        FloatRect textBounds = text.getLocalBounds( );
-        // Find middle and set as origin/ reference point
-        text.setOrigin(textBounds.width / 2,
-                textBounds.height / 2);
     }
 
     /**
@@ -108,11 +103,6 @@ public class Message {
      */
     public void setText(String str){
         text.setString(str);
-
-        FloatRect textBounds = text.getLocalBounds( );
-        // Find middle and set as origin/ reference point
-        text.setOrigin(textBounds.width / 2,
-                textBounds.height / 2);
     }
 
     /**
