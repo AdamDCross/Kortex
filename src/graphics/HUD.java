@@ -63,7 +63,7 @@ public class HUD implements Render {
                 }
 
                 btns.addElement(new Button(artAssets.elementAt(i-1).getAssetPath(),
-                        new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), "TURRET" + i, true));
+                        new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), artAssets.elementAt(i-1).getAssetID(), true));
             }
         }
 
