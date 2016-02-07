@@ -1,5 +1,7 @@
 package graphics;
 
+import assets.ArtAsset;
+import assets.AssetManager;
 import fsm.StateMachine;
 import main.*;
 import org.jsfml.graphics.Color;
@@ -48,17 +50,21 @@ public class HUD implements Render {
 
         float buttonWidth = screenW / MAX_BUTTON_COUNT;
 
-        for(int i = 0; i < MAX_BUTTON_COUNT; i++){
-            if(i == 0){
-                btns.addElement(new Button("<", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "LEFT"));
-                continue;
-            }else if(i == (MAX_BUTTON_COUNT-1)){
-                btns.addElement(new Button(">", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "RIGHT"));
-                continue;
-            }
+        Vector<ArtAsset> artAssets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
 
-            btns.addElement(new Button("src/assets/turrets/laserturret/l1/top.png",
-                    new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), "TURRET"+i, true));
+        for(int i = 0; i < MAX_BUTTON_COUNT; i++){
+            if( artAssets.size() == (MAX_BUTTON_COUNT-2) ) {
+                if (i == 0) {
+                    btns.addElement(new Button("<", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "LEFT"));
+                    continue;
+                } else if (i == (MAX_BUTTON_COUNT - 1)) {
+                    btns.addElement(new Button(">", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "RIGHT"));
+                    continue;
+                }
+
+                btns.addElement(new Button(artAssets.elementAt(i-1).getAssetPath(),
+                        new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), "TURRET" + i, true));
+            }
         }
 
         //btns.addElement(turret);

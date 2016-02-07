@@ -1,5 +1,6 @@
 package states;
 
+import assets.AssetManager;
 import fsm.State;
 import fsm.StateMachine;
 import main.*;

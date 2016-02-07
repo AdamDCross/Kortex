@@ -32,8 +32,8 @@ public class Image implements Render {
         imgTexture.setSmooth(true);
 
         img = new Sprite(imgTexture);
-        img.setOrigin(Vector2f.div(
-                new Vector2f(imgTexture.getSize()), 2));
+        //img.setOrigin(Vector2f.div(
+                //new Vector2f(imgTexture.getSize()), 2));
         img.setPosition(position);
     }
 
@@ -69,6 +69,10 @@ public class Image implements Render {
 
     @Override
     public void update() {
+    }
+
+    public void setPosition(Vector2f pos){
+        img.setPosition(pos);
     }
 
     public void rotate(float angle){
