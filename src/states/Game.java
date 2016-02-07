@@ -1,8 +1,10 @@
 package states;
 
+import graphics.HUD;
 import main.Beacon;
 import main.Button;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.window.Keyboard;
 import test.Anite;
 import test.TileTest;
 import dijkstra.DijkstraTest;
@@ -22,7 +24,11 @@ public class Game extends State {
     private PatrollingEnemy red;
     private TileTest t;
     private Anite a;
-    private Button menu;
+    private int numOfRemainingWaves;
+    private int currentWave;
+    private int score;
+
+    private HUD panel;
 
     public Game()
     {
@@ -34,14 +40,33 @@ public class Game extends State {
         test = new DijkstraTest();
 
         red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
+        //gameObjects.addElement(test);
+        //gameObjects.addElement(red);
 
-        gameObjects.addElement(test);
-        gameObjects.addElement(red);
+        //gameObjects.addElement(a);
 
-        gameObjects.addElement(a);
 
-        menu = new Button("Menu", new FloatRect(Window.getInstance().getScreenWidth() - 160.0f, 10.0f, 150.0f, 50.0f), 35, "MENU");
+        setupGame();
+        panel = new HUD(0.10f, 0.1f, this);
+        gameObjects.addElement(panel);
+    }
 
+    private void setupGame(){
+        numOfRemainingWaves = 10;
+        currentWave = 0;
+        score = 0;
+    }
+
+    public int getNumOfRemainingWaves(){
+        return numOfRemainingWaves;
+    }
+
+    public int getCurrentWave(){
+        return currentWave;
+    }
+
+    public int getScore(){
+        return score;
     }
 
     @Override
@@ -57,16 +82,15 @@ public class Game extends State {
                     test.updateCurrentMousePosition(e.asMouseEvent().position);
                     break;
                 case MOUSE_BUTTON_PRESSED:
-                     if(menu.isWithinRect(e.asMouseEvent().position)) {
-                         StateMachine.getInstance().setState("MAIN_MENU");
-                     }
-                     else {
-                         StateMachine.getInstance().setState("PAUSE");
-                     }
+                    panel.mousePress(e.asMouseButtonEvent().position);
                     break;
                 case RESIZED:
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
                     break;
+                case KEY_RELEASED:
+                    if(e.asKeyEvent().key == Keyboard.Key.P){
+                        StateMachine.getInstance().setState("PAUSE");
+                    }
             }
         }
 
@@ -75,9 +99,7 @@ public class Game extends State {
             gameObjects.elementAt(i).update();
         }
 
-        Beacon.getInstance().update();
-
-        //System.out.println("Mouse tile x:" + test.getRelTileForMousePosition().x + ", Mouse tile y:" + test.getRelTileForMousePosition().y);
+        //Beacon.getInstance().update();
     }
 
     @Override
@@ -89,15 +111,15 @@ public class Game extends State {
             gameObjects.elementAt(i).render();
         }
 
-        Beacon.getInstance().render();
+        //Beacon.getInstance().render();
 
-        menu.render();
+
     }
 
     @Override
     public void onEntry() {
         super.onEntry();
-        Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
+        //Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
     }
 
     @Override

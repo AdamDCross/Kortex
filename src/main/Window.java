@@ -38,7 +38,7 @@ public class Window {
     public static Window getInstance() {
         if( instance == null )
         {
-            instance = new Window(1280,1024,"Kortex"); //Alter window specifics
+            instance = new Window(1024,768,"Kortex"); //Alter window specifics
         }
 
         return instance;
