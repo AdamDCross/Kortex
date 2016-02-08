@@ -1,6 +1,5 @@
 package main;
 
-
 import graphics.Animation;
 import org.jsfml.system.Vector2f;
 
@@ -69,7 +68,7 @@ public class Beacon implements Render {
         }
     }
 
-    public void inflictDamage(int damageCount){
+    public void takeDamage(int damageCount){
         beaconHealth -= damageCount;
     }
 
