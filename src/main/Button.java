@@ -1,5 +1,6 @@
 package main;
 
+import assets.ArtAsset;
 import graphics.Image;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
@@ -34,6 +35,45 @@ public class Button implements Render {
         this.borderActive = borderActive;
         this.ID = ID;
         buttonImage = new Image(filePath, new Vector2f(dimensions.left, dimensions.top));
+
+        if( buttonImage.getRectofImage().width < dimensions.width
+                || buttonImage.getRectofImage().height < dimensions.height
+                || buttonImage.getRectofImage().width > dimensions.width
+                || buttonImage.getRectofImage().height > dimensions.height) {
+
+            buttonImage.setOriginTopleft();
+            buttonImage.setScale(dimensions.width / buttonImage.getRectofImage().width,
+                    dimensions.height / buttonImage.getRectofImage().height);
+        }
+
+        usesImage = true;
+        this.dimensions = dimensions;
+    }
+
+    public Button(Image buttonImage, FloatRect dimensions, String ID, boolean borderActive){
+        this.borderActive = borderActive;
+        this.ID = ID;
+        this.buttonImage = buttonImage;
+
+        if( buttonImage.getRectofImage().width < dimensions.width
+                || buttonImage.getRectofImage().height < dimensions.height
+                || buttonImage.getRectofImage().width > dimensions.width
+                || buttonImage.getRectofImage().height > dimensions.height) {
+
+            buttonImage.setOriginTopleft();
+            buttonImage.setScale(dimensions.width / buttonImage.getRectofImage().width,
+                    dimensions.height / buttonImage.getRectofImage().height);
+        }
+
+        usesImage = true;
+        this.dimensions = dimensions;
+    }
+
+    public Button(ArtAsset asset, FloatRect dimensions, boolean borderActive){
+        this.borderActive = borderActive;
+        this.ID = asset.getAssetID();
+        buttonImage = asset.getImage();
+        buttonImage.setPosition(new Vector2f(dimensions.left, dimensions.top));
 
         if( buttonImage.getRectofImage().width < dimensions.width
                 || buttonImage.getRectofImage().height < dimensions.height
