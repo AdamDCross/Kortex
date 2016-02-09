@@ -22,7 +22,7 @@ public class AssetManager {
     }
 
     private AssetManager() {
-        String assetCSV = "src/assets/assets.csv";
+        String assetCSV = "src/assets/art_assets.csv";
         assets = new Vector<Asset>(25);
 
         try {

@@ -1,6 +1,7 @@
 package player;
 
 import graphics.Animation;
+import graphics.Image;
 import main.Render;
 import org.jsfml.system.Vector2f;
 
@@ -16,8 +17,8 @@ public class Turret implements Render {
     private float rotationSpeed;
     private float angle;
     private float speed;
-    private Animation top;
-    private Animation bottom;
+    private Image top;
+    private Image bottom;
     private Vector2f position;
 
     // TODO: 08/02/2016 Shoot method
@@ -34,11 +35,11 @@ public class Turret implements Render {
         position = new Vector2f(0.0f,0.0f);
     }
 
-    public void spawn(boolean visible, int health , Animation top, Animation bottom, Vector2f position){
-        top = new Animation("src/assets/Tiles.jpg",32,32,5,2,1000,position,3);
+    public void spawn(boolean visible, int health , Image top, Image bottom, Vector2f position){
+        this.top = top;
 
         // TODO: 08/02/2016 Change this to a static image rather than an animation? 
-        bottom = new Animation("src/assets/Tiles.jpg",32,32,5,2,1000,position,3);
+        this.bottom = bottom;
     }
     
     @Override

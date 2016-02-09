@@ -1,5 +1,7 @@
 package dijkstra;
 
+import assets.ArtAsset;
+import assets.AssetManager;
 import graphics.Tilemap;
 import main.*;
 
@@ -8,6 +10,8 @@ import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
+
+import java.util.Vector;
 
 /**
  * Originally 'InterfaceTest' by Phil
@@ -20,7 +24,9 @@ public class DijkstraTest implements Render {
     private Tilemap tiles;
 
     public DijkstraTest() {
-        tiles=new Tilemap("src/assets/Tiles.jpg","src/assets/MapTest2.csv",32,32,5,2);
+        Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
+
+        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/MapTest2.csv",32,32,5,2);
         d = new Pathfind(9,10,tiles);
         currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();

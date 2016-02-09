@@ -8,3 +8,4 @@ TURRET,laserturret_l4_top,src/assets/turrets/laserturret/l4/top.png
 TURRET,laserturret_l4_bottom,src/assets/turrets/laserturret/l4/bottom.png
 TURRET,laserturret_l5_top,src/assets/turrets/laserturret/l5/top.png
 TURRET,laserturret_l5_bottom,src/assets/turrets/laserturret/l4/bottom.png
+TILE_MAP,TILES,src/assets/Tiles.jpg
