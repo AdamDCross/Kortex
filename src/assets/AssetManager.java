@@ -22,8 +22,30 @@ public class AssetManager {
     }
 
     private AssetManager() {
-        String assetCSV = "src/assets/art_assets.csv";
         assets = new Vector<Asset>(25);
+
+        loadArtAssets();
+    }
+
+    private void loadArtAssets(){
+        String assetCSV = "src/assets/art_assets.csv";
+
+        try {
+            BufferedReader r=new BufferedReader(new FileReader(assetCSV));
+
+            String buff;
+            while((buff=r.readLine())!=null) {
+                String[] mapS = buff.split("[,]");
+
+                assets.addElement(new ArtAsset(mapS[0], mapS[1], mapS[2]));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadAudioAssets(){
+        String assetCSV = "src/assets/art_assets.csv";
 
         try {
             BufferedReader r=new BufferedReader(new FileReader(assetCSV));

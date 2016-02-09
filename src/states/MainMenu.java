@@ -4,6 +4,7 @@ import assets.AssetManager;
 import fsm.State;
 import fsm.StateMachine;
 import main.*;
+import org.jsfml.audio.Music;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
@@ -11,6 +12,8 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Vector;
 
 /**
@@ -26,6 +29,7 @@ public class MainMenu extends State {
     private Vector<Button> btns;
     private String lastPressButtonID;
     public static final float BUTTON_WIDTH = 150.0f;
+    Music mainMusic;
 
     public MainMenu() {
         super("MAIN_MENU");
@@ -52,10 +56,20 @@ public class MainMenu extends State {
         btns.addElement(btn4);
 
         lastPressButtonID = "NONE";
+
+        mainMusic = new Music();
+        try {
+            mainMusic.openFromFile(Paths.get("src/assets/music/MainMenuMusic.wav"));
+        }catch(IOException io){
+            io.printStackTrace();
+        }
+
+
     }
     @Override
     public void onEntry() {
         super.onEntry();
+        mainMusic.play();
     }
 
     @Override
