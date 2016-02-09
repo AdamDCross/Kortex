@@ -20,7 +20,7 @@ public class Turret implements Render {
     private Animation bottom;
     private Vector2f position;
 
-    // TODO: 08/02/2016 Shoot method 
+    // TODO: 08/02/2016 Shoot method
 
     private Turret() {
         visible = false;
@@ -56,6 +56,11 @@ public class Turret implements Render {
             health = 0;
             destroy();
         }
+    }
+
+    public void rotate(float angle){
+
+
     }
 
     @Override
