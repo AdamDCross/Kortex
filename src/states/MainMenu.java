@@ -30,7 +30,7 @@ public class MainMenu extends State {
     public MainMenu() {
         super("MAIN_MENU");
 
-        mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
+        mmText = new Message("Kortex",
                 Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), 0.26f * Window.getInstance().getScreenHeight()), Color.WHITE, 35);
 
         btns = new Vector<>(5);
