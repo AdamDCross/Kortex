@@ -57,14 +57,7 @@ public class MainMenu extends State {
 
         lastPressButtonID = "NONE";
 
-        mainMusic = new Music();
-        try {
-            mainMusic.openFromFile(Paths.get("src/assets/music/MainMenuMusic.wav"));
-        }catch(IOException io){
-            io.printStackTrace();
-        }
-
-
+        mainMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(0).getMusicObject();
     }
     @Override
     public void onEntry() {
@@ -76,6 +69,7 @@ public class MainMenu extends State {
     public void onExit() {
         super.onExit();
         Window.getInstance().resetClock();
+        mainMusic.stop();
     }
 
     @Override

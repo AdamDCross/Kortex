@@ -25,13 +25,14 @@ public class AssetManager {
         assets = new Vector<Asset>(25);
 
         loadArtAssets();
+        loadAudioAssets();
     }
 
     private void loadArtAssets(){
         String assetCSV = "src/assets/art_assets.csv";
 
         try {
-            BufferedReader r=new BufferedReader(new FileReader(assetCSV));
+            BufferedReader r = new BufferedReader(new FileReader(assetCSV));
 
             String buff;
             while((buff=r.readLine())!=null) {
@@ -45,7 +46,7 @@ public class AssetManager {
     }
 
     private void loadAudioAssets(){
-        String assetCSV = "src/assets/art_assets.csv";
+        String assetCSV = "src/assets/audio_assets.csv";
 
         try {
             BufferedReader r=new BufferedReader(new FileReader(assetCSV));
@@ -54,7 +55,7 @@ public class AssetManager {
             while((buff=r.readLine())!=null) {
                 String[] mapS = buff.split("[,]");
 
-                assets.addElement(new ArtAsset(mapS[0], mapS[1], mapS[2]));
+                assets.addElement(new AudioAsset(mapS[0], mapS[1], mapS[2]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -67,6 +68,18 @@ public class AssetManager {
         for(int i = 0; i < assets.size(); i++){
             if(assets.elementAt(i).getAssetType().equals(assetType)){
                 tmp.addElement((ArtAsset)assets.elementAt(i));
+            }
+        }
+
+        return tmp;
+    }
+
+    public Vector<AudioAsset> getAudioAssetByAssetType(String assetType){
+        Vector<AudioAsset> tmp = new Vector<AudioAsset>(5);
+
+        for(int i = 0; i < assets.size(); i++){
+            if(assets.elementAt(i).getAssetType().equals(assetType)){
+                tmp.addElement((AudioAsset)assets.elementAt(i));
             }
         }
 
