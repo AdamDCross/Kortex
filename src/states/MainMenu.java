@@ -31,6 +31,7 @@ public class MainMenu extends State {
     public static final float BUTTON_WIDTH = 150.0f;
     public static final float BUTTON_HEIGHT = 50.0f;
     Music mainMusic;
+    private Button background;
 
     public MainMenu() {
         super("MAIN_MENU");
@@ -59,6 +60,8 @@ public class MainMenu extends State {
         lastPressButtonID = "NONE";
 
         mainMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(0).getMusicObject();
+
+        background = new Button("src/assets/planet_spinning.png",new FloatRect(0.0f,0.0f,Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), "BACKGROUND", false);
     }
     @Override
     public void onEntry() {
@@ -109,6 +112,10 @@ public class MainMenu extends State {
     @Override
     public void render() {
         super.render();
+
+
+
+        background.render();
 
         mmText.renderText();
 

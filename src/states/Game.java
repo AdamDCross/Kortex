@@ -40,10 +40,10 @@ public class Game extends State {
         test = new DijkstraTest();
 
         red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
-        //gameObjects.addElement(test);
-        //gameObjects.addElement(red);
+        gameObjects.addElement(test);
+        gameObjects.addElement(red);
 
-        //gameObjects.addElement(a);
+        gameObjects.addElement(a);
 
 
         setupGame();
@@ -99,7 +99,7 @@ public class Game extends State {
             gameObjects.elementAt(i).update();
         }
 
-        //Beacon.getInstance().update();
+        Beacon.getInstance().update();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class Game extends State {
             gameObjects.elementAt(i).render();
         }
 
-        //Beacon.getInstance().render();
+        Beacon.getInstance().render();
 
 
     }
@@ -119,7 +119,7 @@ public class Game extends State {
     @Override
     public void onEntry() {
         super.onEntry();
-        //Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
+        Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
     }
 
     @Override
