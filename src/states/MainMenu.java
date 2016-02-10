@@ -29,6 +29,7 @@ public class MainMenu extends State {
     private Vector<Button> btns;
     private String lastPressButtonID;
     public static final float BUTTON_WIDTH = 150.0f;
+    public static final float BUTTON_HEIGHT = 50.0f;
     Music mainMusic;
 
     public MainMenu() {
@@ -42,13 +43,13 @@ public class MainMenu extends State {
         float x = (((Window.getInstance().getScreenWidth() / 2) - (BUTTON_WIDTH/2)) / Window.getInstance().getScreenWidth()) * Window.getInstance().getScreenWidth();
 
         main.Button btn = new main.Button("New",
-                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "GAME");
+                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "GAME");
         main.Button btn2 = new main.Button("Scores",
-                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "HIGH_SCORE");
+                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "HIGH_SCORE");
         main.Button btn3 = new main.Button("Options",
-                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "OPTIONS");
+                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "OPTIONS");
         main.Button btn4 = new main.Button("Exit",
-                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, 50.0f), 35, "EXIT");
+                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "EXIT");
 
         btns.addElement(btn);
         btns.addElement(btn2);

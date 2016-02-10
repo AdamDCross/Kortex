@@ -10,6 +10,7 @@ public class StateMachine
 	private static StateMachine instance = null;
 	private Vector<State> states;
 	private State currentState;
+	private State previousState;
 
 	/**
 	 * StateMachine controls the multiple states in the game,when called StateMachine creates a buffer of five states
@@ -46,7 +47,7 @@ public class StateMachine
 	public void setState(String stateID) {
 		for(int i = 0; i < states.size(); i++) {
 			if( states.elementAt(i).getStateID().equals(stateID) ) {
-				State previousState = currentState;
+				previousState = currentState;
 				currentState = states.elementAt(i);
 
 				if(previousState != null)
@@ -71,5 +72,9 @@ public class StateMachine
 	public void updateCurrentState(){
 		if(currentState != null)
 			currentState.update();
+	}
+
+	public String getPreviousStateID(){
+		return previousState.getStateID();
 	}
 }

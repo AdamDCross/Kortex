@@ -33,7 +33,12 @@ public class Options extends State {
                     Window.getInstance().getGameWindow().close();
                     break;
                 case MOUSE_BUTTON_PRESSED:
-                    StateMachine.getInstance().setState("MAIN_MENU");
+                    if(StateMachine.getInstance().getPreviousStateID().equals("PAUSE")){
+                        StateMachine.getInstance().setState("GAME");
+                    }
+                    else {
+                        StateMachine.getInstance().setState("MAIN_MENU");
+                    }
                     break;
             }
 
@@ -50,6 +55,13 @@ public class Options extends State {
     @Override
     public void onEntry() {
         super.onEntry();
+
+        if(StateMachine.getInstance().getPreviousStateID().equals("PAUSE")){
+            msg.setText("Welcome to the option state!\nClick to switch back to game.");
+        }
+        else{
+            msg.setText("Welcome to the option state!\n     Click to switch to menu.");
+        }
     }
 
     @Override

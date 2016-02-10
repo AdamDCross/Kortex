@@ -88,7 +88,7 @@ public class Game extends State {
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);
                     break;
                 case KEY_RELEASED:
-                    if(e.asKeyEvent().key == Keyboard.Key.P){
+                    if(e.asKeyEvent().key == Keyboard.Key.ESCAPE){
                         StateMachine.getInstance().setState("PAUSE");
                     }
             }
