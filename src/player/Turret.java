@@ -26,6 +26,7 @@ public class Turret implements Render {
     private int AOESize;
     private int shieldActive;
     private int shieldTimer;
+    private int enemyKillCount;
 
     // TODO: 08/02/2016 Shoot method
 
@@ -98,6 +99,7 @@ public class Turret implements Render {
             System.out.println("Turret hidden");
         } else {
             visible = visible;
+            System.out.println("Turret visible");
         }
 
         // Print to say that turret is visible / not visible.
