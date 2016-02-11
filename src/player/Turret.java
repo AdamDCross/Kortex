@@ -20,6 +20,12 @@ public class Turret implements Render {
     private Image top;
     private Image bottom;
     private Vector2f position;
+    private int scrapCost;
+    private int xpRequirement;
+    private int range;
+    private int AOESize;
+    private int shieldActive;
+    private int shieldTimer;
 
     // TODO: 08/02/2016 Shoot method
 
