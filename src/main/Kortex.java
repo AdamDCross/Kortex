@@ -4,7 +4,7 @@ import fsm.StateMachine;
 import states.*;
 
 /**
- * Created by Vince on 14/01/2016.
+ * Created by Vince on 14/01/2016
  */
 public class Kortex {
     public static void main(String[] args)
