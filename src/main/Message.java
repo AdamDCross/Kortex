@@ -29,7 +29,7 @@ public class Message {
     public Message(String msg, int style, Vector2f position, Color c, int fontSize){
         sansRegular = new Font();
 
-        FontFile = "src/assets/LucidaSansRegular.ttf";
+        FontFile = "assets/LucidaSansRegular.ttf";
         this.fontSize = fontSize;
 
         try {
@@ -56,7 +56,7 @@ public class Message {
     public Message(String msg, int style, FloatRect bounds, Color c, int fontSize){
         sansRegular = new Font();
 
-        FontFile = "src/font/LucidaSansRegular.ttf";
+        FontFile = "font/LucidaSansRegular.ttf";
         this.fontSize = fontSize;
 
         try {

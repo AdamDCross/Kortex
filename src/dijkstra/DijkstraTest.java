@@ -20,7 +20,7 @@ public class DijkstraTest implements Render {
     private Tilemap tiles;
 
     public DijkstraTest() {
-        tiles=new Tilemap("src/assets/Tiles.gif","src/assets/MapTest2.csv",32,32,5,2);
+        tiles=new Tilemap("assets/Tiles.gif","assets/MapTest2.csv",32,32,5,2);
         d = new Pathfind(9,10,tiles);
         currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
@@ -65,5 +65,9 @@ public class DijkstraTest implements Render {
 
     @Override
     public void update() {
+    }
+
+    public Cell getCell(int x,int y){
+        return d.getCells()[x][y];
     }
 }

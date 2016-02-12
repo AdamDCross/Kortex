@@ -35,7 +35,7 @@ public class MainMenu extends State {
         mmText = new Message("Welcome to the world of Kortex!\n     Click to switch to game.",
                 Text.BOLD, new FloatRect(0.0f, 0.0f, 640.0f, 125.0f), Color.WHITE, 35);
 
-        btns = new Vector<>(5);
+        btns = new Vector<Button>(5);
 
         //main.Button btn = new main.Button("Button", new FloatRect(260.0f, 250.0f, 150.0f, 50.0f), 35);
 

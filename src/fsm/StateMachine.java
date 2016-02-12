@@ -20,7 +20,7 @@ public class StateMachine
 	 */
 	private StateMachine()
 	{
-		states = new Vector<>(5);
+		states = new Vector<State>(5);
 		currentState = null;
 	}
 

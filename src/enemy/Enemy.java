@@ -1,30 +1,165 @@
 package enemy;
 
+import main.Cell;
+import main.GameMaths;
 import main.Render;
+import main.Window;
+import org.jsfml.graphics.CircleShape;
+import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
+import states.Game;
 
-/**
- * Created by vincentdealmeida on 21/01/2016.
- *
- * Abstract Enemy interface class which contains the basic enemy
- * functionality every enemy type needs to have
- *
- *
- */
-public interface Enemy extends Render {
+public class Enemy implements Render{
+    //private Vector2f previous;
+    //private Vector2f heading;
+    private Vector2f start;
+    private Vector2f previous;
+    private Vector2f heading;
+    private Vector2f currentPosition;
+    private Vector2f velocity;
+    private Cell oldCell;
+    private float speed;
+    private int health;
+
+    //Time Holder
+    //Deal with death
+    private long regenTime;
+    private long respawnTime;
+    //
+    private long shootTime;
+    private long reloadTime;
+
+    private float lerpVal;//=distance/speed
+    private float lerpCurr;
+
+    private boolean isDead;
+
+    //temp code
+    private int radius;
+    CircleShape circle;
+
+    public Enemy(Vector2f startPosition, Vector2f endingPosition, float speed){
+        this.previous = startPosition;
+        this.heading = endingPosition;
+        this.currentPosition = previous;
+
+        Vector2f direction = Vector2f.sub(this.heading, this.previous);
+        float magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
+        //velocity = Vector2f.mul(direction,speed/magnitude);
+
+        lerpCurr=0;
+        lerpVal=magnitude/speed;
+
+        //temp
+        radius = 5;
+        circle = new CircleShape(radius);
+        circle.setFillColor( new Color(Color.RED, 255) );
+        circle.setOrigin(radius, radius);
+        circle.setPosition(currentPosition);
+
+        isDead=false;
+    }
+
+    public Enemy(Cell start, float speed){
+        this.previous = new Vector2f(start.pos.x*32+16,start.pos.y*32+16);
+        this.heading = new Vector2f(start.pathNext.pos.x*32,start.pathNext.pos.y*32);
+        this.currentPosition = previous;
+
+        oldCell=start;
+
+        Vector2f direction = Vector2f.sub(this.heading, this.previous);
+        float magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
+        //velocity = Vector2f.mul(direction,speed/magnitude);
+
+        lerpCurr=0;
+        lerpVal=magnitude/speed;
+
+        //temp
+        radius = 5;
+        circle = new CircleShape(radius);
+        circle.setFillColor( new Color(Color.RED, 255) );
+        circle.setOrigin(radius, radius);
+        circle.setPosition(currentPosition);
+
+        isDead=false;
+    }
+
     @Override
-    void render();
+    public void update() {
+        if(!isDead){
+                /*float dist=GameMaths.mag(Vector2f.sub(currentPosition,heading));
+                if(dist>(speed)) {
+                    currentPosition = Vector2f.add(currentPosition, velocity);
+                    circle.setPosition(currentPosition);
+                }else{
+                    //it is at the end of the path. lets fix the position first, then move it
+                    Vector2f direction = Vector2f.sub(this.heading, this.previous);
+                    float magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
+                    velocity = Vector2f.mul(direction,dist/magnitude);
+
+                    oldCell=oldCell.pathNext;
+                    this.previous = new Vector2f(oldCell.pos.x*32,oldCell.pos.y*32);
+                    this.heading = new Vector2f(oldCell.pathNext.pos.x*32,oldCell.pathNext.pos.y*32);
+
+                    direction = Vector2f.sub(this.heading, this.previous);
+                    magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
+                    velocity = Vector2f.mul(direction,(dist-speed)/magnitude);
+                }*/
+            if(lerpVal>=1){
+                //reached next point
+                //TODO sort shit out here
+                
+            }
+        }else {
+                //check for regen, then respawn.
+            if(Window.getInstance().getElapsedTime()>respawnTime){
+                spawn();
+            }
+        }
+
+
+
+
+    }
 
     @Override
-    void update();
+    public void render() {
+        //TODO add dead state
+        if(!isDead) {
+            main.Window.getInstance().getGameWindow().draw(circle);
+        }
+    }
 
-    boolean isInCollision();
+    /*
+    public boolean isInCollision() {
+        return false;
+    }*/
 
-    void spawn();
+    public void spawn() {
+        //todo add spawning
+    }
 
-    void spawn(Vector2f pos);
+    /*public void spawn(Vector2f pos) {
 
-    void kill();
+    }*/
 
-    void kill(float delayBeforeReSpawn);
+
+    public boolean damage(int damage){
+        health-=damage;
+        if(health<=0){
+            isDead=true;
+            respawnTime= Window.getInstance().getElapsedTime()+ regenTime;
+        }
+        return isDead;
+    }
+
+    public boolean getState(){
+        return isDead;
+    }
+
+    public Vector2f getPos(){
+        return currentPosition;
+    }
+
+
 }

@@ -3,9 +3,10 @@ package states;
 import Test.Anite;
 import Test.TileTest;
 import dijkstra.DijkstraTest;
-import enemy.PatrollingEnemy;
+import enemy.Enemy;
 import fsm.State;
 import fsm.StateMachine;
+import main.Cell;
 import main.Render;
 import main.Window;
 import org.jsfml.system.Vector2f;
@@ -19,7 +20,7 @@ import java.util.Vector;
 public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
-    private PatrollingEnemy red;
+    private Enemy red;
     private TileTest t;
     private Anite a;
 
@@ -32,7 +33,7 @@ public class Game extends State {
         a=new Anite();
         test = new DijkstraTest();
 
-        red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
+        red = new Enemy(getCell(1,2), 5);
 
         gameObjects.addElement(test);
         gameObjects.addElement(red);
@@ -83,6 +84,10 @@ public class Game extends State {
     @Override
     public void onExit() {
         super.onExit();
+    }
+
+    public Cell getCell(int x, int y){
+        return test.getCell(x,y);
     }
 }
 

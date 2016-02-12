@@ -26,7 +26,7 @@ public class Window {
 
         try {
             Image tmp = new Image();
-            tmp.loadFromFile(Paths.get("src/graphics/icon/hazard.jpg"));
+            tmp.loadFromFile(Paths.get("graphics/icon/hazard.jpg"));
             gameWindow.setIcon(tmp);
         }
         catch(IOException e){

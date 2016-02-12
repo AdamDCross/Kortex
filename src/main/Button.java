@@ -17,8 +17,8 @@ public class Button implements Render {
         this.dimensions = dimensions;
     }
 
-    private boolean isWithinRect(){
-        return true;
+    private boolean isWithinRect(Vector2f pos){
+        return pos.x>dimensions.left&&pos.x<(dimensions.left+dimensions.width)&&pos.y>dimensions.top&&pos.y<(dimensions.top+dimensions.height);
     }
 
     @Override
@@ -32,6 +32,4 @@ public class Button implements Render {
         Line.drawRect(dimensions);
 
     }
-
-
 }
