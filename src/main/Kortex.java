@@ -2,6 +2,8 @@ package main;
 
 import fsm.StateMachine;
 import states.*;
+import config.ConfigurationManager;
+
 
 /**
  * Created by Vince on 14/01/2016
@@ -9,6 +11,7 @@ import states.*;
 public class Kortex {
     public static void main(String[] args)
     {
+        ConfigurationManager.getInstance().update();
         StateMachine.getInstance().addState(new Game());
         StateMachine.getInstance().addState(new MainMenu());
         StateMachine.getInstance().addState(new Pause());

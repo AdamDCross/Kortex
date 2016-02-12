@@ -11,7 +11,7 @@ import javax.xml.bind.Unmarshaller;
 public class ConfigurationManager {
 
 	// Add all configurations to this array:
-	private final static Object[] configurationList = { BasicConfiguration.getInstance(), BasicTemplate.getInstance(), BasicGameSave.getInstance() };
+	private final static Object[] configurationList = { BasicConfiguration.getInstance(), BasicTemplate.getInstance(), BasicGameSave.getInstance(), BasicScrapConfiguration.getInstance() };
 
 	private static ConfigurationManager configManager = null;
 
@@ -27,13 +27,13 @@ public class ConfigurationManager {
 	}
 	
 	public void update() {
-		for (final Object configurationList : configurationList) {
-			update(configurationList, new File(configurationList.getClass().getName()));
-			save(configurationList, new File(configurationList.getClass().getName())); //<- manual save when commented
+		for (final Object configList : configurationList) {
+			update(configList, new File(configList.getClass().getName()));
+			save(configList, new File(configList.getClass().getName())); //<- manual save when commented
 		}
 	}
 
-	private static void update(Object target, final File configFile) {
+	private void update(Object target, final File configFile) {
 		if (configFile.exists()) {
 			try {
 				classContext = JAXBContext.newInstance(target.getClass());

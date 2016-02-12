@@ -1,5 +1,7 @@
 package states;
 
+import config.BasicConfiguration;
+import config.ConfigurationManager;
 import fsm.State;
 import fsm.StateMachine;
 import main.Message;
@@ -60,7 +62,7 @@ public class Options extends State {
             msg.setText("Welcome to the option state!\nClick to switch back to game.");
         }
         else{
-            msg.setText("Welcome to the option state!\n     Click to switch to menu.");
+
         }
     }
 
