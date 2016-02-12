@@ -28,7 +28,7 @@ public class Turret implements Render {
     private int shieldTimer;
     private int enemyKillCount;
 
-    // TODO: 08/02/2016 Shoot method
+    // TODO: 08/02/2016 Shoot method.
 
     private Turret() {
         visible = false;
