@@ -34,7 +34,7 @@ public class Beacon implements Render {
 
     public void spawn(boolean visible, int beaconHealth, Vector2f position){
         if( beacon == null ){
-            beacon = new Animation("src/assets/Tiles.jpg",32,32,5,2,1000,position,3);
+            beacon = new Animation("src/assets/Tiles.jpg",32,32,5,2,1000,position,3, true);
         }
 
         this.visible = visible;

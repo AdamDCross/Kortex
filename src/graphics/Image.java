@@ -109,4 +109,8 @@ public class Image implements Render {
     public FloatRect getRectofImage(){
         return img.getLocalBounds();
     }
+
+    public Sprite getSprite(){
+        return img;
+    }
 }

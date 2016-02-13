@@ -2,6 +2,7 @@ package graphics;
 
 import main.Render;
 import main.Window;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.IntRect;
 import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Texture;
@@ -22,8 +23,11 @@ public class Animation implements Render {
     private int w,h,col,row,offset;
     private long start;
     private Vector2f pos;
+    private boolean visible;
+    private boolean repeat;
+    private boolean ended;
 
-    public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame){
+    public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame, boolean repeat){
         pos=position;
         noOfFrames=row*col;
         currentFrame = startFrame%noOfFrames;
@@ -46,16 +50,66 @@ public class Animation implements Render {
         int tv = h * (currentFrame / row);
         sprite=new Sprite(tex,new IntRect(tu,tv,w,h));
         sprite.setPosition(pos);
+
+        visible = true;
+        this.repeat = repeat;
+        ended = false;
+    }
+
+    //Alternative constructor which scales an animation to a particular set of dimensions
+    public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame, FloatRect dimensions, boolean repeat){
+        pos=position;
+        noOfFrames=row*col;
+        currentFrame = startFrame%noOfFrames;
+        offset=startFrame;
+        this.delay = delay;
+        tex= new Texture();
+        this.h=h;
+        this.w=w;
+        this.row=row;
+        this.col=col;
+        start=Window.getInstance().getElapsedTime();
+        try{
+            tex.loadFromFile(Paths.get(filePath));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        int tu = w * (currentFrame % row);
+        int tv = h * (currentFrame / row);
+        sprite=new Sprite(tex,new IntRect(tu,tv,w,h));
+        sprite.setPosition(pos);
+
+        if( getSprite().getLocalBounds().width < dimensions.width
+                || getSprite().getLocalBounds().height < dimensions.height
+                || getSprite().getLocalBounds().width > dimensions.width
+                || getSprite().getLocalBounds().height > dimensions.height) {
+
+            getSprite().setOrigin(0.0f, 0.0f);
+            getSprite().setScale(dimensions.width / getSprite().getLocalBounds().width,
+                    dimensions.height / getSprite().getLocalBounds().height);
+        }
+
+        visible = true;
+        this.repeat = repeat;
+        ended = false;
     }
 
     @Override
     public void update() {
-        int oldFrame=currentFrame;
-        currentFrame=(int)(((Window.getInstance().getElapsedTime()+offset*delay)-start)/delay)%noOfFrames;
-        if(oldFrame!=currentFrame) {
-            int tu = w * (currentFrame % row);
-            int tv = h * (currentFrame / row);
-            sprite.setTextureRect(new IntRect(tu, tv, w, h));
+        if(visible && !ended) {
+            int oldFrame = currentFrame;
+            currentFrame = (int) (((Window.getInstance().getElapsedTime() + offset * delay) - start) / delay) % noOfFrames;
+            if (oldFrame != currentFrame) {
+                int tu = w * (currentFrame % row);
+                int tv = h * (currentFrame / row);
+                sprite.setTextureRect(new IntRect(tu, tv, w, h));
+            }
+
+            if(currentFrame == (noOfFrames-1) && !repeat){
+                ended = true;
+            }
         }
     }
 
@@ -66,7 +120,13 @@ public class Animation implements Render {
 
     @Override
     public void render() {
-        Window.getInstance().getGameWindow().draw(sprite);
+        if(visible && !ended) {
+            Window.getInstance().getGameWindow().draw(sprite);
+        }
+    }
+
+    public void toggleVisibility(){
+        visible = !visible;
     }
 
     public Sprite getSprite(){

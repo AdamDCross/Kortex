@@ -5,6 +5,7 @@ import graphics.Animation;
 import graphics.Image;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.graphics.Sprite;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
@@ -32,6 +33,8 @@ public class Button implements Render {
         this.ID = ID;
         borderActive = true;
         usesImage = false;
+        buttonImage = null;
+        animation = null;
     }
 
     public Button(String filePath, FloatRect dimensions, String ID, boolean borderActive){
@@ -39,18 +42,13 @@ public class Button implements Render {
         this.ID = ID;
         buttonImage = new Image(filePath, new Vector2f(dimensions.left, dimensions.top));
 
-        if( buttonImage.getRectofImage().width < dimensions.width
-                || buttonImage.getRectofImage().height < dimensions.height
-                || buttonImage.getRectofImage().width > dimensions.width
-                || buttonImage.getRectofImage().height > dimensions.height) {
-
-            buttonImage.setOriginTopleft();
-            buttonImage.setScale(dimensions.width / buttonImage.getRectofImage().width,
-                    dimensions.height / buttonImage.getRectofImage().height);
+        if( needsScaling(buttonImage.getRectofImage(), dimensions) ) {
+            scale(buttonImage.getSprite(), dimensions.width, dimensions.height);
         }
 
         usesImage = true;
         this.dimensions = dimensions;
+        animation = null;
     }
 
     public Button(Image buttonImage, FloatRect dimensions, String ID, boolean borderActive){
@@ -58,18 +56,13 @@ public class Button implements Render {
         this.ID = ID;
         this.buttonImage = buttonImage;
 
-        if( buttonImage.getRectofImage().width < dimensions.width
-                || buttonImage.getRectofImage().height < dimensions.height
-                || buttonImage.getRectofImage().width > dimensions.width
-                || buttonImage.getRectofImage().height > dimensions.height) {
-
-            buttonImage.setOriginTopleft();
-            buttonImage.setScale(dimensions.width / buttonImage.getRectofImage().width,
-                    dimensions.height / buttonImage.getRectofImage().height);
+        if( needsScaling(buttonImage.getRectofImage(), dimensions) ) {
+            scale(buttonImage.getSprite(), dimensions.width, dimensions.height);
         }
 
         usesImage = true;
         this.dimensions = dimensions;
+        animation = null;
     }
 
     public Button(ArtAsset asset, FloatRect dimensions, boolean borderActive){
@@ -78,38 +71,63 @@ public class Button implements Render {
         buttonImage = asset.getImage();
         buttonImage.setPosition(new Vector2f(dimensions.left, dimensions.top));
 
-        if( buttonImage.getRectofImage().width < dimensions.width
-                || buttonImage.getRectofImage().height < dimensions.height
-                || buttonImage.getRectofImage().width > dimensions.width
-                || buttonImage.getRectofImage().height > dimensions.height) {
-
-            buttonImage.setOriginTopleft();
-            buttonImage.setScale(dimensions.width / buttonImage.getRectofImage().width,
-                    dimensions.height / buttonImage.getRectofImage().height);
+        if( needsScaling(buttonImage.getRectofImage(), dimensions) ) {
+            scale(buttonImage.getSprite(), dimensions.width, dimensions.height);
         }
 
         usesImage = true;
         this.dimensions = dimensions;
+        animation = null;
     }
 
     public Button(String filePath, int width, int height, int columns, int rows, int delay, FloatRect dimensions, String ID, boolean borderActive, boolean isAnimation){
         this.borderActive = borderActive;
         this.ID = ID;
-        animation = new Animation(filePath, width, height, columns, rows, delay, new Vector2f(dimensions.left, dimensions.top), 1);
+        animation = new Animation(filePath, width, height, columns, rows, delay, new Vector2f(dimensions.left, dimensions.top), 1, true);
 
-        if( animation.getSprite().getLocalBounds().width < dimensions.width
-                || animation.getSprite().getLocalBounds().height < dimensions.height
-                || animation.getSprite().getLocalBounds().width > dimensions.width
-                || animation.getSprite().getLocalBounds().height > dimensions.height) {
-
-            animation.getSprite().setOrigin(0.0f, 0.0f);
-            animation.getSprite().setScale(dimensions.width / animation.getSprite().getLocalBounds().width,
-                    dimensions.height / animation.getSprite().getLocalBounds().height);
+        if( needsScaling(animation.getSprite().getLocalBounds(), dimensions) ) {
+            scale(animation.getSprite(), dimensions.width, dimensions.height);
         }
 
         usesImage = false;
         this.dimensions = dimensions;
         this.isAnimation = isAnimation;
+        buttonImage = null;
+    }
+
+    private boolean needsScaling(FloatRect imageDimensions, FloatRect borderDimensions){
+        if( imageDimensions.width < borderDimensions.width
+                || imageDimensions.height < borderDimensions.height
+                || imageDimensions.width > borderDimensions.width
+                || imageDimensions.height > borderDimensions.height) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private void scale(Sprite imgToScale, float scaleToWidth, float scaleToHeight ){
+        imgToScale.setOrigin(0.0f, 0.0f);
+        imgToScale.setScale(scaleToWidth / imgToScale.getLocalBounds().width,
+                scaleToHeight / imgToScale.getLocalBounds().height);
+    }
+
+    public void setOriginCentre(){
+        if(buttonImage != null){
+            buttonImage.setOriginCentre();
+        }
+    }
+
+    public void setAngleOfImage(float angle){
+        if(buttonImage != null){
+            buttonImage.rotate(angle);
+        }
+    }
+
+    public void setPositionOfImage(Vector2f pos){
+        if(buttonImage != null){
+            buttonImage.setPosition(pos);
+        }
     }
 
     public boolean isWithinRect(Vector2i pos) {
