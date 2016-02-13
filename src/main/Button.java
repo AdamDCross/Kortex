@@ -1,6 +1,7 @@
 package main;
 
 import assets.ArtAsset;
+import graphics.Animation;
 import graphics.Image;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
@@ -19,7 +20,9 @@ public class Button implements Render {
     private String ID;
     private boolean borderActive;
     private Image buttonImage;
+    private Animation animation;
     private boolean usesImage;
+    private boolean isAnimation;
 
     public Button(String text, FloatRect dimensions, int fontSize, String ID){
         stringText = text;
@@ -89,6 +92,26 @@ public class Button implements Render {
         this.dimensions = dimensions;
     }
 
+    public Button(String filePath, int width, int height, int columns, int rows, int delay, FloatRect dimensions, String ID, boolean borderActive, boolean isAnimation){
+        this.borderActive = borderActive;
+        this.ID = ID;
+        animation = new Animation(filePath, width, height, columns, rows, delay, new Vector2f(dimensions.left, dimensions.top), 1);
+
+        if( animation.getSprite().getLocalBounds().width < dimensions.width
+                || animation.getSprite().getLocalBounds().height < dimensions.height
+                || animation.getSprite().getLocalBounds().width > dimensions.width
+                || animation.getSprite().getLocalBounds().height > dimensions.height) {
+
+            animation.getSprite().setOrigin(0.0f, 0.0f);
+            animation.getSprite().setScale(dimensions.width / animation.getSprite().getLocalBounds().width,
+                    dimensions.height / animation.getSprite().getLocalBounds().height);
+        }
+
+        usesImage = false;
+        this.dimensions = dimensions;
+        this.isAnimation = isAnimation;
+    }
+
     public boolean isWithinRect(Vector2i pos) {
         if ((((float) pos.x) >= dimensions.left) && (((float) pos.x) <= (dimensions.left + dimensions.width)) &&
                 (((float) pos.y) >= dimensions.top) && (((float) pos.y) <= (dimensions.top + dimensions.height))) {
@@ -101,18 +124,23 @@ public class Button implements Render {
 
     @Override
     public void update() {
-
+        if(isAnimation){
+            animation.update();
+        }
     }
 
     @Override
     public void render() {
 
-        if(!usesImage){
+        if(!usesImage && !isAnimation){
             txt.renderText();
         }
-        else
+        else if(usesImage)
         {
             buttonImage.render();
+        }
+        else if(isAnimation){
+            animation.render();
         }
 
         if(borderActive) {

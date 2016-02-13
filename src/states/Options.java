@@ -36,7 +36,7 @@ public class Options extends State {
                     break;
                 case MOUSE_BUTTON_PRESSED:
                     if(StateMachine.getInstance().getPreviousStateID().equals("PAUSE")){
-                        StateMachine.getInstance().setState("GAME");
+                        StateMachine.getInstance().setState("PAUSE");
                     }
                     else {
                         StateMachine.getInstance().setState("MAIN_MENU");

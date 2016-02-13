@@ -91,7 +91,10 @@ public class Pause extends State {
     @Override
     public void onEntry() {
         super.onEntry();
-        capture=Window.getInstance().getGameWindow().capture();
-        bcg=new Image(capture,new Vector2f(0,0));
+
+        if(StateMachine.getInstance().getPreviousStateID().equals("GAME")) {
+            capture = Window.getInstance().getGameWindow().capture();
+            bcg = new Image(capture, new Vector2f(0, 0));
+        }
     }
 }

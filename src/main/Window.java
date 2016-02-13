@@ -19,7 +19,7 @@ public class Window {
 
     private Window(int screenWidth, int screenHeight, String title){
         this.gameWindow = new RenderWindow(new VideoMode(screenWidth,screenHeight),title);
-        this.gameWindow.setFramerateLimit(30); // Avoid excessive updates, 30fps limit which can be changed later
+        this.gameWindow.setFramerateLimit(60); // Avoid excessive updates, 30fps limit which can be changed later
         screenRes = new Vector2i(screenWidth, screenHeight);
 
         try {

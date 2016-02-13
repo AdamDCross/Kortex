@@ -12,6 +12,7 @@ import org.jsfml.system.Vector2f;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Vector;
@@ -61,7 +62,7 @@ public class MainMenu extends State {
 
         mainMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(0).getMusicObject();
 
-        background = new Button("src/assets/Spinning_Planet.png",new FloatRect(0.0f,0.0f,Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), "BACKGROUND", false);
+        background = new Button("src/assets/Spinning_Planet.png",512, 493, 14, 4, 175,new FloatRect(0.0f,0.0f,Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), "BACKGROUND", false, true);
     }
     @Override
     public void onEntry() {
@@ -107,13 +108,13 @@ public class MainMenu extends State {
         }
 
         lastPressButtonID = "NONE";
+
+        background.update();
     }
 
     @Override
     public void render() {
         super.render();
-
-
 
         background.render();
 

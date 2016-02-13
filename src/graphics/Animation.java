@@ -68,4 +68,8 @@ public class Animation implements Render {
     public void render() {
         Window.getInstance().getGameWindow().draw(sprite);
     }
+
+    public Sprite getSprite(){
+        return sprite;
+    }
 }
