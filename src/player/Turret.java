@@ -29,13 +29,18 @@ public class Turret implements Render {
     private boolean shieldActive; //TODO: implement shield functionality
     private int shieldTimer;
     private int enemyKillCount;
+    private long XPForEnemyKills;
+    private int XPMultiplier;
+    private long attackScore;
     private String ID;
     private Animation explosion;
     private long prevTime;
     private long currentTime;
     private long localElapsedTime;
 
-    // TODO: 08/02/2016 Shoot method.
+
+    // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
+    //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
                    int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
@@ -69,6 +74,9 @@ public class Turret implements Render {
         this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 0, dimensions, false);
         currentTime = 0;
         prevTime = 0;
+        XPForEnemyKills = 0;
+        attackScore = 0;
+        XPMultiplier = 1;
     }
     
     @Override
@@ -113,6 +121,23 @@ public class Turret implements Render {
         else if(destroyed){
             explosion.render();
         }
+    }
+
+    public void resetAttackScore(){
+        attackScore = 0;
+    }
+
+    public void resetXP(){
+        XPForEnemyKills = 0;
+    }
+
+    public long getAttackScore(){
+        return attackScore;
+    }
+
+    //TODO: XP multiplier needs to be implemented properly based on scrap invested into research
+    public long getXPForEnemyKills(){
+        return XPForEnemyKills * XPMultiplier;
     }
 
     public String getID(){
@@ -169,6 +194,10 @@ public class Turret implements Render {
 
     public void takeDamage(int damageCount){
         health -= damageCount;
+    }
+
+    public void repairTurret(int healthBoost){
+        health += healthBoost;
     }
 
     public void toggleVisibility(){
