@@ -140,6 +140,10 @@ public class Turret implements Render {
         return XPForEnemyKills * XPMultiplier;
     }
 
+    public void setXPMultiplier(int value){
+        XPMultiplier = value;
+    }
+
     public String getID(){
         return ID;
     }
