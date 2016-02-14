@@ -7,6 +7,7 @@ import main.Beacon;
 import main.Button;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.window.Keyboard;
+import player.Player;
 import player.Turret;
 import test.Anite;
 import test.TileTest;
@@ -25,13 +26,14 @@ public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
     private PatrollingEnemy red;
-    private TileTest t;
     private Anite a;
     private int numOfRemainingWaves;
     private int currentWave;
     private int score;
 
     private HUD panel;
+
+    private Player player;
 
     public Game()
     {
@@ -53,17 +55,25 @@ public class Game extends State {
 
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
-                turrets.elementAt(1).getAssetPath(),true,100,0.0f,2.0f,125,
+                turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
                 new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 100, 100.0f,100.0f),
                 0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",128,140,10,10,50);
 
         gameObjects.addElement(turretTest);
+
+        player = new Player("Kortex player", 0);
     }
 
     private void setupGame(){
         numOfRemainingWaves = 10;
         currentWave = 0;
         score = 0;
+    }
+
+    //method called just before the game is due to quit from inside the game
+    //and all clean up code can be executed in here
+    private void quitGame(){
+        player.gameQuit();
     }
 
     public int getNumOfRemainingWaves(){
@@ -85,6 +95,7 @@ public class Game extends State {
         for (Event e : Window.getInstance().getGameWindow().pollEvents( )) {
             switch(e.type) {
                 case CLOSED:
+                    quitGame();
                     Window.getInstance().getGameWindow().close();
                     break;
                 case MOUSE_MOVED:

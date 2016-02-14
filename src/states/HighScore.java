@@ -2,7 +2,9 @@ package states;
 
 import fsm.State;
 import fsm.StateMachine;
+import main.HighScoreManager;
 import main.Message;
+import main.Score;
 import main.Window;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
@@ -10,17 +12,43 @@ import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
+import java.util.Vector;
+
 /**
  * High score state class.
  */
 public class HighScore extends State {
     private Message msg;
+    private Vector<Message> highScoreMessages;
+    private Vector<Score> highScores;
 
     public HighScore(){
         super("HIGH_SCORE");
 
-        msg = new Message("Welcome to the high score state!\n     Click to switch to menu.",
-                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), Color.WHITE, 35);
+        msg = new Message("High Scores",
+                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), 0.10f * Window.getInstance().getScreenHeight()), Color.WHITE, 35);
+
+        highScoreMessages = new Vector<>(10);
+    }
+
+    private void recalculateMessages(){
+        highScoreMessages.clear();
+
+        //Create left side rects for names
+        for(int i = 0; i < highScores.size(); i++){
+            highScoreMessages.addElement(new Message(highScores.elementAt(i).name,Text.BOLD,
+                    new FloatRect(0.0f, 0.10f * Window.getInstance().getScreenHeight() + (i * (Window.getInstance().getScreenHeight() / 10)),
+                            Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 10),
+                    Color.WHITE, 35));
+        }
+
+        //Create right side rects for scores
+        for(int i = 0; i < highScores.size(); i++) {
+            highScoreMessages.addElement(new Message("" + highScores.elementAt(i).score, Text.BOLD,
+                    new FloatRect(Window.getInstance().getScreenWidth() / 2, 0.10f * Window.getInstance().getScreenHeight() + (i * (Window.getInstance().getScreenHeight() / 10)),
+                            Window.getInstance().getScreenWidth() / 2, Window.getInstance().getScreenHeight() / 10),
+                    Color.WHITE, 35));
+        }
     }
 
     @Override
@@ -36,7 +64,6 @@ public class HighScore extends State {
                     StateMachine.getInstance().setState("MAIN_MENU");
                     break;
             }
-
         }
     }
 
@@ -45,11 +72,17 @@ public class HighScore extends State {
         super.render();
 
         msg.renderText();
+
+        for(int i = 0; i < highScoreMessages.size(); i++){
+            highScoreMessages.elementAt(i).renderText();
+        }
     }
 
     @Override
     public void onEntry() {
         super.onEntry();
+        highScores = HighScoreManager.getInstance().getHighScores();
+        recalculateMessages();
     }
 
     @Override

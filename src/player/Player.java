@@ -18,7 +18,7 @@ public class Player {
     private int currentTier;
 
     public Player(String playerName, int startingScrap){
-        playerScore = new Score(playerName, "Today", 0);
+        playerScore = new Score(playerName, 0);
         playerXP = 0;
         playerScrap = startingScrap;
         XPMultiplier = 1;
@@ -33,8 +33,8 @@ public class Player {
         currentTier = 0;
     }
 
-    public void update() {
-
+    public void gameQuit(){
+        //Add score to high score manager here for writing to file
     }
 
     public void performResearch(){
