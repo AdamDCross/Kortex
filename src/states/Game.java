@@ -43,9 +43,9 @@ public class Game extends State {
         test = new DijkstraTest();
 
         red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
-        //gameObjects.addElement(test);
-        //gameObjects.addElement(red);
-        //gameObjects.addElement(a);
+        gameObjects.addElement(test);
+        gameObjects.addElement(red);
+        gameObjects.addElement(a);
 
         setupGame();
         panel = new HUD(0.10f, 0.1f, this);
@@ -53,8 +53,8 @@ public class Game extends State {
 
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
-                turrets.elementAt(1).getAssetPath(),true,100,0.0f,2.0f,50,
-                new FloatRect(panel.getGameWindowRect().left, panel.getGameWindowRect().top, 100.0f,100.0f),
+                turrets.elementAt(1).getAssetPath(),true,100,0.0f,2.0f,125,
+                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 100, 100.0f,100.0f),
                 0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",128,140,10,10,50);
 
         gameObjects.addElement(turretTest);
