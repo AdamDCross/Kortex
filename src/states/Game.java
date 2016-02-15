@@ -3,8 +3,7 @@ package states;
 import assets.ArtAsset;
 import assets.AssetManager;
 import graphics.HUD;
-import main.Beacon;
-import main.Button;
+import main.*;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.window.Keyboard;
 import player.Player;
@@ -15,8 +14,6 @@ import dijkstra.DijkstraTest;
 import enemy.PatrollingEnemy;
 import fsm.State;
 import fsm.StateMachine;
-import main.Render;
-import main.Window;
 import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
@@ -74,6 +71,7 @@ public class Game extends State {
     //and all clean up code can be executed in here
     private void quitGame(){
         player.gameQuit();
+        HighScoreManager.getInstance().writeScoresToFile();
     }
 
     public int getNumOfRemainingWaves(){
@@ -145,6 +143,7 @@ public class Game extends State {
     @Override
     public void onExit() {
         super.onExit();
+        quitGame();
     }
 }
 

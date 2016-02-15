@@ -1,5 +1,6 @@
 package player;
 
+import main.HighScoreManager;
 import main.Score;
 import org.jsfml.system.Vector2i;
 
@@ -35,6 +36,7 @@ public class Player {
 
     public void gameQuit(){
         //Add score to high score manager here for writing to file
+        HighScoreManager.getInstance().addScore(playerScore.name, playerScore.score);
     }
 
     public void performResearch(){
