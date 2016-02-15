@@ -25,13 +25,25 @@ public class Button implements Render {
     private boolean usesImage;
     private boolean isAnimation;
 
-    public Button(String text, FloatRect dimensions, int fontSize, String ID){
+    public Button(String text, FloatRect dimensions, int fontSize, String ID, boolean borderActive){
         stringText = text;
         this.fontSize = fontSize;
         txt = new Message(text, Text.BOLD, dimensions, Color.WHITE, fontSize);
         this.dimensions = dimensions;
         this.ID = ID;
-        borderActive = true;
+        this.borderActive = borderActive;
+        usesImage = false;
+        buttonImage = null;
+        animation = null;
+    }
+
+    public Button(String text, FloatRect dimensions, int fontSize, String ID, boolean borderActive, Color c){
+        stringText = text;
+        this.fontSize = fontSize;
+        txt = new Message(text, Text.BOLD, dimensions, c, fontSize);
+        this.dimensions = dimensions;
+        this.ID = ID;
+        this.borderActive = borderActive;
         usesImage = false;
         buttonImage = null;
         animation = null;

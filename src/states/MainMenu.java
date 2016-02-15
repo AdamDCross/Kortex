@@ -45,18 +45,21 @@ public class MainMenu extends State {
         float x = (((Window.getInstance().getScreenWidth() / 2) - (BUTTON_WIDTH/2)) / Window.getInstance().getScreenWidth()) * Window.getInstance().getScreenWidth();
 
         main.Button btn = new main.Button("New",
-                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "GAME");
+                new FloatRect(x, 0.3125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "GAME",true);
         main.Button btn2 = new main.Button("Scores",
-                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "HIGH_SCORE");
+                new FloatRect(x, 0.4375f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "HIGH_SCORE",true);
         main.Button btn3 = new main.Button("Options",
-                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "OPTIONS");
-        main.Button btn4 = new main.Button("Exit",
-                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "EXIT");
+                new FloatRect(x, 0.5625f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "OPTIONS",true);
+        main.Button btn4 = new main.Button("Tree",
+                new FloatRect(x, 0.6875f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "TECH_TREE",true);
+        main.Button btn5 = new main.Button("Exit",
+                new FloatRect(x, 0.8125f * Window.getInstance().getScreenHeight(), BUTTON_WIDTH, BUTTON_HEIGHT), 35, "EXIT",true);
 
         btns.addElement(btn);
         btns.addElement(btn2);
         btns.addElement(btn3);
         btns.addElement(btn4);
+        btns.addElement(btn5);
 
         lastPressButtonID = "NONE";
 

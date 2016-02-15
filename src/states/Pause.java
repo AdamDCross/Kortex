@@ -30,13 +30,13 @@ public class Pause extends State {
         baseX = baseX - (MainMenu.BUTTON_WIDTH);
         float x = baseX;
         float y = (Window.getInstance().getScreenHeight() / 2) - (MainMenu.BUTTON_HEIGHT / 2);
-        resume = new Button("Resume", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"GAME");
+        resume = new Button("Resume", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"GAME",true);
 
         x = (Window.getInstance().getScreenWidth() / 2) - (MainMenu.BUTTON_WIDTH / 2);
-        mute = new Button("Mute", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"MUTE");
+        mute = new Button("Mute", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"MUTE",true);
 
         x = (Window.getInstance().getScreenWidth() / 2) + (((Window.getInstance().getScreenWidth()) - (Window.getInstance().getScreenWidth() / 2)) / 2);
-        options = new Button("Options", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"OPTIONS");
+        options = new Button("Options", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"OPTIONS",true);
     }
 
     /**

@@ -1,0 +1,5 @@
+2
+Laser Turret,Rocket Turret
+2
+Laser V1,Damage: 10,Range: 5,Health: 100,XP Req: 0,Cost: 100
+Rocket V1,Damage: 10,AOE: 0.5,Range: 8,Health: 75,XP Req: 0,Cost: 100

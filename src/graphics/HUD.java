@@ -9,6 +9,7 @@ import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
+import player.Player;
 import states.Game;
 
 import java.util.Vector;
@@ -25,21 +26,34 @@ public class HUD implements Render {
     private Game game;
     private Vector<Button> btns;
 
-    private Message remainingWaves;
-    private Message currentWave;
+    private Message waves;
+    private Message XP;
     private Message score;
 
-    private Button turret;
+    private long prevTime;
+    private long currentTime;
+    private long localElapsedTime;
+    private long delay;
+    private boolean change;
 
     public static int MAX_BUTTON_COUNT = 12;
 
-    public HUD(float btmBarHeightAsPercent, float topBarHeightAsPercent, Game game){
+    private Player player;
+
+    public HUD(float btmBarHeightAsPercent, float topBarHeightAsPercent, Game game, Player player){
         this.game = game;
+        this.player = player;
         btns = new Vector<>(5);
         createBottomBar(btmBarHeightAsPercent);
         createTopBar(topBarHeightAsPercent);
 
         gameWindowRect = new FloatRect(0.0f, topBarRect.top + topBarRect.height, Window.getInstance().getScreenWidth(), bottomBarRect.top);
+
+        prevTime = 0;
+        currentTime = 0;
+        localElapsedTime = 0;
+        delay = 2500;
+        change = false;
     }
 
     private void createBottomBar(float btmBarHeightAsPercent){
@@ -55,10 +69,10 @@ public class HUD implements Render {
         for(int i = 0; i < MAX_BUTTON_COUNT; i++){
             if( artAssets.size() == (MAX_BUTTON_COUNT-2) ) {
                 if (i == 0) {
-                    btns.addElement(new Button("<", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "LEFT"));
+                    btns.addElement(new Button("<", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "LEFT",true));
                     continue;
                 } else if (i == (MAX_BUTTON_COUNT - 1)) {
-                    btns.addElement(new Button(">", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "RIGHT"));
+                    btns.addElement(new Button(">", new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), 20, "RIGHT",true));
                     continue;
                 }
 
@@ -66,8 +80,6 @@ public class HUD implements Render {
                         new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height), true));
             }
         }
-
-        //btns.addElement(turret);
     }
 
     private void createTopBar(float topBarHeightAsPercent){
@@ -76,19 +88,19 @@ public class HUD implements Render {
 
         topBarRect = new FloatRect(0.0f, 0.0f, screenW, topBarHeightAsPercent * screenH);
 
-        menu = new Button("Menu", new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "MAIN_MENU");
-        pause = new Button("Pause", new FloatRect(screenW - 150.0f, (topBarRect.top + topBarRect.height) / 2, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "PAUSE");
+        menu = new Button("Menu", new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "MAIN_MENU",true);
+        pause = new Button("Pause", new FloatRect(screenW - 150.0f, (topBarRect.top + topBarRect.height) / 2, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "PAUSE",true);
 
         btns.addElement(menu);
         btns.addElement(pause);
 
-        FloatRect remainingWavesRect = new FloatRect(0.0f, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        remainingWaves = new Message("Remaining waves: "+game.getNumOfRemainingWaves(), Text.BOLD, remainingWavesRect, Color.WHITE, 20);
+        FloatRect wavesRect = new FloatRect(0.0f, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
+        waves = new Message("Remaining waves: "+game.getNumOfRemainingWaves(), Text.BOLD, wavesRect, Color.WHITE, 20);
 
-        FloatRect currentWaveRect = new FloatRect(remainingWavesRect.left + remainingWavesRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        currentWave = new Message("Current wave: "+game.getCurrentWave(), Text.BOLD, currentWaveRect, Color.WHITE, 20);
+        FloatRect XPRect = new FloatRect(wavesRect.left + wavesRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
+        XP = new Message("XP: "+player.getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
 
-        FloatRect scoreRect = new FloatRect(currentWaveRect.left + currentWaveRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
+        FloatRect scoreRect = new FloatRect(XPRect.left + XPRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
         score = new Message("Score: "+game.getScore(), Text.BOLD, scoreRect, Color.WHITE, 20);
     }
 
@@ -98,14 +110,25 @@ public class HUD implements Render {
 
     private void renderTopBar(){
         Line.drawLine(new Vector2f(topBarRect.left, topBarRect.top + topBarRect.height), new Vector2f(topBarRect.left+topBarRect.width, topBarRect.top+ topBarRect.height));
-        remainingWaves.renderText();
-        currentWave.renderText();
+        waves.renderText();
+        XP.renderText();
         score.renderText();
     }
 
     private void updateText(){
-        remainingWaves.setText("Remaining waves: "+game.getNumOfRemainingWaves());
-        currentWave.setText("Current wave: "+game.getCurrentWave());
+        if(localElapsedTime >= delay) {
+            localElapsedTime = 0;
+            change = !change;
+        }
+
+        if(change){
+            waves.setText("Remaining waves: " + game.getNumOfRemainingWaves());
+        }else{
+            waves.setText("Current wave: "+game.getCurrentWave());
+        }
+
+        XP.setText("XP: "+player.getXP());
+
         score.setText("Score: "+game.getScore());
     }
 
@@ -130,6 +153,11 @@ public class HUD implements Render {
 
     @Override
     public void update() {
+        prevTime = currentTime;
+        currentTime = Window.getInstance().getElapsedTime();
+
+        localElapsedTime += currentTime - prevTime;
+
         updateText();
     }
 

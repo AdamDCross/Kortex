@@ -17,6 +17,7 @@ public class Kortex {
         StateMachine.getInstance().addState(new Pause());
         StateMachine.getInstance().addState(new HighScore());
         StateMachine.getInstance().addState(new Options());
+        StateMachine.getInstance().addState(new TechTree());
         StateMachine.getInstance().setState("MAIN_MENU");
 
         while(Window.getInstance().getGameWindow().isOpen()) {

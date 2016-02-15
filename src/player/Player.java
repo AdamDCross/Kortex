@@ -68,6 +68,14 @@ public class Player {
         return false;
     }
 
+    public long getXP(){
+        return playerXP;
+    }
+
+    public long getScore(){
+        return playerScore.score;
+    }
+
     public int getCurrentResearchLevel(){
         return currentTier;
     }

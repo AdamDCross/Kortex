@@ -26,7 +26,6 @@ public class Game extends State {
     private Anite a;
     private int numOfRemainingWaves;
     private int currentWave;
-    private int score;
 
     private HUD panel;
 
@@ -47,7 +46,8 @@ public class Game extends State {
         gameObjects.addElement(a);
 
         setupGame();
-        panel = new HUD(0.10f, 0.1f, this);
+        player = new Player("Kortex player", 0);
+        panel = new HUD(0.10f, 0.1f, this,player);
         gameObjects.addElement(panel);
 
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
@@ -58,13 +58,12 @@ public class Game extends State {
 
         gameObjects.addElement(turretTest);
 
-        player = new Player("Kortex player", 0);
+
     }
 
     private void setupGame(){
         numOfRemainingWaves = 10;
         currentWave = 0;
-        score = 0;
     }
 
     //method called just before the game is due to quit from inside the game
@@ -82,8 +81,8 @@ public class Game extends State {
         return currentWave;
     }
 
-    public int getScore(){
-        return score;
+    public long getScore(){
+        return player.getScore();
     }
 
     @Override
