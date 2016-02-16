@@ -207,4 +207,5 @@ public class Turret implements Render {
     public void toggleVisibility(){
         visible = !visible;
     }
+
 }
