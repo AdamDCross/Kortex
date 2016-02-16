@@ -41,9 +41,9 @@ public class Game extends State {
         test = new DijkstraTest();
 
         red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
-        gameObjects.addElement(test);
-        gameObjects.addElement(red);
-        gameObjects.addElement(a);
+        //gameObjects.addElement(test);
+        //gameObjects.addElement(red);
+        //gameObjects.addElement(a);
 
         setupGame();
         player = new Player("Kortex player", 0);
@@ -53,8 +53,8 @@ public class Game extends State {
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
                 turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
-                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 100, 100.0f,100.0f),
-                0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",128,140,10,10,50);
+                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 128, 141.0f,128.0f),
+                0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",141,128,10,11,50);
 
         gameObjects.addElement(turretTest);
 
@@ -136,7 +136,8 @@ public class Game extends State {
     @Override
     public void onEntry() {
         super.onEntry();
-        Beacon.getInstance().spawn(true, 100, new Vector2f(0.0f,0.0f));
+        FloatRect beaconSize = new FloatRect(panel.getGameWindowRect().width / 2, panel.getGameWindowRect().height / 2, 32, 32);
+        Beacon.getInstance().spawn(true, 100, new Vector2f(panel.getGameWindowRect().width / 2,panel.getGameWindowRect().height / 2), beaconSize);
     }
 
     @Override

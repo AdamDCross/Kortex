@@ -3,28 +3,30 @@ package states;
 import fsm.State;
 import fsm.StateMachine;
 import main.Button;
+import main.Line;
 import main.Window;
-import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Vector;
 
 /**
-
+*
  */
 public class TechTree extends State {
     private String techTreeCSV;
     private Vector<Vector<Button>> rows;
+    private Vector<Vector2f> lineStart;
+    private Vector<Vector2f> lineEnd;
 
     public static final float PADDING = 60.0f;
 
     public TechTree(){
         super("TECH_TREE");
         rows = new Vector<>(5);
+        lineStart = new Vector<>(5);
+        lineEnd = new Vector<>(5);
         techTreeCSV = "src/assets/tech_tree.csv";
 
         float halfWindowWidth = Window.getInstance().getScreenWidth() / 2;
@@ -44,9 +46,13 @@ public class TechTree extends State {
         rows.addElement(new Vector<>(2));
         addLaserRocketRow(2,20,7,120,2000,200,20,1,7,120,2000,200,halfWindowWidth,laserRect.top + laserRect.height, rocketRect.top + rocketRect.height);
 
+        //connect left side
+        connectBoxes(rows.elementAt(1).elementAt(0).getDimensions(), rows.elementAt(2).elementAt(0).getDimensions());
+
+        //connect right side
+
+
         rows.addElement(new Vector<>(2));
-        float laserOffset = 3 * MainMenu.BUTTON_HEIGHT;
-        float rocketOffset = 3.5f * MainMenu.BUTTON_HEIGHT;
         addLaserRocketRow(3,30,10,150,3500,350,30,2,10,150,3500,200,halfWindowWidth,laserRect.top + laserRect.height + PADDING, rocketRect.top + rocketRect.height + PADDING);
     }
 
@@ -58,6 +64,11 @@ public class TechTree extends State {
         rows.elementAt(rowNum).addElement(
                 new Button("Rocket V" + rowNum + "\nDamage: " + rocketDmg + "\nAOE: " + AOE + "\nRange: " + rocketRng + "\nHealth: " + rocketHlth + "\nXP Requirements: " + rocketXP + "\nScrap cost: " + rocketScrap,
                 new FloatRect(width, ((rowNum-1) *(3.5f * MainMenu.BUTTON_HEIGHT)) + ((rowNum-1) * PADDING) + rocketY, width, 3.5f * MainMenu.BUTTON_HEIGHT),20,"ROCKET V" + rowNum,true));
+    }
+
+    private void connectBoxes(FloatRect startBox, FloatRect endBox){
+        lineStart.addElement(new Vector2f((startBox.left + startBox.width) / 2, startBox.top + startBox.height));
+        lineEnd.addElement(new Vector2f((endBox.left + endBox.width) / 2, endBox.top));
     }
 
     @Override
@@ -94,6 +105,10 @@ public class TechTree extends State {
             for(int j = 0; j < rows.elementAt(i).size(); j++){
                 rows.elementAt(i).elementAt(j).render();
             }
+        }
+
+        for(int i = 0; i < lineStart.size(); i++){
+            Line.drawLine(lineStart.elementAt(i), lineEnd.elementAt(i));
         }
     }
 }
