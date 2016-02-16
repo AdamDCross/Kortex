@@ -71,7 +71,7 @@ public class Turret implements Render {
         this.enemyKillCount = 0;
         this.ID = ID;
         localElapsedTime = 0;
-        this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 0, dimensions, false);
+        this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 1, dimensions, false);
         currentTime = 0;
         prevTime = 0;
         XPForEnemyKills = 0;

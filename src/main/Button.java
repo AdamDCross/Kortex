@@ -179,6 +179,10 @@ public class Button implements Render {
 
     }
 
+    public FloatRect getDimensions(){
+        return dimensions;
+    }
+
     public void toggleRenderBorder(){
         borderActive = !borderActive;
     }
