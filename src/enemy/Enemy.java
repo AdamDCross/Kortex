@@ -82,6 +82,7 @@ public class Enemy implements Render{
         circle.setPosition(currentPosition);
 
         isDead=false;
+        health=1000;
     }
 
     @Override
@@ -95,7 +96,7 @@ public class Enemy implements Render{
                     this.previous = new Vector2f(oldCell.pos.x * 32 + 16, oldCell.pos.y * 32 + 16);
                     this.heading = new Vector2f(oldCell.pathNext.pos.x * 32 + 16, oldCell.pathNext.pos.y * 32 + 16);
                 }catch(NullPointerException n){
-                    //dead
+                    //dead clause
                     isDead=true;
                 }
                 lerpCurr=0;

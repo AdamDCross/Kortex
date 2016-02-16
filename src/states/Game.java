@@ -49,7 +49,7 @@ public class Game extends State {
         setupGame();
         player = new Player("Kortex player", 0);
         panel = new HUD(0.10f, 0.1f, this,player);
-        gameObjects.addElement(panel);
+        //gameObjects.addElement(panel);
 
         handle=new NPCHandle(this,player);
         gameObjects.addElement(handle);
@@ -57,10 +57,10 @@ public class Game extends State {
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
                 turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
-                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 100, 100.0f,100.0f),
+                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 100, 32.0f,32.0f),
                 0,0,0,0,false,0,"TEST","assets/explosions/explosiontilesheet.png",128,140,10,10,50,handle);
         handle.addEnemy(red);
-
+        handle.addTurret(turretTest);
         //gameObjects.addElement(turretTest);
 
 

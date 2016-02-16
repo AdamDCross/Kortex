@@ -78,7 +78,7 @@ public class Turret implements Render {
         this.bottom = new Button(bottom, dimensions, ID + " BOTTOM", false);
         this.scrapCost = scrapCost;
         this.xpRequirement = xpRequirement;
-        this.range = range;
+        this.range = 300;
         this.AOESize = AOESize;
         this.shieldActive = shieldActive;
         this.shieldTimer = shieldTimer;

@@ -69,11 +69,6 @@ public class Tilemap {
                         new Vertex(new Vector2f(x*32,y*32+32),new Vector2f(tu,tv+32))
                 };
                 main.Window.getInstance().getGameWindow().draw(vArray, PrimitiveType.QUADS,new RenderStates(tiles));
-                //new Image(tiles,new Vector2f(x*Pathfind.GRID_SIZE,y*Pathfind.GRID_SIZE),tu,tv,0).render();
-
-                /*Image img = tiles.getFrame(x+y*col);
-                img.img.setPosition(new Vector2f(x*this.w,y*h));
-                img.render();*/
             }
         }
     }
