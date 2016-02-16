@@ -11,7 +11,7 @@ import java.nio.file.Paths;
  */
 public class Message {
     private Font sansRegular;
-    public static final String FontFile = "src/assets/LucidaSansRegular.ttf";
+    public static final String FontFile = "assets/LucidaSansRegular.ttf";
     private int fontSize;
     private String JavaVersion;
     private String JdkFontPath;

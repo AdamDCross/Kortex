@@ -1,5 +1,7 @@
 package player;
 
+import enemy.Enemy;
+import enemy.NPCHandle;
 import graphics.Animation;
 import graphics.Image;
 import main.Button;
@@ -24,7 +26,6 @@ public class Turret implements Render {
     private Button bottom;
     private int scrapCost;
     private int xpRequirement;
-    private int range;
     private int AOESize;
     private boolean shieldActive; //TODO: implement shield functionality
     private int shieldTimer;
@@ -37,20 +38,33 @@ public class Turret implements Render {
     private long prevTime;
     private long currentTime;
     private long localElapsedTime;
+    private Vector2f position;
+
+    //variables for shooting
+
+    private long shotTime;
+    private long rechargeTime;
+    private Enemy target;
+    private int att;
+    private int def;
+    private float range;
+    private NPCHandle handle;
 
 
     // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
-                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
-                   String ID, String explosion, int width, int height, int row, int col, int delay) {
+                  int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
+                  String ID, String explosion, int width, int height, int row, int col, int delay,NPCHandle handle) {
         this.visible = visible;
         destroyed = false;
-        this.health = health;
+        this.health = 100;
         this.rotationDelay = rotationDelay;
         this.currentAngle = angle;
         this.rotationAngle = rotationAngle;
+
+        position=new Vector2f(dimensions.left,dimensions.top);
 
         float x = 0.2f * (dimensions.left + dimensions.width);
         float y = 0.2f * (dimensions.top + dimensions.height);
@@ -77,8 +91,15 @@ public class Turret implements Render {
         XPForEnemyKills = 0;
         attackScore = 0;
         XPMultiplier = 1;
+        target=null;
+        shotTime=0;
+        rechargeTime=2000;
+        att=20;
+        def=10;
+        range=64;
+        this.handle=handle;
     }
-    
+
     @Override
     public void update() {
         prevTime = currentTime;
@@ -90,6 +111,12 @@ public class Turret implements Render {
             explosion.update();
         }
         else if(visible){
+            if(Window.getInstance().getElapsedTime()>shotTime){
+                //System.out.println("Explosion animation to add later.");
+                if(handle.turretShoot(this)) {
+                    shotTime = Window.getInstance().getElapsedTime() + shotTime;
+                }
+            }
             if( localElapsedTime >= rotationDelay ){
                 localElapsedTime = 0;
                 currentAngle += rotationAngle;
@@ -168,10 +195,6 @@ public class Turret implements Render {
         this.range = range;
     }
 
-    public int getRange(){
-        return range;
-    }
-
     public void setXPRequirement(int requirement){
         xpRequirement = requirement;
     }
@@ -206,5 +229,24 @@ public class Turret implements Render {
 
     public void toggleVisibility(){
         visible = !visible;
+    }
+    public Enemy getTarget() {
+        return target;
+    }
+
+    public void setTarget(Enemy target) {
+        this.target = target;
+
+    }
+
+    public Vector2f getPos(){
+        return position;
+    }
+    public float getRange(){
+        return range;
+    }
+
+    public int getAtt() {
+        return att;
     }
 }

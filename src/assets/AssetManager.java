@@ -29,7 +29,7 @@ public class AssetManager {
     }
 
     private void loadArtAssets(){
-        String assetCSV = "src/assets/art_assets.csv";
+        String assetCSV = "assets/art_assets.csv";
 
         try {
             BufferedReader r = new BufferedReader(new FileReader(assetCSV));
@@ -46,7 +46,7 @@ public class AssetManager {
     }
 
     private void loadAudioAssets(){
-        String assetCSV = "src/assets/audio_assets.csv";
+        String assetCSV = "assets/audio_assets.csv";
 
         try {
             BufferedReader r=new BufferedReader(new FileReader(assetCSV));
