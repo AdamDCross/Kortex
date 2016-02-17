@@ -5,6 +5,7 @@ import assets.AssetManager;
 import graphics.HUD;
 import main.*;
 import org.jsfml.graphics.FloatRect;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import player.Player;
 import player.Turret;
@@ -56,7 +57,7 @@ public class Game extends State {
                 new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 128, 141.0f,128.0f),
                 0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",141,128,10,11,50);
 
-        gameObjects.addElement(turretTest);
+        //gameObjects.addElement(turretTest);
 
 
     }
@@ -96,7 +97,9 @@ public class Game extends State {
                     Window.getInstance().getGameWindow().close();
                     break;
                 case MOUSE_MOVED:
-                    test.updateCurrentMousePosition(e.asMouseEvent().position);
+                    Vector2i mPos = e.asMouseEvent().position;
+                    test.updateCurrentMousePosition(mPos);
+                    panel.mouseMove(mPos);
                     break;
                 case MOUSE_BUTTON_PRESSED:
                     panel.mousePress(e.asMouseButtonEvent().position);
