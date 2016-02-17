@@ -145,11 +145,28 @@ public class Button implements Render {
     public boolean isWithinRect(Vector2i pos) {
         if ((((float) pos.x) >= dimensions.left) && (((float) pos.x) <= (dimensions.left + dimensions.width)) &&
                 (((float) pos.y) >= dimensions.top) && (((float) pos.y) <= (dimensions.top + dimensions.height))) {
-            System.out.println(this.ID+" pressed");
+            //System.out.println(this.ID+" pressed");
             return true;
         }
 
         return false;
+    }
+
+    public void setImage(Image img){
+        buttonImage = img;
+
+        if( needsScaling(img.getRectofImage(), dimensions) ) {
+            scale(buttonImage.getSprite(), dimensions.width, dimensions.height);
+        }
+    }
+
+    public void setDimensions(FloatRect dimensions){
+        this.dimensions = dimensions;
+        this.buttonImage.setPosition(new Vector2f(dimensions.left,dimensions.top));
+
+        if( needsScaling(buttonImage.getRectofImage(), dimensions) ) {
+            scale(buttonImage.getSprite(), dimensions.width, dimensions.height);
+        }
     }
 
     @Override
@@ -179,12 +196,16 @@ public class Button implements Render {
 
     }
 
+    public Image getButtonImage(){
+        return buttonImage;
+    }
+
     public FloatRect getDimensions(){
         return dimensions;
     }
 
-    public void toggleRenderBorder(){
-        borderActive = !borderActive;
+    public void setBorderActiver(boolean active){
+        borderActive = active;
     }
 
     public String getButtonID(){

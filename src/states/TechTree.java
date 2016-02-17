@@ -50,10 +50,16 @@ public class TechTree extends State {
         connectBoxes(rows.elementAt(1).elementAt(0).getDimensions(), rows.elementAt(2).elementAt(0).getDimensions());
 
         //connect right side
-
+        connectBoxes(rows.elementAt(1).elementAt(1).getDimensions(), rows.elementAt(2).elementAt(1).getDimensions());
 
         rows.addElement(new Vector<>(2));
         addLaserRocketRow(3,30,10,150,3500,350,30,2,10,150,3500,200,halfWindowWidth,laserRect.top + laserRect.height + PADDING, rocketRect.top + rocketRect.height + PADDING);
+
+        //connect left side
+        connectBoxes(rows.elementAt(2).elementAt(0).getDimensions(), rows.elementAt(3).elementAt(0).getDimensions());
+
+        //connect right side
+        connectBoxes(rows.elementAt(2).elementAt(1).getDimensions(), rows.elementAt(3).elementAt(1).getDimensions());
     }
 
     private void addLaserRocketRow(int rowNum, int laserDmg, int laserRng, int laserHlth, int laserXP, int laserScrap,
@@ -67,8 +73,8 @@ public class TechTree extends State {
     }
 
     private void connectBoxes(FloatRect startBox, FloatRect endBox){
-        lineStart.addElement(new Vector2f((startBox.left + startBox.width) / 2, startBox.top + startBox.height));
-        lineEnd.addElement(new Vector2f((endBox.left + endBox.width) / 2, endBox.top));
+        lineStart.addElement(new Vector2f(startBox.left + (startBox.width / 2), startBox.top + startBox.height));
+        lineEnd.addElement(new Vector2f(endBox.left + (endBox.width / 2), endBox.top));
     }
 
     @Override
