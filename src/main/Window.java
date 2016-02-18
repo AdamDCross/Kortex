@@ -24,7 +24,7 @@ public class Window {
 
         try {
             Image tmp = new Image();
-            tmp.loadFromFile(Paths.get("src/graphics/icon/kortex-icon.png"));
+            tmp.loadFromFile(Paths.get("graphics/icon/kortex-icon.png"));
             gameWindow.setIcon(tmp);
         }
         catch(IOException e){

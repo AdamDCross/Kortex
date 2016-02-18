@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SettingsConfiguration>
+    <gameName>Project Abe is the best 5000</gameName>
+    <screenResX>1024</screenResX>
+    <screenResY>720</screenResY>
+    <gameDifficulty>1</gameDifficulty>
+</SettingsConfiguration>

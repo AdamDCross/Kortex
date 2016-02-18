@@ -65,7 +65,7 @@ public class MainMenu extends State {
 
         mainMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(0).getMusicObject();
 
-        background = new Button("src/assets/Spinning_Planet.png",512, 493, 14, 4, 175,new FloatRect(0.0f,0.0f,Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), "BACKGROUND", false, true);
+        background = new Button("assets/Spinning_Planet.png",512, 493, 14, 4, 175,new FloatRect(0.0f,0.0f,Window.getInstance().getScreenWidth(), Window.getInstance().getScreenHeight()), "BACKGROUND", false, true);
     }
     @Override
     public void onEntry() {
