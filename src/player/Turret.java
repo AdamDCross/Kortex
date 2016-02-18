@@ -5,6 +5,7 @@ import graphics.Image;
 import main.Button;
 import main.Render;
 import main.Window;
+import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.system.Vector2f;
 
@@ -61,6 +62,7 @@ public class Turret implements Render {
         this.top.setOriginCentre();
         this.top.setAngleOfImage(angle);
         this.top.setPositionOfImage(new Vector2f(dimensions.left + dimensions.width / 2, dimensions.top + dimensions.height / 2));
+        this.top.setColourMask(Color.WHITE);
 
         this.bottom = new Button(bottom, dimensions, ID + " BOTTOM", false);
         this.scrapCost = scrapCost;

@@ -196,6 +196,10 @@ public class Button implements Render {
 
     }
 
+    public void setColourMask(Color c){
+        buttonImage.setColourMask(c);
+    }
+
     public Image getButtonImage(){
         return buttonImage;
     }

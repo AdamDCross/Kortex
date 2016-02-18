@@ -209,10 +209,12 @@ public class HUD implements Render {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
                 if(grid[i][j].isWithinRect(mousePos))
                 {
-                    followMouse = false;
-                    turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
-                    turrets.elementAt(selectedTurret).setActive(true);
-                    selectedTurret = -1;
+                    if(followMouse) {
+                        followMouse = false;
+                        turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
+                        turrets.elementAt(selectedTurret).setActive(true);
+                        selectedTurret = -1;
+                    }
                 }
             }
         }
