@@ -2,6 +2,8 @@ package states;
 
 import assets.ArtAsset;
 import assets.AssetManager;
+import enemy.Enemy;
+import enemy.NPCHandle;
 import graphics.HUD;
 import main.*;
 import org.jsfml.graphics.FloatRect;
@@ -12,7 +14,6 @@ import player.Turret;
 import test.Anite;
 import test.TileTest;
 import dijkstra.DijkstraTest;
-import enemy.PatrollingEnemy;
 import fsm.State;
 import fsm.StateMachine;
 import org.jsfml.system.Vector2f;
@@ -23,11 +24,11 @@ import java.util.Vector;
 public class Game extends State {
     private Vector<Render> gameObjects;
     private DijkstraTest test;
-    private PatrollingEnemy red;
+    private Enemy red;
     private Anite a;
     private int numOfRemainingWaves;
     private int currentWave;
-
+    NPCHandle handler;
     private HUD panel;
 
     private Player player;
@@ -39,9 +40,9 @@ public class Game extends State {
         /*t=new TileTest();
         gameObjects.addElement(t);*/
         a=new Anite();
-        test = new DijkstraTest();
+        //test = new DijkstraTest();
 
-        red = new PatrollingEnemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
+        red = new Enemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
         //gameObjects.addElement(test);
         //gameObjects.addElement(red);
         //gameObjects.addElement(a);
@@ -50,13 +51,15 @@ public class Game extends State {
         player = new Player("Kortex player", 50);
         panel = new HUD(0.10f, 0.1f, this,player);
         gameObjects.addElement(panel);
+        //handler=new NPCHandle(this,player);
+
 
         Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
                 turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
                 new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 128, 141.0f,128.0f),
-                0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",141,128,10,11,50);
-
+                0,0,0,0,false,0,"TEST","assets/explosions/explosiontilesheet.png",141,128,10,11,50);
+        //handler.addTurret(turretTest);
         //gameObjects.addElement(turretTest);
 
 

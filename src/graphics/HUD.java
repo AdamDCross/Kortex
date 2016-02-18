@@ -2,6 +2,8 @@ package graphics;
 
 import assets.ArtAsset;
 import assets.AssetManager;
+import dijkstra.DijkstraQueue;
+import dijkstra.DijkstraTest;
 import fsm.StateMachine;
 import main.*;
 import org.jsfml.graphics.Color;
@@ -16,7 +18,7 @@ import states.Game;
 import java.util.Vector;
 
 /**
- *
+ *  TODO
  */
 public class HUD implements Render {
     private FloatRect bottomBarRect;
@@ -27,6 +29,8 @@ public class HUD implements Render {
     private Game game;
 
     private Vector<Button> btns;
+
+    private DijkstraTest dijkstra;
 
     private Button[][] grid;
     public static final int HUD_GRID_COL_COUNT = 20;
@@ -44,23 +48,20 @@ public class HUD implements Render {
 
     public static final int MAX_BUTTON_COUNT = 12;
 
-    private Player player;
-
     private int selectedTurret;
 
     private Vector<Turret> turrets;
 
     private boolean followMouse;
     private FloatRect mouseBox;
-    private Vector2i currentMousePos;
+    private Vector2f currentMousePos;
 
     public HUD(float btmBarHeightAsPercent, float topBarHeightAsPercent, Game game, Player player){
         this.game = game;
-        this.player = player;
         btns = new Vector<>(10);
         createBottomBar(btmBarHeightAsPercent);
         createTopBar(topBarHeightAsPercent);
-
+        dijkstra=new DijkstraTest();
         gameWindowRect = new FloatRect(0.0f, topBarRect.height, Window.getInstance().getScreenWidth(), bottomBarRect.top - topBarRect.height);
 
         createGrid();
@@ -72,7 +73,7 @@ public class HUD implements Render {
         change = false;
         selectedTurret = -1;
         followMouse = false;
-        currentMousePos = new Vector2i(0,0);
+        currentMousePos = new Vector2f(0,0);
     }
 
     private void createBottomBar(float btmBarHeightAsPercent){
@@ -94,7 +95,7 @@ public class HUD implements Render {
                 continue;
             }
 
-            btns.addElement(new Button("src/assets/black.jpg",
+            btns.addElement(new Button("assets/black.jpg",
                     new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height),"B_BUTTON"+i, true));
 
         }
@@ -110,7 +111,7 @@ public class HUD implements Render {
 
             turrets.addElement(new Turret(artAssets.elementAt(i).getAssetPath(),
                     artAssets.elementAt(i+1).getAssetPath(),true,100,0.0f,1.0f,110,
-                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
+                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"assets/explosions/explosiontilesheet.png",141,128,10,11,50));
             turrets.elementAt(i).setActive(false);
         }
     }
@@ -131,7 +132,7 @@ public class HUD implements Render {
         waves = new Message("Remaining waves: "+game.getNumOfRemainingWaves(), Text.BOLD, wavesRect, Color.WHITE, 20);
 
         FloatRect XPRect = new FloatRect(wavesRect.left + wavesRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        XP = new Message("XP: "+player.getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
+        XP = new Message("XP: "+dijkstra.player.getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
 
         FloatRect scoreRect = new FloatRect(XPRect.left + XPRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
         score = new Message("Score: "+game.getScore(), Text.BOLD, scoreRect, Color.WHITE, 20);
@@ -144,7 +145,7 @@ public class HUD implements Render {
             for(int j = 0; j < HUD_GRID_COL_COUNT; j++){
                 float x = j * (gameWindowRect.width/HUD_GRID_COL_COUNT);
                 float y = gameWindowRect.top + i * ((gameWindowRect.height ) / HUD_GRID_ROW_COUNT);
-                grid[i][j] = new Button("src/assets/black.jpg",
+                grid[i][j] = new Button("assets/black.jpg",
                         new FloatRect(x,y,gameWindowRect.width/HUD_GRID_COL_COUNT,gameWindowRect.height /HUD_GRID_ROW_COUNT),"("+i+","+j+")",false);
 
                 if(i == (HUD_GRID_ROW_COUNT-1)){
@@ -182,15 +183,18 @@ public class HUD implements Render {
         }
 
         if(change) {
-            XP.setText("XP: " + player.getXP());
+            XP.setText("XP: " + dijkstra.player.getXP());
         }else{
-            XP.setText("Scrap: " + player.getPlayerScrap());
+            XP.setText("Scrap: " + dijkstra.player.getPlayerScrap());
         }
 
         score.setText("Score: "+game.getScore());
     }
 
     public void mousePress(Vector2i mousePos){
+        Vector2f hold=Window.getInstance().getGameWindow().mapPixelToCoords(mousePos);
+        mousePos=new Vector2i((int)hold.x,(int)hold.y);//TODO convert the Button.isWithinREct to take Vector2f too
+
         if(menu.isWithinRect(mousePos)) {
             StateMachine.getInstance().setState("MAIN_MENU");
             return;
@@ -213,19 +217,23 @@ public class HUD implements Render {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
                 if(grid[i][j].isWithinRect(mousePos))
                 {
+                    //TODO pass this into the DijkstraTest
                     if(followMouse) {
                         followMouse = false;
                         turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
                         turrets.elementAt(selectedTurret).setActive(true);
                         selectedTurret = -1;
                     }
+                    //------------------------------------
                 }
             }
         }
     }
 
     public void mouseMove(Vector2i mousePos){
-        currentMousePos = mousePos;
+        currentMousePos=Window.getInstance().getGameWindow().mapPixelToCoords(mousePos);
+
+        //TODO if in the game window rectangle, pass the coords onto dijkstra.
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
@@ -263,6 +271,8 @@ public class HUD implements Render {
         for(int i = 0; i < turrets.size(); i++){
             turrets.elementAt(i).update();
         }
+
+        dijkstra.update();
     }
 
     @Override
@@ -279,5 +289,6 @@ public class HUD implements Render {
         renderTopBar();
 
         if(followMouse) Line.drawRect(mouseBox);
+        dijkstra.render();
     }
 }

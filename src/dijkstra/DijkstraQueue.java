@@ -1,8 +1,7 @@
 package dijkstra;
-import main.*;
 
 /**
- * Created by Phillip on 18/12/2015
+ * BLACK BOX. DOESN'T NEED EXPLAINING
  */
 public class DijkstraQueue {
     public DQItem start;
@@ -69,7 +68,7 @@ public class DijkstraQueue {
 
     /**
      *
-     * @return The main.Cell at the front of the queue
+     * @return The dijkstra.Cell at the front of the queue
      */
 
     public Cell getMin(){
@@ -82,7 +81,7 @@ public class DijkstraQueue {
      * The decrease priority for the priority queue.
      * Will also put the item to the correct place.
      *
-     * @param cell The main.Cell to decrease.
+     * @param cell The dijkstra.Cell to decrease.
      * @param priority The priority to set the new cell to
      */
     public void decrease(Cell cell, int priority) {

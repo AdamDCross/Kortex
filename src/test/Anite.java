@@ -12,7 +12,7 @@ public class Anite implements Render {
     Animation a;
 
     public Anite(){
-        a=new Animation("src/assets/Tiles.jpg",32,32,5,2,100,new Vector2f(320,320),3, false);
+        a=new Animation("assets/Tiles.jpg",32,32,5,2,100,new Vector2f(320,320),3, false);
     }
     @Override
     public void render() {

@@ -45,8 +45,8 @@ public class Turret implements Render {
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
-                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
-                   String ID, String explosion, int width, int height, int row, int col, int delay) {
+                  int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
+                  String ID, String explosion, int width, int height, int row, int col, int delay) {
         this.visible = visible;
         destroyed = false;
         this.health = health;
@@ -99,7 +99,7 @@ public class Turret implements Render {
 
         this.bottom.setDimensions(dimensions);
     }
-    
+
     @Override
     public void update() {
         prevTime = currentTime;

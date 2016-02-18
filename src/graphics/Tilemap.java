@@ -1,6 +1,6 @@
 package graphics;
 
-import main.Pathfind;
+import dijkstra.Pathfind;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 

@@ -1,47 +1,48 @@
-package main;
+package dijkstra;
 
+import main.Window;
 import org.jsfml.graphics.Color;
 import org.jsfml.graphics.RectangleShape;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.system.*;
 
-//Also doubling this as the cell class for the Heap
+
 
 public class Cell{
     public int distance;
     public int weight;
-    public Cell pathNext;
-    public Vector2i pos;
+    public Cell pathNext;//This is mainly what you need.
+    public Vector2i pos;// this gives a vector based off of position
 
     /**
-     * The Basic Cell Structure
+     * The Basic Cell Structure. This is used to handle the paths taken by opponents
      *
      * @param pos The position vector of the cell
      * @param weight The weight of the cell. Used in the Pathfind's Algorithm.
      *               The higher the value, the harder it is to move through
      */
 
-    Cell(Vector2i pos, int weight) {
+    public Cell(Vector2i pos, int weight) {
         distance = Integer.MAX_VALUE;
         this.weight = weight;
         this.pos = pos;
         pathNext=null;
     }
 
+    //resets the variabhles for stuff
+
     void dReset(){
         distance = Integer.MAX_VALUE;
         pathNext=null;
     }
 
-    int manhattanDistance(Cell other) {
-        return Math.abs(pos.x - other.pos.x) + Math.abs(pos.y - other.pos.y);
-    }
+    //debug drawing
 
-    public void drawMe(RenderWindow w){
+    public void drawMe(){
         if(weight==1){return;}
         RectangleShape r=new RectangleShape(new Vector2f(32,32));
         r.setFillColor(Color.BLUE);
         r.setPosition(pos.x*32,pos.y*32);
-        w.draw(r);
+        Window.getInstance().getGameWindow().draw(r);
     }
 }

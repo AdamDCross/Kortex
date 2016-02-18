@@ -1,5 +1,6 @@
 package main;
 
+import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
 
 /**
@@ -61,5 +62,11 @@ public class GameMaths {
             return min;
         }
         return val;
+    }
+    public static float mag(Vector2i vect){
+        return (float) Math.sqrt(vect.x*vect.x+vect.y+vect.y);
+    }
+    public static float mag(Vector2f vect){
+        return (float) Math.sqrt(vect.x*vect.x+vect.y+vect.y);
     }
 }

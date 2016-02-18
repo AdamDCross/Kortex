@@ -13,7 +13,7 @@ public class HighScoreManager {
 
     private HighScoreManager(){
         highScores = new Vector<>(10);
-        highScoresCSV = "src/assets/high_scores.csv";
+        highScoresCSV = "assets/high_scores.csv";
 
         //Read all high scores from file
         try {

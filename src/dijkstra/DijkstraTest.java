@@ -2,6 +2,7 @@ package dijkstra;
 
 import assets.ArtAsset;
 import assets.AssetManager;
+import enemy.NPCHandle;
 import graphics.Tilemap;
 import main.*;
 
@@ -10,27 +11,34 @@ import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
+import player.Player;
 
 import java.util.Vector;
 
 /**
- * Originally 'InterfaceTest' by Phil
- * Tweaked by Vince on 14/01/2016 by separating window functionality from core functionality.
+ * TODO add to HUD, then pass through the stuff from the HUD into here
+ * TODO Make this the main game class. HUD will handle the inputs.
  */
 public class DijkstraTest implements Render {
     private Pathfind d;
     private Vector2i currentPosition;
     private RenderWindow window;
     private Tilemap tiles;
+    private NPCHandle handle;
+    public Player player;
 
     public DijkstraTest() {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
+        player=new Player("Phil",100);
+        handle=new NPCHandle(player);
 
-        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/MapTest2.csv",32,32,5,2);
-        d = new Pathfind(9,10,tiles);
+        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"assets/MapTest2.csv",32,32,5,2);
+        d = Pathfind.getInstance();
         currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
 
+        /*
+        //DEBUGGING
         for (int cy = 0; cy < Pathfind.GRID_HEIGHT; cy++) {
             for(int cx = 0; cx< Pathfind.GRID_WIDTH; cx++) {
                 System.out.print(d.getCells()[cx][cy].weight+"\t");
@@ -44,7 +52,7 @@ public class DijkstraTest implements Render {
                 System.out.print(d.getCells()[cx][cy].distance+"\t");
             }
             System.out.println(" ");
-        }
+        }*/
     }
 
     public void updateCurrentMousePosition(Vector2i currentPosition) {
@@ -60,11 +68,6 @@ public class DijkstraTest implements Render {
 
     @Override
     public void render() {
-        /*for(int i=0;i<Pathfind.GRID_WIDTH;i++){
-            for(int j=0;j<Pathfind.GRID_HEIGHT;j++){
-                d.getCells()[i][j].drawMe(window);
-            }
-        }*/
         tiles.drawMap();
         Cell start=d.getCells()[GameMaths.clamp(currentPosition.x/32,0,Pathfind.GRID_WIDTH-1)][GameMaths.clamp(currentPosition.y/32,0,Pathfind.GRID_HEIGHT-1)];
         while(start.pathNext!=null){
