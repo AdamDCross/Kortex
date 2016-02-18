@@ -40,8 +40,7 @@ public class Turret implements Render {
     private long localElapsedTime;
     private Vector2f position;
 
-    //variables for shooting
-
+    // Variables for shooting
     private long shotTime;
     private long rechargeTime;
     private Enemy target;
@@ -49,10 +48,12 @@ public class Turret implements Render {
     private int def;
     private float range;
     private NPCHandle handle;
+    private boolean active;
+
 
 
     // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
-    //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
+    // TODO: Attack score is calculated from things like how long the turret has been hitting the enemy for etc.
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
@@ -85,12 +86,13 @@ public class Turret implements Render {
         this.enemyKillCount = 0;
         this.ID = ID;
         localElapsedTime = 0;
-        this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 0, dimensions, false);
+        this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 1, dimensions, false);
         currentTime = 0;
         prevTime = 0;
         XPForEnemyKills = 0;
         attackScore = 0;
         XPMultiplier = 1;
+<<<<<<< HEAD
         target=null;
         shotTime=0;
         rechargeTime=2000;
@@ -98,6 +100,26 @@ public class Turret implements Render {
         def=10;
         range=64;
         this.handle=handle;
+=======
+        active = true;
+    }
+
+    public void setActive(boolean active){
+        this.active = active;
+        localElapsedTime = 0;
+    }
+
+    public void setDimensions(FloatRect dimensions){
+        float x = 0.2f * (dimensions.left + dimensions.width);
+        float y = 0.2f * (dimensions.top + dimensions.height);
+        float w = 0.8f * dimensions.width;
+        float h = 0.8f * dimensions.height;
+        this.top.setDimensions(new FloatRect(x, y, w, h));
+        this.top.setOriginCentre();
+        this.top.setPositionOfImage(new Vector2f(dimensions.left + dimensions.width / 2, dimensions.top + dimensions.height / 2));
+
+        this.bottom.setDimensions(dimensions);
+>>>>>>> master
     }
 
     @Override
@@ -107,6 +129,7 @@ public class Turret implements Render {
 
         localElapsedTime += currentTime - prevTime;
 
+<<<<<<< HEAD
         if(destroyed){
             explosion.update();
         }
@@ -124,17 +147,31 @@ public class Turret implements Render {
 
                 if(currentAngle >= (360.0f * 3.14 / 180)){
                     currentAngle = 0.0f;
+=======
+        if(active) {
+            if (destroyed) {
+                explosion.update();
+            } else if (visible) {
+                if (localElapsedTime >= rotationDelay) {
+                    localElapsedTime = 0;
+                    currentAngle += rotationAngle;
+                    top.setAngleOfImage(currentAngle);
+
+                    if (currentAngle >= (360.0f * 3.14 / 180)) {
+                        currentAngle = 0.0f;
+                    }
+>>>>>>> master
                 }
+
+                top.update();
+                bottom.update();
             }
 
-            top.update();
-            bottom.update();
-        }
-
-        if(health <= 0) {
-            health = 0;
-            visible = false;
-            destroyed = true;
+            if (health <= 0) {
+                health = 0;
+                visible = false;
+                destroyed = true;
+            }
         }
     }
 
@@ -230,6 +267,7 @@ public class Turret implements Render {
     public void toggleVisibility(){
         visible = !visible;
     }
+<<<<<<< HEAD
     public Enemy getTarget() {
         return target;
     }
@@ -250,3 +288,7 @@ public class Turret implements Render {
         return att;
     }
 }
+=======
+
+}
+>>>>>>> master

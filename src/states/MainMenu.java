@@ -38,7 +38,7 @@ public class MainMenu extends State {
         super("MAIN_MENU");
 
         mmText = new Message("Kortex",
-                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), 0.26f * Window.getInstance().getScreenHeight()), Color.WHITE, 35);
+                Text.BOLD, new FloatRect(0.0f, 0.0f, Window.getInstance().getScreenWidth(), 0.26f * Window.getInstance().getScreenHeight()), Color.WHITE, 100);
 
         btns = new Vector<>(5);
 

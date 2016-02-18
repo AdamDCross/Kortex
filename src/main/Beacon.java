@@ -1,6 +1,7 @@
 package main;
 
 import graphics.Animation;
+import org.jsfml.graphics.FloatRect;
 import org.jsfml.system.Vector2f;
 
 public class Beacon implements Render {
@@ -21,7 +22,7 @@ public class Beacon implements Render {
         beacon = null;
 
         //initialise animation when consulted with Phil
-        //explosion = new Animation(...);
+
     }
 
     public static Beacon getInstance(){
@@ -32,9 +33,10 @@ public class Beacon implements Render {
         return instance;
     }
 
-    public void spawn(boolean visible, int beaconHealth, Vector2f position){
+    public void spawn(boolean visible, int beaconHealth, Vector2f position, FloatRect dimensions){
         if( beacon == null ){
-            beacon = new Animation("assets/Tiles.jpg",32,32,5,2,1000,position,3, true);
+            beacon = new Animation("src/assets/Tiles.jpg",32,32,5,2,1000,position,3, dimensions, true);
+            explosion = new Animation("src/assets/explosions/explosiontilesheet.png", 141,128,10,11,50, position, 1, dimensions, false);
         }
 
         this.visible = visible;
@@ -46,7 +48,7 @@ public class Beacon implements Render {
     @Override
     public void update() {
         if(destroyed){
-            //explosion.update();
+            explosion.update();
         }
         else if(visible){
             beacon.update();
@@ -64,7 +66,7 @@ public class Beacon implements Render {
             beacon.render();
         }
         else if(destroyed){
-            //explosion.render();
+            explosion.render();
         }
     }
 
