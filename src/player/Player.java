@@ -76,6 +76,10 @@ public class Player {
         return playerScore.score;
     }
 
+    public long getPlayerScrap(){
+        return playerScrap;
+    }
+
     public int getCurrentResearchLevel(){
         return currentTier;
     }

@@ -47,7 +47,7 @@ public class Game extends State {
         //gameObjects.addElement(a);
 
         setupGame();
-        player = new Player("Kortex player", 0);
+        player = new Player("Kortex player", 50);
         panel = new HUD(0.10f, 0.1f, this,player);
         gameObjects.addElement(panel);
 

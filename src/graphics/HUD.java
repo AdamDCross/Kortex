@@ -181,7 +181,11 @@ public class HUD implements Render {
             waves.setText("Current wave: "+ game.getCurrentWave());
         }
 
-        XP.setText("XP: "+player.getXP());
+        if(change) {
+            XP.setText("XP: " + player.getXP());
+        }else{
+            XP.setText("Scrap: " + player.getPlayerScrap());
+        }
 
         score.setText("Score: "+game.getScore());
     }
