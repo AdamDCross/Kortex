@@ -2,8 +2,7 @@ package graphics;
 
 import assets.ArtAsset;
 import assets.AssetManager;
-import dijkstra.DijkstraQueue;
-import dijkstra.DijkstraTest;
+import dijkstra.Dijkstra;
 import fsm.StateMachine;
 import main.*;
 import org.jsfml.graphics.Color;
@@ -30,7 +29,7 @@ public class HUD implements Render {
 
     private Vector<Button> btns;
 
-    private DijkstraTest dijkstra;
+    private Dijkstra dijkstra;
 
     private Button[][] grid;
     public static final int HUD_GRID_COL_COUNT = 20;
@@ -59,9 +58,10 @@ public class HUD implements Render {
     public HUD(float btmBarHeightAsPercent, float topBarHeightAsPercent, Game game, Player player){
         this.game = game;
         btns = new Vector<>(10);
+        dijkstra=new Dijkstra();
         createBottomBar(btmBarHeightAsPercent);
         createTopBar(topBarHeightAsPercent);
-        dijkstra=new DijkstraTest();
+
         gameWindowRect = new FloatRect(0.0f, topBarRect.height, Window.getInstance().getScreenWidth(), bottomBarRect.top - topBarRect.height);
 
         createGrid();
@@ -217,7 +217,7 @@ public class HUD implements Render {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
                 if(grid[i][j].isWithinRect(mousePos))
                 {
-                    //TODO pass this into the DijkstraTest
+                    //TODO pass this into the Dijkstra
                     if(followMouse) {
                         followMouse = false;
                         turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
@@ -277,6 +277,7 @@ public class HUD implements Render {
 
     @Override
     public void render() {
+
         for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).render(); }
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
@@ -284,11 +285,11 @@ public class HUD implements Render {
                 grid[i][j].render();
             }
         }
-
+        dijkstra.render();
         renderBottomBar();
         renderTopBar();
 
         if(followMouse) Line.drawRect(mouseBox);
-        dijkstra.render();
+
     }
 }

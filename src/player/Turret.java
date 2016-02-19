@@ -1,5 +1,7 @@
 package player;
 
+import enemy.Enemy;
+import enemy.NPCHandle;
 import graphics.Animation;
 import graphics.Image;
 import main.Button;
@@ -25,7 +27,6 @@ public class Turret implements Render {
     private Button bottom;
     private int scrapCost;
     private int xpRequirement;
-    private int range;
     private int AOESize;
     private boolean shieldActive; //TODO: implement shield functionality
     private int shieldTimer;
@@ -40,6 +41,13 @@ public class Turret implements Render {
     private long localElapsedTime;
     private boolean active;
 
+    private long shotTime;
+    private long rechargeTime;
+    private Enemy target;
+    private int att;
+    private int def;
+    private float range;
+    private Vector2f position;
 
     // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
@@ -81,6 +89,13 @@ public class Turret implements Render {
         attackScore = 0;
         XPMultiplier = 1;
         active = true;
+        target=null;
+        shotTime=0;
+        rechargeTime=2000;
+        att=20;
+        def=10;
+        range=64;
+        position=new Vector2f(dimensions.left,dimensions.top);
     }
 
     public void setActive(boolean active){
@@ -190,10 +205,6 @@ public class Turret implements Render {
         this.range = range;
     }
 
-    public int getRange(){
-        return range;
-    }
-
     public void setXPRequirement(int requirement){
         xpRequirement = requirement;
     }
@@ -230,4 +241,23 @@ public class Turret implements Render {
         visible = !visible;
     }
 
+    public Enemy getTarget() {
+        return target;
+    }
+
+    public void setTarget(Enemy target) {
+        this.target = target;
+
+    }
+
+    public Vector2f getPos(){
+        return position;
+    }
+    public float getRange(){
+        return range;
+    }
+
+    public int getAtt() {
+        return att;
+    }
 }

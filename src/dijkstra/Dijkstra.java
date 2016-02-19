@@ -19,7 +19,7 @@ import java.util.Vector;
  * TODO add to HUD, then pass through the stuff from the HUD into here
  * TODO Make this the main game class. HUD will handle the inputs.
  */
-public class DijkstraTest implements Render {
+public class Dijkstra implements Render {
     private Pathfind d;
     private Vector2i currentPosition;
     private RenderWindow window;
@@ -27,7 +27,7 @@ public class DijkstraTest implements Render {
     private NPCHandle handle;
     public Player player;
 
-    public DijkstraTest() {
+    public Dijkstra() {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
         player=new Player("Phil",100);
         handle=new NPCHandle(player);

@@ -12,8 +12,7 @@ import org.jsfml.window.Keyboard;
 import player.Player;
 import player.Turret;
 import test.Anite;
-import test.TileTest;
-import dijkstra.DijkstraTest;
+import dijkstra.Dijkstra;
 import fsm.State;
 import fsm.StateMachine;
 import org.jsfml.system.Vector2f;
@@ -23,7 +22,7 @@ import java.util.Vector;
 
 public class Game extends State {
     private Vector<Render> gameObjects;
-    private DijkstraTest test;
+    private Dijkstra test;
     private Enemy red;
     private Anite a;
     private int numOfRemainingWaves;
@@ -40,7 +39,7 @@ public class Game extends State {
         /*t=new TileTest();
         gameObjects.addElement(t);*/
         a=new Anite();
-        //test = new DijkstraTest();
+        //test = new Dijkstra();
 
         red = new Enemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
         //gameObjects.addElement(test);
@@ -101,7 +100,7 @@ public class Game extends State {
                     break;
                 case MOUSE_MOVED:
                     Vector2i mPos = e.asMouseEvent().position;
-                    test.updateCurrentMousePosition(mPos);
+                    //test.updateCurrentMousePosition(mPos);
                     panel.mouseMove(mPos);
                     break;
                 case MOUSE_BUTTON_PRESSED:
