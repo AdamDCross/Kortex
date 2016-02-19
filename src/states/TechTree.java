@@ -27,7 +27,7 @@ public class TechTree extends State {
         rows = new Vector<>(5);
         lineStart = new Vector<>(5);
         lineEnd = new Vector<>(5);
-        techTreeCSV = "assets/tech_tree.csv";
+        techTreeCSV = "src/assets/tech_tree.csv";
 
         float halfWindowWidth = Window.getInstance().getScreenWidth() / 2;
         rows.addElement(new Vector<Button>(2));

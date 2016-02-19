@@ -95,7 +95,7 @@ public class HUD implements Render {
                 continue;
             }
 
-            btns.addElement(new Button("assets/black.jpg",
+            btns.addElement(new Button("src/assets/black.jpg",
                     new FloatRect(i * buttonWidth, bottomBarRect.top, buttonWidth, bottomBarRect.height),"B_BUTTON"+i, true));
 
         }
@@ -111,7 +111,7 @@ public class HUD implements Render {
 
             turrets.addElement(new Turret(artAssets.elementAt(i).getAssetPath(),
                     artAssets.elementAt(i+1).getAssetPath(),true,100,0.0f,1.0f,110,
-                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"assets/explosions/explosiontilesheet.png",141,128,10,11,50));
+                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
             turrets.elementAt(i).setActive(false);
         }
     }
@@ -145,7 +145,7 @@ public class HUD implements Render {
             for(int j = 0; j < HUD_GRID_COL_COUNT; j++){
                 float x = j * (gameWindowRect.width/HUD_GRID_COL_COUNT);
                 float y = gameWindowRect.top + i * ((gameWindowRect.height ) / HUD_GRID_ROW_COUNT);
-                grid[i][j] = new Button("assets/black.jpg",
+                grid[i][j] = new Button("src/assets/black.jpg",
                         new FloatRect(x,y,gameWindowRect.width/HUD_GRID_COL_COUNT,gameWindowRect.height /HUD_GRID_ROW_COUNT),"("+i+","+j+")",false);
 
                 if(i == (HUD_GRID_ROW_COUNT-1)){

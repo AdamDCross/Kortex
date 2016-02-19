@@ -10,7 +10,7 @@ public class TileTest implements Render{
     Tilemap t;
 
     public TileTest(){
-        t=new Tilemap("assets/Tiles.gif","assets/MapTest2.csv",32,32,5,2);
+        t=new Tilemap("src/assets/Tiles.gif","src/assets/MapTest2.csv",32,32,5,2);
     }
     @Override
     public void render() {

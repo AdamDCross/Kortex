@@ -57,7 +57,7 @@ public class Game extends State {
         Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
                 turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
                 new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 128, 141.0f,128.0f),
-                0,0,0,0,false,0,"TEST","assets/explosions/explosiontilesheet.png",141,128,10,11,50);
+                0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",141,128,10,11,50);
         //handler.addTurret(turretTest);
         //gameObjects.addElement(turretTest);
 

@@ -32,7 +32,7 @@ public class Dijkstra implements Render {
         player=new Player("Phil",100);
         handle=new NPCHandle(player);
 
-        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"assets/MapTest2.csv",32,32,5,2);
+        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/MapTest2.csv",32,32,5,2);
         d = Pathfind.getInstance();
         currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
