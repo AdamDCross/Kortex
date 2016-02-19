@@ -110,7 +110,7 @@ public class HUD implements Render {
 
             turrets.addElement(new Turret(artAssets.elementAt(i).getAssetPath(),
                     artAssets.elementAt(i+1).getAssetPath(),true,100,0.0f,1.0f,110,
-                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
+                    btns.elementAt(i+1).getDimensions(),15,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
             turrets.elementAt(i).setActive(false);
         }
     }
@@ -203,8 +203,13 @@ public class HUD implements Render {
         for(int i = 0; i < btns.size(); i++){
             if(btns.elementAt(i).isWithinRect(mousePos)){
                 if(i != 0 && i != (MAX_BUTTON_COUNT-1) && !followMouse){
-                    followMouse = true;
                     selectedTurret = i-1;
+                    if(player.purchaseTurret(turrets.elementAt(selectedTurret).getScrapCost())){
+                        followMouse = true;
+                    }
+                    else{
+                        selectedTurret = -1;
+                    }
                 }
             }
         }
