@@ -58,7 +58,7 @@ public class HUD implements Render {
     public HUD(float btmBarHeightAsPercent, float topBarHeightAsPercent, Game game, Player player){
         this.game = game;
         btns = new Vector<>(10);
-        dijkstra=new Dijkstra();
+        dijkstra=new Dijkstra(this);
         createBottomBar(btmBarHeightAsPercent);
         createTopBar(topBarHeightAsPercent);
 
@@ -234,6 +234,13 @@ public class HUD implements Render {
         currentMousePos=Window.getInstance().getGameWindow().mapPixelToCoords(mousePos);
 
         //TODO if in the game window rectangle, pass the coords onto dijkstra.
+        if(gameWindowRect.contains(currentMousePos)){
+            //is in the game window
+            dijkstra.setActive(true);
+            dijkstra.updateCurrentMousePosition(currentMousePos);
+        }else{
+            dijkstra.setActive(false);
+        }
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
