@@ -49,8 +49,19 @@ public class Tilemap {
         }
     }
 
-    public void drawTile(int x,int y){
+    public void drawTile(int dx,int dy,int width,int height,int x,int y){
+        int m = map.get(x+y*Pathfind.GRID_WIDTH);
 
+        int tu=w*(m%row);
+        int tv=h*(m/row);
+
+        Vertex[] vArray={
+                new Vertex(new Vector2f(dx,dy),new Vector2f(tu,tv)),
+                new Vertex(new Vector2f(dx+width,dy),new Vector2f(tu+32,tv)),
+                new Vertex(new Vector2f(dx+width,dy+height),new Vector2f(tu+32,tv+32)),
+                new Vertex(new Vector2f(dx,dy+height),new Vector2f(tu,tv+32))
+        };
+        main.Window.getInstance().getGameWindow().draw(vArray, PrimitiveType.QUADS,new RenderStates(tiles));
     }
 
     public void drawMap(){

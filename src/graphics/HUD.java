@@ -236,10 +236,10 @@ public class HUD implements Render {
         //TODO if in the game window rectangle, pass the coords onto dijkstra.
         if(gameWindowRect.contains(currentMousePos)){
             //is in the game window
-            dijkstra.setActive(true);
-            dijkstra.updateCurrentMousePosition(currentMousePos);
+            //dijkstra.setActive(true);
+            //dijkstra.updateCurrentMousePosition(currentMousePos);
         }else{
-            dijkstra.setActive(false);
+            //dijkstra.setActive(false);
         }
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {

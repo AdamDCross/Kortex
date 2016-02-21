@@ -141,8 +141,8 @@ public class Game extends State {
     @Override
     public void onEntry() {
         super.onEntry();
-        FloatRect beaconSize = new FloatRect(panel.getGameWindowRect().width / 2, panel.getGameWindowRect().height / 2, 64, 64);
-        Beacon.getInstance().spawn(true, 100, new Vector2f(panel.getGameWindowRect().width / 2,panel.getGameWindowRect().height / 2), beaconSize);
+        //FloatRect beaconSize = new FloatRect(panel.getGameWindowRect().width / 2, panel.getGameWindowRect().height / 2, 64, 64);
+        //Beacon.getInstance().spawn(true, 100, new Vector2f(panel.getGameWindowRect().width / 2,panel.getGameWindowRect().height / 2), beaconSize);
     }
 
     @Override
