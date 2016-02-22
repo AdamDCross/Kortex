@@ -40,6 +40,7 @@ public class Turret implements Render {
     private long currentTime;
     private long localElapsedTime;
     private boolean active;
+    private FloatRect dimensions;
 
     private long shotTime;
     private long rechargeTime;
@@ -51,6 +52,16 @@ public class Turret implements Render {
 
     // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
+    public Turret copy() {
+
+
+    return new Turret(top, bottom, visible, health, currentAngle,rotationAngle,rotationDelay, dimensions,
+                  scrapCost, xpRequirement,(int) range, AOESize,shieldActive,shieldTimer,
+                    ID);
+
+    }
+
+
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
@@ -62,6 +73,7 @@ public class Turret implements Render {
         this.currentAngle = angle;
         this.rotationAngle = rotationAngle;
 
+        this.dimensions=dimensions;
         float x = 0.2f * (dimensions.left + dimensions.width);
         float y = 0.2f * (dimensions.top + dimensions.height);
         float w = 0.8f * dimensions.width;
@@ -83,6 +95,52 @@ public class Turret implements Render {
         this.ID = ID;
         localElapsedTime = 0;
         this.explosion = new Animation(explosion, width, height, row, col, delay, new Vector2f(dimensions.left, dimensions.top), 1, dimensions, false);
+        currentTime = 0;
+        prevTime = 0;
+        XPForEnemyKills = 0;
+        attackScore = 0;
+        XPMultiplier = 1;
+        active = true;
+        target=null;
+        shotTime=0;
+        rechargeTime=2000;
+        att=20;
+        def=10;
+        range=64;
+        position=new Vector2f(dimensions.left,dimensions.top);
+    }
+
+    public Turret(Button top, Button bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
+                  int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
+                  String ID) {
+        this.visible = visible;
+        destroyed = false;
+        this.health = health;
+        this.rotationDelay = rotationDelay;
+        this.currentAngle = angle;
+        this.rotationAngle = rotationAngle;
+
+        this.dimensions=dimensions;
+        float x = 0.2f * (dimensions.left + dimensions.width);
+        float y = 0.2f * (dimensions.top + dimensions.height);
+        float w = 0.8f * dimensions.width;
+        float h = 0.8f * dimensions.height;
+        this.top = top;
+        this.top.setOriginCentre();
+        this.top.setAngleOfImage(angle);
+        this.top.setPositionOfImage(new Vector2f(dimensions.left + dimensions.width / 2, dimensions.top + dimensions.height / 2));
+        this.top.setColourMask(Color.WHITE);
+
+        this.bottom = bottom;
+        this.scrapCost = scrapCost;
+        this.xpRequirement = xpRequirement;
+        this.range = range;
+        this.AOESize = AOESize;
+        this.shieldActive = shieldActive;
+        this.shieldTimer = shieldTimer;
+        this.enemyKillCount = 0;
+        this.ID = ID;
+        localElapsedTime = 0;
         currentTime = 0;
         prevTime = 0;
         XPForEnemyKills = 0;

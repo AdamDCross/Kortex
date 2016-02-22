@@ -2,6 +2,7 @@ package dijkstra;
 
 import assets.ArtAsset;
 import assets.AssetManager;
+import enemy.Enemy;
 import enemy.NPCHandle;
 import graphics.HUD;
 import graphics.Tilemap;
@@ -14,6 +15,7 @@ import org.jsfml.graphics.RenderWindow;
 import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
 import player.Player;
+import player.Turret;
 
 import java.util.Vector;
 
@@ -26,7 +28,6 @@ public class Dijkstra implements Render {
     private Vector2i currentPosition;
     private RenderWindow window;
     private Tilemap tiles;
-    private NPCHandle handle;
     public Player player;
     private HUD hud;
     private int w,h;
@@ -35,7 +36,7 @@ public class Dijkstra implements Render {
     public Dijkstra(HUD parent) {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
         player=new Player("Phil",100);
-        handle=new NPCHandle(player);
+        NPCHandle.getInstance().setPlayer(player);
         hud=parent;
 
         active=false;
@@ -79,9 +80,19 @@ public class Dijkstra implements Render {
                 tiles.drawTile((int)(drawX+x*drawW),(int)(drawY+y*drawH),(int)drawW,(int)drawH,x,y);
             }
         }
+        NPCHandle.getInstance().render();
     }
 
     @Override
     public void update() {
+        NPCHandle.getInstance().update();
+    }
+
+    public void addTurret(Turret t){
+        NPCHandle.getInstance().addTurret(t);
+    }
+
+    public void addEnemy(Enemy t){
+        NPCHandle.getInstance().addEnemy(t);
     }
 }

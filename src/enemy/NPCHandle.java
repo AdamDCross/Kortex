@@ -19,13 +19,34 @@ public class NPCHandle implements Render {
     private Player player;
     private long totalXPForEnemyKills;
     private long totalAttackScore;
+    private static NPCHandle instance=null;
 
-    public NPCHandle(Player player){
-        this.player = player;
+    /*public NPCHandle(Player player){
+        //this.player = player;
         totalXPForEnemyKills = 0;
         totalAttackScore = 0;
         enemies=new ArrayList<>();
         turrets=new ArrayList<>();
+    }*/
+
+    private NPCHandle(){
+        //this.player = player;
+        totalXPForEnemyKills = 0;
+        totalAttackScore = 0;
+        enemies=new ArrayList<>();
+        turrets=new ArrayList<>();
+    }
+
+    public static NPCHandle getInstance(){
+        if( instance == null ){
+            instance = new NPCHandle();
+        }
+
+        return instance;
+    }
+
+    public void setPlayer(Player p){
+        player=p;
     }
 
     @Override
@@ -40,6 +61,8 @@ public class NPCHandle implements Render {
 
     @Override
     public void update() {
+        //TODO enemy spawning
+
         //updates all enemies
         for(Enemy e:enemies){
             e.update();

@@ -3,6 +3,7 @@ package graphics;
 import assets.ArtAsset;
 import assets.AssetManager;
 import dijkstra.Dijkstra;
+import enemy.NPCHandle;
 import fsm.StateMachine;
 import main.*;
 import org.jsfml.graphics.Color;
@@ -217,14 +218,13 @@ public class HUD implements Render {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
                 if(grid[i][j].isWithinRect(mousePos))
                 {
-                    //TODO pass this into the Dijkstra
                     if(followMouse) {
                         followMouse = false;
                         turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
                         turrets.elementAt(selectedTurret).setActive(true);
+                        NPCHandle.getInstance().addTurret(turrets.elementAt(selectedTurret).copy());
                         selectedTurret = -1;
                     }
-                    //------------------------------------
                 }
             }
         }
@@ -275,16 +275,16 @@ public class HUD implements Render {
             turrets.elementAt(selectedTurret).setDimensions(mouseBox);
         }
 
-        for(int i = 0; i < turrets.size(); i++){
+        /*for(int i = 0; i < turrets.size(); i++){
             turrets.elementAt(i).update();
-        }
+        }*/
 
         dijkstra.update();
     }
 
     @Override
     public void render() {
-
+        if(followMouse) Line.drawRect(mouseBox);
         for(int i = 0; i < btns.size(); i++){ btns.elementAt(i).render(); }
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
