@@ -162,6 +162,7 @@ public class Turret implements Render,Cloneable {
 
     public void setActive(boolean active){
         this.active = active;
+        System.out.println(position);
         localElapsedTime = 0;
     }
 
@@ -175,6 +176,7 @@ public class Turret implements Render,Cloneable {
         this.top.setPositionOfImage(new Vector2f(dimensions.left + dimensions.width / 2, dimensions.top + dimensions.height / 2));
 
         this.bottom.setDimensions(dimensions);
+        position=new Vector2f(dimensions.left,dimensions.top);
     }
 
     @Override

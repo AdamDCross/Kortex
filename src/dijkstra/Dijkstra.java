@@ -111,9 +111,9 @@ public class Dijkstra implements Render {
     @Override
     public void update() {
         //
-        if(Window.getInstance().getElapsedTime()%100==0){
+        if(Window.getInstance().getElapsedTime()%10==0){
             //NPCHandle.getInstance().addEnemy(new Enemy(Pathfind.getInstance().getCells()[(int)(Math.random()*Pathfind.MAX_TILES_X)][(int)(Math.random()*Pathfind.MAX_TILES_Y)],0.5f));
-            NPCHandle.getInstance().addEnemy(new Enemy(corners.get((int)(Math.random()*4)),0.5f));
+            NPCHandle.getInstance().addEnemy(new Enemy(corners.get((int)(Math.random()*4)),5));
         }
         NPCHandle.getInstance().update();
     }

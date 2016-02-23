@@ -223,6 +223,7 @@ public class HUD implements Render {
                         turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
                         turrets.elementAt(selectedTurret).setActive(true);
                         NPCHandle.getInstance().addTurret(turrets.elementAt(selectedTurret));
+
                         selectedTurret = -1;
                     }
                 }
