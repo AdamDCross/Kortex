@@ -2,6 +2,7 @@ package enemy;
 
 import dijkstra.Cell;
 import dijkstra.Pathfind;
+import main.GameMaths;
 import main.Render;
 import main.Window;
 import org.jsfml.graphics.CircleShape;
@@ -148,7 +149,7 @@ public class Enemy implements Render{
         health-=damage;
         if(health<=0){
             isDead=true;
-            respawnTime= Window.getInstance().getElapsedTime()+ regenTime;
+            //respawnTime= Window.getInstance().getElapsedTime()+ regenTime;
         }
         return isDead;
     }
@@ -161,5 +162,7 @@ public class Enemy implements Render{
         return currentPosition;
     }
 
-
+    public boolean clicked(Vector2f pos){
+        return GameMaths.mag(Vector2f.sub(pos,currentPosition))<radius;
+    }
 }

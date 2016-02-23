@@ -229,6 +229,7 @@ public class HUD implements Render {
                 }
             }
         }
+
     }
 
     public void mouseMove(Vector2i mousePos){

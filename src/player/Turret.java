@@ -110,7 +110,7 @@ public class Turret implements Render,Cloneable {
         rechargeTime=100;
         att=1000;
         def=10;
-        this.range=200;
+        this.range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
     }
 
@@ -153,10 +153,10 @@ public class Turret implements Render,Cloneable {
         active = true;
         target=null;
         shotTime=0;
-        rechargeTime=2000;
+        rechargeTime=100;
         att=20;
         def=10;
-        range=200;
+        range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
     }
 
@@ -186,18 +186,19 @@ public class Turret implements Render,Cloneable {
 
         localElapsedTime += currentTime - prevTime;
 
-        if(active) {
+        //if(active) {
             if (destroyed) {
                 explosion.update();
             } else if (visible) {
-                if(Window.getInstance().getElapsedTime()>shotTime){
+                System.out.println((currentTime>shotTime)+" "+shotTime+" "+currentTime);
+                if(currentTime>shotTime){
                     //System.out.println("Explosion animation to add later.");
                     if(NPCHandle.getInstance().turretShoot(this)) {
-                        shotTime = Window.getInstance().getElapsedTime() + shotTime;
-
+                        shotTime = Window.getInstance().getElapsedTime() + rechargeTime;
+                        System.out.println(shotTime);
                     }
                 }
-                if (localElapsedTime >= rotationDelay) {
+                /*if (localElapsedTime >= rotationDelay) {
                     localElapsedTime = 0;
                     currentAngle += rotationAngle;
                     top.setAngleOfImage(currentAngle);
@@ -205,7 +206,7 @@ public class Turret implements Render,Cloneable {
                     if (currentAngle >= (360.0f * 3.14 / 180)) {
                         currentAngle = 0.0f;
                     }
-                }
+                }*/
 
                 top.update();
                 bottom.update();
@@ -216,7 +217,7 @@ public class Turret implements Render,Cloneable {
                 visible = false;
                 destroyed = true;
             }
-        }
+        //}
     }
 
     @Override
