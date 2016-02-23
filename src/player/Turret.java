@@ -16,7 +16,7 @@ import java.util.Vector;
 /**
  * Turret class for representing turrets.
  */
-public class Turret implements Render {
+public class Turret implements Render,Cloneable {
     private boolean visible;
     private boolean destroyed;
     private int health;
@@ -54,13 +54,17 @@ public class Turret implements Render {
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
     public Turret copy() {
 
-
-    return new Turret(top, bottom, visible, health, currentAngle,rotationAngle,rotationDelay, dimensions,
-                  scrapCost, xpRequirement,(int) range, AOESize,shieldActive,shieldTimer,
-                    ID);
-
+        try {
+            return (Turret) clone();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
-
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,

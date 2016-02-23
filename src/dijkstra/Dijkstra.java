@@ -36,14 +36,16 @@ public class Dijkstra implements Render {
     public Dijkstra(HUD parent) {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
         player=new Player("Phil",100);
-        NPCHandle.getInstance().setPlayer(player);
         hud=parent;
+        NPCHandle.getInstance().setPlayer(player);
+        NPCHandle.getInstance().setHUD(hud);
 
         active=false;
         tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/MapTest2.csv",32,32,5,2);
         d = Pathfind.getInstance();
         //currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
+
     }
 
     public void setActive(boolean act){
@@ -85,6 +87,10 @@ public class Dijkstra implements Render {
 
     @Override
     public void update() {
+        //
+        if(Window.getInstance().getElapsedTime()%100==0){
+            NPCHandle.getInstance().addEnemy(new Enemy(Pathfind.getInstance().getCells()[(int)(Math.random()*Pathfind.MAX_TILES_X)][(int)(Math.random()*Pathfind.MAX_TILES_Y)],0.5f));
+        }
         NPCHandle.getInstance().update();
     }
 

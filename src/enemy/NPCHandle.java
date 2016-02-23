@@ -1,5 +1,6 @@
 package enemy;
 
+import graphics.HUD;
 import main.GameMaths;
 import main.Render;
 import org.jsfml.system.Vector2f;
@@ -20,6 +21,7 @@ public class NPCHandle implements Render {
     private long totalXPForEnemyKills;
     private long totalAttackScore;
     private static NPCHandle instance=null;
+    private HUD hud;
 
     /*public NPCHandle(Player player){
         //this.player = player;
@@ -47,6 +49,14 @@ public class NPCHandle implements Render {
 
     public void setPlayer(Player p){
         player=p;
+    }
+
+    public void setHUD(HUD h){
+        hud=h;
+    }
+
+    public HUD getHUD(){
+        return hud;
     }
 
     @Override

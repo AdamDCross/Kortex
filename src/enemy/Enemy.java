@@ -1,6 +1,7 @@
 package enemy;
 
 import dijkstra.Cell;
+import dijkstra.Pathfind;
 import main.Render;
 import main.Window;
 import org.jsfml.graphics.CircleShape;
@@ -59,11 +60,19 @@ public class Enemy implements Render{
     }
 
     public Enemy(Cell start, float speed){
-        this.previous = new Vector2f(start.pos.x*32+16,start.pos.y*32+16);
-        this.heading = new Vector2f(start.pathNext.pos.x*32+16,start.pathNext.pos.y*32+16);
-        this.currentPosition = previous;
+
+
+        //Extracts the translation
+        float drawX=NPCHandle.getInstance().getHUD().getGameWindowRect().left;
+        float drawY=NPCHandle.getInstance().getHUD().getGameWindowRect().top;
+        //this is the width/height of the grid.
+        float drawW=(NPCHandle.getInstance().getHUD().getGameWindowRect().width/ Pathfind.GRID_WIDTH);
+        float drawH=(NPCHandle.getInstance().getHUD().getGameWindowRect().height/Pathfind.GRID_HEIGHT);
 
         oldCell=start;
+        this.previous = new Vector2f((oldCell.pos.x+0.5f)*drawW+drawX, (oldCell.pos.y+0.5f)*drawH+drawY);
+        this.heading = new Vector2f((oldCell.pathNext.pos.x+0.5f)*drawW+drawX,(oldCell.pathNext.pos.y+0.5f)*drawH+drawY);
+        this.currentPosition = previous;
 
         Vector2f direction = Vector2f.sub(this.heading, this.previous);
         float magnitude = (float)Math.sqrt((direction.x * direction.x) + (direction.y * direction.y));
@@ -90,25 +99,26 @@ public class Enemy implements Render{
                 //reached next point
                 //TODO sort shit out here
                 try {
+                    //Extracts the translation
+                    float drawX=NPCHandle.getInstance().getHUD().getGameWindowRect().left;
+                    float drawY=NPCHandle.getInstance().getHUD().getGameWindowRect().top;
+                    //this is the width/height of the grid.
+                    float drawW=(NPCHandle.getInstance().getHUD().getGameWindowRect().width/ Pathfind.GRID_WIDTH);
+                    float drawH=(NPCHandle.getInstance().getHUD().getGameWindowRect().height/Pathfind.GRID_HEIGHT);
                     oldCell = oldCell.pathNext;
-                    this.previous = new Vector2f(oldCell.pos.x * 32 + 16, oldCell.pos.y * 32 + 16);
-                    this.heading = new Vector2f(oldCell.pathNext.pos.x * 32 + 16, oldCell.pathNext.pos.y * 32 + 16);
+                    this.previous = new Vector2f((oldCell.pos.x+0.5f)*drawW+drawX, (oldCell.pos.y+0.5f)*drawH+drawY);
+                    this.heading = new Vector2f((oldCell.pathNext.pos.x+0.5f)*drawW+drawX,(oldCell.pathNext.pos.y+0.5f)*drawH+drawY);
                 }catch(NullPointerException n){
                     //dead clause
                     isDead=true;
                 }
                 lerpCurr=0;
             }
-            System.out.println(lerpCurr);
+            //System.out.println(lerpCurr);
             lerpCurr+=lerpVal;
             currentPosition=Vector2f.add(previous,Vector2f.mul(Vector2f.sub(heading,previous),lerpCurr));
-            System.out.println(currentPosition);
+            System.out.println(oldCell.pos);
             circle.setPosition(currentPosition);
-        }else {
-            //check for regen, then respawn.
-            if(Window.getInstance().getElapsedTime()>respawnTime){
-                spawn();
-            }
         }
     }
 
