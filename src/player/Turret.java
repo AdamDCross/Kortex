@@ -107,10 +107,10 @@ public class Turret implements Render,Cloneable {
         active = true;
         target=null;
         shotTime=0;
-        rechargeTime=2000;
-        att=20;
+        rechargeTime=100;
+        att=1000;
         def=10;
-        range=64;
+        this.range=200;
         position=new Vector2f(dimensions.left,dimensions.top);
     }
 
@@ -156,7 +156,7 @@ public class Turret implements Render,Cloneable {
         rechargeTime=2000;
         att=20;
         def=10;
-        range=64;
+        range=200;
         position=new Vector2f(dimensions.left,dimensions.top);
     }
 
@@ -188,6 +188,13 @@ public class Turret implements Render,Cloneable {
             if (destroyed) {
                 explosion.update();
             } else if (visible) {
+                if(Window.getInstance().getElapsedTime()>shotTime){
+                    //System.out.println("Explosion animation to add later.");
+                    if(NPCHandle.getInstance().turretShoot(this)) {
+                        shotTime = Window.getInstance().getElapsedTime() + shotTime;
+
+                    }
+                }
                 if (localElapsedTime >= rotationDelay) {
                     localElapsedTime = 0;
                     currentAngle += rotationAngle;

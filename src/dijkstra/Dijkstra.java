@@ -17,6 +17,7 @@ import org.jsfml.system.*;
 import player.Player;
 import player.Turret;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -32,6 +33,7 @@ public class Dijkstra implements Render {
     private HUD hud;
     private int w,h;
     private boolean active;
+    private ArrayList<Cell> corners;
 
     public Dijkstra(HUD parent) {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
@@ -41,11 +43,32 @@ public class Dijkstra implements Render {
         NPCHandle.getInstance().setHUD(hud);
 
         active=false;
-        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/MapTest2.csv",32,32,5,2);
+        tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/Map3.csv",32,32,5,2);
         d = Pathfind.getInstance();
+        d.setWeightMapFromTiles(tiles);
+        d.dijkstra(7,7);
         //currentPosition = new Vector2i(0,0);
         this.window = Window.getInstance().getGameWindow();
 
+        /*for (int cy = 0; cy < Pathfind.GRID_HEIGHT; cy++) {
+            for(int cx = 0; cx< Pathfind.GRID_WIDTH; cx++) {
+                System.out.print(d.getCells()[cx][cy].weight+"\t");
+            }
+            System.out.println(" ");
+        }
+        System.out.println("\n------------------------------------------\n");
+
+        for (int cy = 0; cy < Pathfind.GRID_HEIGHT; cy++) {
+            for(int cx = 0; cx< Pathfind.GRID_WIDTH; cx++) {
+                System.out.print(d.getCells()[cx][cy].distance+"\t");
+            }
+            System.out.println(" ");
+        }*/
+        corners=new ArrayList<>();
+        corners.add(d.getCells()[0][0]);
+        corners.add(d.getCells()[19][0]);
+        corners.add(d.getCells()[0][14]);
+        corners.add(d.getCells()[19][14]);
     }
 
     public void setActive(boolean act){
@@ -89,7 +112,8 @@ public class Dijkstra implements Render {
     public void update() {
         //
         if(Window.getInstance().getElapsedTime()%100==0){
-            NPCHandle.getInstance().addEnemy(new Enemy(Pathfind.getInstance().getCells()[(int)(Math.random()*Pathfind.MAX_TILES_X)][(int)(Math.random()*Pathfind.MAX_TILES_Y)],0.5f));
+            //NPCHandle.getInstance().addEnemy(new Enemy(Pathfind.getInstance().getCells()[(int)(Math.random()*Pathfind.MAX_TILES_X)][(int)(Math.random()*Pathfind.MAX_TILES_Y)],0.5f));
+            NPCHandle.getInstance().addEnemy(new Enemy(corners.get((int)(Math.random()*4)),0.5f));
         }
         NPCHandle.getInstance().update();
     }

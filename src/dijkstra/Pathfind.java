@@ -46,7 +46,7 @@ public class Pathfind {
     public void setWeightMapFromTiles(Tilemap t){
         for(int cx=0;cx<GRID_WIDTH;cx++){
             for(int cy=0;cy<GRID_HEIGHT;cy++){
-                cells[cx][cy]= new Cell(new Vector2i(cx,cy), (t.getMap().get(cy*GRID_WIDTH+cx)!=2) ? 10:1 );
+                cells[cx][cy]= new Cell(new Vector2i(cx,cy), (t.getMap().get(cy*GRID_WIDTH+cx)!=2) ? 100:1 );
             }
         }
     }

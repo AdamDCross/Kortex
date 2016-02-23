@@ -117,7 +117,7 @@ public class Enemy implements Render{
             //System.out.println(lerpCurr);
             lerpCurr+=lerpVal;
             currentPosition=Vector2f.add(previous,Vector2f.mul(Vector2f.sub(heading,previous),lerpCurr));
-            System.out.println(oldCell.pos);
+            //System.out.println(oldCell.pos);
             circle.setPosition(currentPosition);
         }
     }
@@ -144,6 +144,7 @@ public class Enemy implements Render{
 
 
     public boolean damage(int damage){
+        System.out.println("Ow...");
         health-=damage;
         if(health<=0){
             isDead=true;

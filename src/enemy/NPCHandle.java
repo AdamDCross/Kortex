@@ -133,18 +133,22 @@ public class NPCHandle implements Render {
                 }
             }
         }*/
-
+        //System.out.println(enemies.size());
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
                 t.setTarget(null);
+                System.out.println("hi");
                 return true;
+
             }
         }catch(NullPointerException n){
             for (Enemy e : enemies) {
                 //find magnitude
                 float mag= GameMaths.mag(Vector2f.sub(e.getPos(),t.getPos()));
+                System.out.println(t.getRange());
                 if(mag<t.getRange()){
                     //this is new target
+                    System.out.println("targetted");
                     t.setTarget(e);
                     if(e.damage(t.getAtt())&&(t.getTarget().getState())){
                         t.setTarget(null);
