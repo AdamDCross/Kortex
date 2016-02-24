@@ -133,7 +133,7 @@ public class HUD implements Render {
         waves = new Message("Remaining waves: "+game.getNumOfRemainingWaves(), Text.BOLD, wavesRect, Color.WHITE, 20);
 
         FloatRect XPRect = new FloatRect(wavesRect.left + wavesRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        XP = new Message("XP: "+dijkstra.player.getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
+        XP = new Message("XP: "+NPCHandle.getInstance().getPlayer().getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
 
         FloatRect scoreRect = new FloatRect(XPRect.left + XPRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
         score = new Message("Score: "+game.getScore(), Text.BOLD, scoreRect, Color.WHITE, 20);
@@ -184,12 +184,12 @@ public class HUD implements Render {
         }
 
         if(change) {
-            XP.setText("XP: " + dijkstra.player.getXP());
+            XP.setText("XP: " + NPCHandle.getInstance().getPlayer().getXP());
         }else{
-            XP.setText("Scrap: " + dijkstra.player.getPlayerScrap());
+            XP.setText("Scrap: " + NPCHandle.getInstance().getPlayer().getPlayerScrap());
         }
 
-        score.setText("Score: "+dijkstra.player.getScore());
+        score.setText("Score: "+NPCHandle.getInstance().getPlayer().getScore());
     }
 
     public void mousePress(Vector2i mousePos){

@@ -37,9 +37,7 @@ public class Dijkstra implements Render {
 
     public Dijkstra(HUD parent) {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
-        player=new Player("Phil",100);
         hud=parent;
-        NPCHandle.getInstance().setPlayer(player);
         NPCHandle.getInstance().setHUD(hud);
 
         active=false;

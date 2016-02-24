@@ -50,6 +50,9 @@ public class NPCHandle implements Render {
     public void setPlayer(Player p){
         player=p;
     }
+    public Player getPlayer(){
+        return player;
+    }
 
     public void setHUD(HUD h){
         hud=h;
@@ -114,25 +117,6 @@ public class NPCHandle implements Render {
         2 -> check distance to range
         5 -> if in range, shoot and wait
                  */
-
-        /*if(!(t.getTarget() ==null&&t.getTarget().getState())){
-            if(t.getTarget().damage(t.getAtt())){
-                t.setTarget(null);
-            }
-        }else {
-            for (Enemy e : enemies) {
-                //find magnitude
-                float mag= GameMaths.mag(Vector2f.sub(e.getPos(),t.getPos()));
-                if(mag<t.getRange()){
-                    //this is new target
-                    t.setTarget(e);
-                    if(e.damage(t.getAtt())){
-                        t.setTarget(null);
-                    }
-                    break;
-                }
-            }
-        }*/
         //System.out.println(enemies.size());
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){

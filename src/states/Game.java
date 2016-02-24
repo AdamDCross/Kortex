@@ -47,7 +47,8 @@ public class Game extends State {
         //gameObjects.addElement(a);
 
         setupGame();
-        player = new Player("Kortex player", 50);
+        player = new Player("Abe ;)", 50);
+        NPCHandle.getInstance().setPlayer(player);
         panel = new HUD(0.10f, 0.1f, this,player);
         gameObjects.addElement(panel);
         //handler=new NPCHandle(this,player);
