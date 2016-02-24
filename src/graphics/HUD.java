@@ -110,8 +110,8 @@ public class HUD implements Render {
                 break;
             }
 
-            turrets.addElement(new Turret(artAssets.elementAt(i).getAssetPath(),
-                    artAssets.elementAt(i+1).getAssetPath(),true,100,0.0f,1.0f,110,
+            turrets.addElement(new Turret(artAssets.elementAt(2*i).getAssetPath(),
+                    artAssets.elementAt((2*i)+1).getAssetPath(),true,100,0.0f,1.0f,110,
                     btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
             turrets.elementAt(i).setActive(false);
         }

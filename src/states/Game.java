@@ -36,8 +36,6 @@ public class Game extends State {
     {
         super("GAME");
         gameObjects = new Vector<Render>(10);
-        /*t=new TileTest();
-        gameObjects.addElement(t);*/
         a=new Anite();
         //test = new Dijkstra();
 
