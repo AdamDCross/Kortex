@@ -104,6 +104,7 @@ public class MainMenu extends State {
         }
 
         if( lastPressButtonID.equals("EXIT") ){
+            mainMusic.stop();
             Window.getInstance().getGameWindow().close();
         }
         else if(!lastPressButtonID.equals("NONE")){
