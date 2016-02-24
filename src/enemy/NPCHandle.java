@@ -139,6 +139,7 @@ public class NPCHandle implements Render {
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
 
                 enemies.remove(t.getTarget());
+                player.increaseScoreBy(100);
                 t.setTarget(null);
                 return true;
 
@@ -152,6 +153,7 @@ public class NPCHandle implements Render {
                     t.setTarget(e);
                     if(e.damage(t.getAtt())&&(t.getTarget().getState())){
                         enemies.remove(e);
+                        player.increaseScoreBy(100);
                         t.setTarget(null);
                         return true;
                     }

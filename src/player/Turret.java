@@ -5,6 +5,7 @@ import enemy.NPCHandle;
 import graphics.Animation;
 import graphics.Image;
 import main.Button;
+import main.Line;
 import main.Render;
 import main.Window;
 import org.jsfml.graphics.Color;
@@ -107,8 +108,8 @@ public class Turret implements Render,Cloneable {
         active = true;
         target=null;
         shotTime=0;
-        rechargeTime=100;
-        att=1000;
+        rechargeTime=200;
+        att=100;
         def=10;
         this.range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
@@ -225,6 +226,11 @@ public class Turret implements Render,Cloneable {
         if(visible){
             bottom.render();
             top.render();
+            try{
+                Line.drawLine(Vector2f.add(position,new Vector2f(bottom.getDimensions().width/2,bottom.getDimensions().height/2)),target.getPos(),Color.RED);
+            }catch(Exception e){
+                //no enemy, avoid the draw
+            }
 
         }
         else if(destroyed){

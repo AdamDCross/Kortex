@@ -189,7 +189,7 @@ public class HUD implements Render {
             XP.setText("Scrap: " + dijkstra.player.getPlayerScrap());
         }
 
-        score.setText("Score: "+game.getScore());
+        score.setText("Score: "+dijkstra.player.getScore());
     }
 
     public void mousePress(Vector2i mousePos){
