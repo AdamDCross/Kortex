@@ -108,7 +108,7 @@ public class Turret implements Render,Cloneable {
         active = true;
         target=null;
         shotTime=0;
-        rechargeTime=200;
+        rechargeTime=500;
         att=100;
         def=10;
         this.range=100;
@@ -154,7 +154,7 @@ public class Turret implements Render,Cloneable {
         active = true;
         target=null;
         shotTime=0;
-        rechargeTime=100;
+        rechargeTime=500;
         att=20;
         def=10;
         range=100;
