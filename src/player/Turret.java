@@ -191,7 +191,6 @@ public class Turret implements Render,Cloneable {
             if (destroyed) {
                 explosion.update();
             } else if (visible) {
-                System.out.println((currentTime>shotTime)+" "+shotTime+" "+currentTime);
                 if(currentTime>shotTime){
                     //System.out.println("Explosion animation to add later.");
                     if(NPCHandle.getInstance().turretShoot(this)) {

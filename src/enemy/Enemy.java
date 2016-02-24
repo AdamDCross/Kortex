@@ -145,7 +145,6 @@ public class Enemy implements Render{
 
 
     public boolean damage(int damage){
-        System.out.println("Ow...");
         health-=damage;
         if(health<=0){
             isDead=true;

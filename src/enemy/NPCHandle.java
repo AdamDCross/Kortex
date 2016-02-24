@@ -134,7 +134,6 @@ public class NPCHandle implements Render {
             }
         }*/
         //System.out.println(enemies.size());
-        System.out.println("hi");
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
 
