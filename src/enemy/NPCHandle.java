@@ -4,8 +4,10 @@ import graphics.HUD;
 import main.GameMaths;
 import main.Render;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import player.Player;
 import player.Turret;
+import scrap.DropScrap;
 import states.Game;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class NPCHandle implements Render {
     private long totalAttackScore;
     private static NPCHandle instance=null;
     private HUD hud;
+    private ArrayList<DropScrap> scraps;
 
     /*public NPCHandle(Player player){
         //this.player = player;
@@ -37,6 +40,7 @@ public class NPCHandle implements Render {
         totalAttackScore = 0;
         enemies=new ArrayList<>();
         turrets=new ArrayList<>();
+        scraps=new ArrayList<>();
     }
 
     public static NPCHandle getInstance(){
@@ -61,6 +65,17 @@ public class NPCHandle implements Render {
     public HUD getHUD(){
         return hud;
     }
+    public void scrapClick(Vector2i mousePos){
+        synchronized(scraps){
+            for(DropScrap s:scraps) {
+               if (s.isClicked().isWithinRect(mousePos)) {
+                   player.increaseScrapBy(10);
+                   scraps.remove(s);
+               }
+            }
+        }
+
+    }
 
     @Override
     public void render() {
@@ -69,6 +84,11 @@ public class NPCHandle implements Render {
         }
         for(Turret t:turrets){
             t.render();
+        }
+        synchronized(scraps){
+            for(DropScrap s:scraps) {
+                s.render();
+            }
         }
     }
 
@@ -95,6 +115,16 @@ public class NPCHandle implements Render {
 
         player.increaseXPBy(totalXPForEnemyKills);
         totalXPForEnemyKills = 0;
+
+
+        synchronized(scraps){
+            for(DropScrap s:scraps) {
+                s.update();
+                if (s.getTimer() > 100) {
+                    scraps.remove(s);
+                }
+            }
+        }
     }
 
     public void addEnemy(Enemy e){
@@ -120,9 +150,15 @@ public class NPCHandle implements Render {
         //System.out.println(enemies.size());
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
+               DropScrap drop = new DropScrap(t.getTarget().getPos());
+                scraps.add(drop);
 
                 enemies.remove(t.getTarget());
+<<<<<<< 3cc5d745473b4d62ee22067334befd6a76fcfbdb
                 player.increaseXPBy(10);
+=======
+
+>>>>>>> there are some concurrency issues ....?
                 player.increaseScoreBy(100);
                 t.setTarget(null);
                 return true;

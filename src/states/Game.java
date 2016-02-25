@@ -80,6 +80,7 @@ public class Game extends State {
                     break;
                 case MOUSE_BUTTON_PRESSED:
                     panel.mousePress(e.asMouseButtonEvent().position);
+
                     break;
                 case RESIZED:
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);

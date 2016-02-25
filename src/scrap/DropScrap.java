@@ -8,6 +8,7 @@ import main.Button;
 import main.Render;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 
 import java.util.Random;
 import java.util.Vector;
@@ -18,9 +19,10 @@ public class DropScrap implements  Render{
     FloatRect dimensions;
     float enemyLocationX;
     float enemyLocationY;
-    int sizeX = 10;
-    int sizeY = 10;
+    int sizeX = 30;
+    int sizeY = 30;
     int dropScrap;
+    int timer;
 
  public DropScrap(Vector2f position){
 
@@ -38,13 +40,10 @@ public class DropScrap implements  Render{
        float posX = enemyLocationX;
        float posY = enemyLocationY;
 
-       if(dropLocation == 0)posX++;
-       if(dropLocation == 1) posY++;
-       if(dropLocation == 2 & posX != 0) posX--;
-       if(dropLocation == 3 & posY != 0) posY--;
 
-       scrap = new Button("src/assets/scrap.jpg",
-               new FloatRect( posX,posY,sizeX,sizeY),"", true);
+
+       scrap = new Button("src/assets/scrap.png",
+               new FloatRect( posX,posY,sizeX,sizeY),"", false);
 
 
 
@@ -54,13 +53,24 @@ public class DropScrap implements  Render{
     public void updateEnemyPos(Vector2f pos){
         enemyLocationX = pos.x;
         enemyLocationY = pos.y;
+
+    }
+
+    public Button isClicked(){
+        return scrap;
+    }
+
+    public int getTimer(){
+        return timer;
     }
 
     @Override
     public void render() {
 
-        if(dropScrap == 1) scrap.render();
+        if(dropScrap == 1) {
+            scrap.render();
 
+        }
 
 
 
@@ -69,6 +79,8 @@ public class DropScrap implements  Render{
 
     @Override
     public void update() {
-
+        timer ++;
+        sizeX -= 0.1;
+        sizeY -= 0.1;
     }
 }

@@ -198,6 +198,7 @@ public class HUD implements Render {
             StateMachine.getInstance().setState("PAUSE");
             return;
         }
+        NPCHandle.getInstance().scrapClick(mousePos);
 
         for(int i = 0; i < btns.size(); i++){
             if(btns.elementAt(i).isWithinRect(mousePos) && (i <= turrets.size())){
