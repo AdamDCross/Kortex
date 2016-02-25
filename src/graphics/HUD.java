@@ -50,6 +50,7 @@ public class HUD implements Render {
     public static final int MAX_BUTTON_COUNT = 12;
 
     private int selectedTurret;
+    private Vector<Turret> inGridTurrets;
 
     private Vector<Turret> turrets;
 
@@ -113,7 +114,7 @@ public class HUD implements Render {
 
             turrets.addElement(new Turret(artAssets.elementAt(2*i).getAssetPath(),
                     artAssets.elementAt((2*i)+1).getAssetPath(),true,100,0.0f,1.0f,110,
-                    btns.elementAt(i+1).getDimensions(),0,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
+                    btns.elementAt(i+1).getDimensions(),15,0,0,0,false,0,"TURRET"+i,"src/assets/explosions/explosiontilesheet.png",141,128,10,11,50));
             turrets.elementAt(i).setActive(false);
         }
     }
@@ -142,6 +143,7 @@ public class HUD implements Render {
 
     private void createGrid(){
         grid = new Button[HUD_GRID_ROW_COUNT][HUD_GRID_COL_COUNT];
+        inGridTurrets = new Vector<>(5);
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++){
             for(int j = 0; j < HUD_GRID_COL_COUNT; j++){
@@ -207,10 +209,12 @@ public class HUD implements Render {
         }
 
         for(int i = 0; i < btns.size(); i++){
-            if(btns.elementAt(i).isWithinRect(mousePos)){
-                if(i != 0 && i != (MAX_BUTTON_COUNT-1) && !followMouse){
+            if(btns.elementAt(i).isWithinRect(mousePos) && (i <= turrets.size())){
+                if(i != 0 && i != (MAX_BUTTON_COUNT-1) && !followMouse && NPCHandle.getInstance().getPlayer().purchaseTurret(turrets.elementAt(i-1).getScrapCost())){
                     followMouse = true;
                     selectedTurret = i-1;
+                    inGridTurrets.addElement(new Turret(turrets.elementAt(selectedTurret)));
+                    inGridTurrets.elementAt(inGridTurrets.size()-1).setActive(false);
                 }
             }
         }
@@ -221,9 +225,11 @@ public class HUD implements Render {
                 {
                     if(followMouse) {
                         followMouse = false;
-                        turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
-                        turrets.elementAt(selectedTurret).setActive(true);
-                        NPCHandle.getInstance().addTurret(turrets.elementAt(selectedTurret));
+                        //turrets.elementAt(selectedTurret).setDimensions(grid[i][j].getDimensions());
+                        //turrets.elementAt(selectedTurret).setActive(true);
+                        inGridTurrets.elementAt(inGridTurrets.size()-1).setDimensions(grid[i][j].getDimensions());
+                        inGridTurrets.elementAt(inGridTurrets.size()-1).setActive(true);
+                        NPCHandle.getInstance().addTurret(inGridTurrets.elementAt(inGridTurrets.size()-1));
 
                         selectedTurret = -1;
                     }
@@ -268,7 +274,8 @@ public class HUD implements Render {
             float x = (currentMousePos.x - (w / 2));
             float y = (currentMousePos.y - (h / 2));
             mouseBox = new FloatRect(x,y,w,h);
-            turrets.elementAt(selectedTurret).setDimensions(mouseBox);
+            //turrets.elementAt(selectedTurret).setDimensions(mouseBox);
+            inGridTurrets.elementAt(inGridTurrets.size()-1).setDimensions(mouseBox);
         }
 
         /*for(int i = 0; i < turrets.size(); i++){
@@ -276,6 +283,10 @@ public class HUD implements Render {
         }*/
 
         dijkstra.update();
+
+        for(int i = 0; i < inGridTurrets.size(); i++){
+            inGridTurrets.elementAt(i).update();
+        }
     }
 
     @Override
@@ -292,6 +303,10 @@ public class HUD implements Render {
         renderBottomBar();
         renderTopBar();
 
+        if(followMouse) Line.drawRect(mouseBox);
 
+        for(int i = 0; i < inGridTurrets.size(); i++){
+            inGridTurrets.elementAt(i).render();
+        }
     }
 }

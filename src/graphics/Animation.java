@@ -26,8 +26,10 @@ public class Animation implements Render {
     private boolean visible;
     private boolean repeat;
     private boolean ended;
+    private String filePath;
 
     public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame, boolean repeat){
+        this.filePath = filePath;
         pos=position;
         noOfFrames=row*col;
         currentFrame = startFrame%noOfFrames;
@@ -58,6 +60,7 @@ public class Animation implements Render {
 
     //Alternative constructor which scales an animation to a particular set of dimensions
     public Animation(String filePath,int w,int h,int row,int col, int delay, Vector2f position,int startFrame, FloatRect dimensions, boolean repeat){
+        this.filePath = filePath;
         pos=position;
         noOfFrames=row*col;
         currentFrame = startFrame%noOfFrames;
@@ -94,6 +97,30 @@ public class Animation implements Render {
         visible = true;
         this.repeat = repeat;
         ended = false;
+    }
+
+    public int getDelay(){
+        return delay;
+    }
+
+    public int getCol(){
+        return col;
+    }
+
+    public int getRow(){
+        return row;
+    }
+
+    public int getHeight(){
+        return h;
+    }
+
+    public int getWidth(){
+        return w;
+    }
+
+    public String getFilePath(){
+        return filePath;
     }
 
     @Override

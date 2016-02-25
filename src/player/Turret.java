@@ -51,6 +51,26 @@ public class Turret implements Render {
     private float range;
     private Vector2f position;
 
+    private String topFilePath;
+    private String bottomFilePath;
+
+    // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
+    //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
+    public Turret copy() {
+
+        try {
+            return (Turret) clone();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
+
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
                   String ID, String explosion, int width, int height, int row, int col, int delay) {
@@ -61,6 +81,8 @@ public class Turret implements Render {
         this.currentAngle = angle;
         this.rotationAngle = rotationAngle;
 
+        this.topFilePath = top;
+        this.bottomFilePath = bottom;
         this.dimensions=dimensions;
         float x = 0.2f * (dimensions.left + dimensions.width);
         float y = 0.2f * (dimensions.top + dimensions.height);
@@ -78,7 +100,6 @@ public class Turret implements Render {
         this.range = range;
         this.AOESize = AOESize;
         this.shieldActive = shieldActive;
-        this.shieldTimer = shieldTimer;
         this.enemyKillCount = 0;
         this.ID = ID;
         localElapsedTime = 0;
@@ -92,10 +113,100 @@ public class Turret implements Render {
         target=null;
         shotTime=0;
         rechargeTime=500;
-        att=20;
+        att=100;
         def=10;
         this.range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
+    }
+
+    public Turret(Turret otherTurret){
+        this.visible = otherTurret.getVisible();
+        destroyed = otherTurret.getIsDestroyed();
+        this.health = otherTurret.getTurretHealth();
+        this.rotationDelay = otherTurret.getRotationDelay();
+        this.currentAngle = otherTurret.getCurrentAngle();
+        this.rotationAngle = otherTurret.getRotationAngle();
+
+        this.dimensions= otherTurret.getDimensions();
+        float x = 0.2f * (this.dimensions.left + this.dimensions.width);
+        float y = 0.2f * (this.dimensions.top + this.dimensions.height);
+        float w = 0.8f * this.dimensions.width;
+        float h = 0.8f * this.dimensions.height;
+        this.top = new Button(otherTurret.getTopFilePath(), new FloatRect(x, y, w, h), ID + " TOP", false);
+        this.top.setOriginCentre();
+        this.top.setAngleOfImage(this.currentAngle);
+        this.top.setPositionOfImage(new Vector2f(this.dimensions.left + this.dimensions.width / 2, this.dimensions.top + this.dimensions.height / 2));
+        this.top.setColourMask(Color.WHITE);
+
+        this.bottom = new Button(otherTurret.getBottomFilePath(), this.dimensions, ID + " BOTTOM", false);
+        this.scrapCost = otherTurret.getScrapCost();
+        this.xpRequirement = otherTurret.getXPRequirement();
+        this.range = otherTurret.getRange();
+        this.AOESize = otherTurret.getAOESize();
+        this.shieldActive = otherTurret.getIsShieldActive();
+
+        this.enemyKillCount = 0;
+        this.ID = otherTurret.getID();
+        localElapsedTime = 0;
+
+        //get animation object here
+        Animation temp = otherTurret.getExplosionObj();
+        this.explosion = new Animation(temp.getFilePath(), temp.getWidth(), temp.getHeight(),
+                temp.getRow(), temp.getCol(), temp.getDelay(), new Vector2f(this.dimensions.left, this.dimensions.top), 1, this.dimensions, false);
+
+        currentTime = 0;
+        prevTime = 0;
+        XPForEnemyKills = 0;
+        attackScore = 0;
+        XPMultiplier = 1;
+        active = true;
+        target=null;
+        shotTime=0;
+        rechargeTime=500;
+        att=100;
+        def=10;
+        this.range=100;
+        position=new Vector2f(this.dimensions.left,this.dimensions.top);
+    }
+
+    public Animation getExplosionObj(){
+        return explosion;
+    }
+
+    public boolean getIsShieldActive(){
+        return  shieldActive;
+    }
+
+    public String getBottomFilePath(){
+        return bottomFilePath;
+    }
+
+    public String getTopFilePath(){
+        return topFilePath;
+    }
+
+    public FloatRect getDimensions(){
+        return dimensions;
+    }
+
+    public float getRotationAngle(){
+        return rotationAngle;
+    }
+
+    public float getCurrentAngle(){
+        return currentAngle;
+    }
+
+    public int getRotationDelay(){
+        return rotationDelay;
+    }
+
+    public boolean getIsDestroyed(){
+        return destroyed;
+    }
+
+    public boolean getVisible(){
+        return visible;
     }
 
     public void setActive(boolean active){
@@ -124,7 +235,7 @@ public class Turret implements Render {
 
         localElapsedTime += currentTime - prevTime;
 
-        //if(active) {
+        if(active) {
             if (destroyed) {
                 explosion.update();
             } else if (visible) {
@@ -132,17 +243,9 @@ public class Turret implements Render {
                     //System.out.println("Explosion animation to add later.");
                     if(NPCHandle.getInstance().turretShoot(this)) {
                         shotTime = Window.getInstance().getElapsedTime() + rechargeTime;
+                        System.out.println(shotTime);
                     }
                 }
-                /*if (localElapsedTime >= rotationDelay) {
-                    localElapsedTime = 0;
-                    currentAngle += rotationAngle;
-                    top.setAngleOfImage(currentAngle);
-
-                    if (currentAngle >= (360.0f * 3.14 / 180)) {
-                        currentAngle = 0.0f;
-                    }
-                }*/
 
                 top.update();
                 bottom.update();
@@ -153,7 +256,7 @@ public class Turret implements Render {
                 visible = false;
                 destroyed = true;
             }
-        //}
+        }
     }
 
     @Override
@@ -200,10 +303,6 @@ public class Turret implements Render {
 
     public int getEnemyKillCount(){
         return enemyKillCount;
-    }
-
-    public void setShieldTimer(int shieldTimer){
-        this.shieldTimer = shieldTimer;
     }
 
     public void setAOESize(int AOESize){
