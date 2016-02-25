@@ -2,7 +2,6 @@ package enemy;
 
 import dijkstra.Cell;
 import dijkstra.Pathfind;
-import main.Beacon;
 import main.GameMaths;
 import main.Render;
 import main.Window;
@@ -22,7 +21,6 @@ public class Enemy implements Render{
     private Cell oldCell;
     private float speed;
     private int health;
-    private int maxHealth;
 
     //Time Holder
     //Deal with death
@@ -57,7 +55,7 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.GREEN, 255) );
+        circle.setFillColor( new Color(Color.RED, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
@@ -89,17 +87,13 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.GREEN, 255) );
+        circle.setFillColor( new Color(Color.RED, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
         isDead=false;
         health=1000;
-<<<<<<< 3cc5d745473b4d62ee22067334befd6a76fcfbdb
-        maxHealth=1000;
-=======
 
->>>>>>> there are some concurrency issues ....?
     }
 
     @Override
@@ -121,12 +115,8 @@ public class Enemy implements Render{
                 }catch(NullPointerException n){
                     //dead clause
                     isDead=true;
-<<<<<<< 3cc5d745473b4d62ee22067334befd6a76fcfbdb
-                    Beacon.getInstance().takeDamage(10);
-=======
 
 
->>>>>>> there are some concurrency issues ....?
                 }
                 lerpCurr=0;
             }
@@ -135,12 +125,6 @@ public class Enemy implements Render{
             currentPosition=Vector2f.add(previous,Vector2f.mul(Vector2f.sub(heading,previous),lerpCurr));
             //System.out.println(oldCell.pos);
             circle.setPosition(currentPosition);
-<<<<<<< 3cc5d745473b4d62ee22067334befd6a76fcfbdb
-            int percentHP=255*health/maxHealth;
-            circle.setFillColor(new Color(255-percentHP,percentHP,0,255));
-=======
-
->>>>>>> there are some concurrency issues ....?
         }
 
     }

@@ -26,6 +26,7 @@ public class NPCHandle implements Render {
     private HUD hud;
     private ArrayList<DropScrap> scraps;
 
+
     /*public NPCHandle(Player player){
         //this.player = player;
         totalXPForEnemyKills = 0;
@@ -66,16 +67,28 @@ public class NPCHandle implements Render {
         return hud;
     }
     public void scrapClick(Vector2i mousePos){
-        synchronized(scraps){
-            for(DropScrap s:scraps) {
-               if (s.isClicked().isWithinRect(mousePos)) {
+        /*Iterator<DropScrap> temp;
+        for(temp=scraps.iterator();temp.hasNext();) {
+            DropScrap next=temp.next();
+            if (next.isClicked().isWithinRect(mousePos)) {
+                player.increaseScrapBy(10);
+                scraps.remove(next);
+            }
+
+        }*/
+        ArrayList<Integer>  toRemove = new ArrayList<>();
+            for(int i = 0;scraps.size()>i;i++) {
+            if (scraps.get(i).isClicked().isWithinRect(mousePos)) {
                    player.increaseScrapBy(10);
-                   scraps.remove(s);
+                   toRemove.add(i);
+                    scraps.get(i).clickFeedBack();
                }
             }
-        }
+
+
 
     }
+
 
     @Override
     public void render() {
@@ -85,11 +98,10 @@ public class NPCHandle implements Render {
         for(Turret t:turrets){
             t.render();
         }
-        synchronized(scraps){
-            for(DropScrap s:scraps) {
-                s.render();
-            }
+        for(DropScrap s:scraps) {
+            s.render();
         }
+
     }
 
     @Override
@@ -117,14 +129,22 @@ public class NPCHandle implements Render {
         totalXPForEnemyKills = 0;
 
 
-        synchronized(scraps){
-            for(DropScrap s:scraps) {
-                s.update();
-                if (s.getTimer() > 100) {
-                    scraps.remove(s);
+
+        for (int i = 0; i < scraps.size(); i++) {
+
+            scraps.get(i).update();
+                if (scraps.get(i).getTimer() > 1000) {
+                    scraps.remove(i);
                 }
+
             }
-        }
+
+
+
+
+
+
+
     }
 
     public void addEnemy(Enemy e){
@@ -151,14 +171,10 @@ public class NPCHandle implements Render {
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
                DropScrap drop = new DropScrap(t.getTarget().getPos());
-                scraps.add(drop);
+              if(drop.isActive())scraps.add(drop);
 
                 enemies.remove(t.getTarget());
-<<<<<<< 3cc5d745473b4d62ee22067334befd6a76fcfbdb
-                player.increaseXPBy(10);
-=======
 
->>>>>>> there are some concurrency issues ....?
                 player.increaseScoreBy(100);
                 t.setTarget(null);
                 return true;
@@ -173,7 +189,6 @@ public class NPCHandle implements Render {
                     t.setTarget(e);
                     if(e.damage(t.getAtt())&&(t.getTarget().getState())){
                         enemies.remove(e);
-                        player.increaseXPBy(10);
                         player.increaseScoreBy(100);
                         t.setTarget(null);
                         return true;

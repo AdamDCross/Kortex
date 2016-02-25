@@ -23,13 +23,18 @@ public class DropScrap implements  Render{
     int sizeY = 30;
     int dropScrap;
     int timer;
+    boolean active = false;
+    boolean viewToggle;
+
+
 
  public DropScrap(Vector2f position){
 
         enemyLocationX = position.x;
         enemyLocationY = position.y;
-        dropScrap = randomGenerator.nextInt(2);
+        dropScrap = randomGenerator.nextInt(10);
         if(dropScrap == 1){
+            active = true;
             int dropLocation = randomGenerator.nextInt(4);
             drawButton(dropLocation);
 
@@ -47,6 +52,7 @@ public class DropScrap implements  Render{
 
 
 
+
    }
 
 
@@ -54,6 +60,9 @@ public class DropScrap implements  Render{
         enemyLocationX = pos.x;
         enemyLocationY = pos.y;
 
+    }
+    public  boolean isActive(){
+        return active;
     }
 
     public Button isClicked(){
@@ -63,6 +72,12 @@ public class DropScrap implements  Render{
     public int getTimer(){
         return timer;
     }
+    public void clickFeedBack(){
+        Image i = new Image("src/assets/scrap2.png",new Vector2f(enemyLocationX,enemyLocationY));
+        scrap.setImage(i);
+        timer = 900;
+    }
+
 
     @Override
     public void render() {
@@ -72,15 +87,13 @@ public class DropScrap implements  Render{
 
         }
 
-
-
-
     }
+
 
     @Override
     public void update() {
+
         timer ++;
-        sizeX -= 0.1;
-        sizeY -= 0.1;
+
     }
 }
