@@ -2,13 +2,13 @@ package enemy;
 
 import dijkstra.Cell;
 import dijkstra.Pathfind;
-import main.Beacon;
 import main.GameMaths;
 import main.Render;
 import main.Window;
 import org.jsfml.graphics.CircleShape;
 import org.jsfml.graphics.Color;
 import org.jsfml.system.Vector2f;
+import scrap.DropScrap;
 
 public class Enemy implements Render{
     //private Vector2f previous;
@@ -21,7 +21,6 @@ public class Enemy implements Render{
     private Cell oldCell;
     private float speed;
     private int health;
-    private int maxHealth;
 
     //Time Holder
     //Deal with death
@@ -40,6 +39,7 @@ public class Enemy implements Render{
     private int radius;
     CircleShape circle;
 
+
     public Enemy(Vector2f startPosition, Vector2f endingPosition, float speed){
         this.previous = startPosition;
         this.heading = endingPosition;
@@ -55,7 +55,7 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.GREEN, 255) );
+        circle.setFillColor( new Color(Color.RED, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
@@ -87,13 +87,13 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.GREEN, 255) );
+        circle.setFillColor( new Color(Color.RED, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
         isDead=false;
         health=1000;
-        maxHealth=1000;
+
     }
 
     @Override
@@ -115,7 +115,8 @@ public class Enemy implements Render{
                 }catch(NullPointerException n){
                     //dead clause
                     isDead=true;
-                    Beacon.getInstance().takeDamage(10);
+
+
                 }
                 lerpCurr=0;
             }
@@ -124,9 +125,8 @@ public class Enemy implements Render{
             currentPosition=Vector2f.add(previous,Vector2f.mul(Vector2f.sub(heading,previous),lerpCurr));
             //System.out.println(oldCell.pos);
             circle.setPosition(currentPosition);
-            int percentHP=255*health/maxHealth;
-            circle.setFillColor(new Color(255-percentHP,percentHP,0,255));
         }
+
     }
 
     @Override
@@ -134,6 +134,10 @@ public class Enemy implements Render{
         //TODO add dead state
         if(!isDead) {
             main.Window.getInstance().getGameWindow().draw(circle);
+        }
+        else {
+
+            //System.out.println("timer"+timer);
         }
     }
 
@@ -154,6 +158,8 @@ public class Enemy implements Render{
         health-=damage;
         if(health<=0){
             isDead=true;
+
+
             //respawnTime= Window.getInstance().getElapsedTime()+ regenTime;
         }
         return isDead;
@@ -162,6 +168,8 @@ public class Enemy implements Render{
     public boolean getState(){
         return isDead;
     }
+
+
 
     public Vector2f getPos(){
         return currentPosition;
