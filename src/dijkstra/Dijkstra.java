@@ -10,9 +10,7 @@ import main.*;
 
 import main.Window;
 import org.jsfml.graphics.FloatRect;
-import org.jsfml.graphics.PrimitiveType;
 import org.jsfml.graphics.RenderWindow;
-import org.jsfml.graphics.Vertex;
 import org.jsfml.system.*;
 import player.Player;
 import player.Turret;
