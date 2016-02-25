@@ -14,7 +14,7 @@ With familiar game controls (mouse and keyboard as well as full touch screen sup
 ### List of controls
 | Control    | Button |
 | ---------- |:------:|
-| Pause Game |    P   |
+| Pause Game |  ESC   |
 
 ## Meet the Team
 
