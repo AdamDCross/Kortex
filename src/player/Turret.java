@@ -17,7 +17,7 @@ import java.util.Vector;
 /**
  * Turret class for representing turrets.
  */
-public class Turret implements Render,Cloneable {
+public class Turret implements Render {
     private boolean visible;
     private boolean destroyed;
     private int health;
@@ -50,23 +50,6 @@ public class Turret implements Render,Cloneable {
     private int def;
     private float range;
     private Vector2f position;
-
-    // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
-    //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
-    public Turret copy() {
-
-        try {
-            return (Turret) clone();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
 
     public Turret(String top, String bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
                   int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
@@ -109,55 +92,9 @@ public class Turret implements Render,Cloneable {
         target=null;
         shotTime=0;
         rechargeTime=500;
-        att=100;
-        def=10;
-        this.range=100;
-        position=new Vector2f(dimensions.left,dimensions.top);
-    }
-
-    public Turret(Button top, Button bottom, boolean visible, int health, float angle, float rotationAngle, int rotationDelay, FloatRect dimensions,
-                  int scrapCost, int xpRequirement, int range, int AOESize, boolean shieldActive, int shieldTimer,
-                  String ID) {
-        this.visible = visible;
-        destroyed = false;
-        this.health = health;
-        this.rotationDelay = rotationDelay;
-        this.currentAngle = angle;
-        this.rotationAngle = rotationAngle;
-
-        this.dimensions=dimensions;
-        float x = 0.2f * (dimensions.left + dimensions.width);
-        float y = 0.2f * (dimensions.top + dimensions.height);
-        float w = 0.8f * dimensions.width;
-        float h = 0.8f * dimensions.height;
-        this.top = top;
-        this.top.setOriginCentre();
-        this.top.setAngleOfImage(angle);
-        this.top.setPositionOfImage(new Vector2f(dimensions.left + dimensions.width / 2, dimensions.top + dimensions.height / 2));
-        this.top.setColourMask(Color.WHITE);
-
-        this.bottom = bottom;
-        this.scrapCost = scrapCost;
-        this.xpRequirement = xpRequirement;
-        this.range = range;
-        this.AOESize = AOESize;
-        this.shieldActive = shieldActive;
-        this.shieldTimer = shieldTimer;
-        this.enemyKillCount = 0;
-        this.ID = ID;
-        localElapsedTime = 0;
-        currentTime = 0;
-        prevTime = 0;
-        XPForEnemyKills = 0;
-        attackScore = 0;
-        XPMultiplier = 1;
-        active = true;
-        target=null;
-        shotTime=0;
-        rechargeTime=500;
         att=20;
         def=10;
-        range=100;
+        this.range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
     }
 
@@ -195,7 +132,6 @@ public class Turret implements Render,Cloneable {
                     //System.out.println("Explosion animation to add later.");
                     if(NPCHandle.getInstance().turretShoot(this)) {
                         shotTime = Window.getInstance().getElapsedTime() + rechargeTime;
-                        System.out.println(shotTime);
                     }
                 }
                 /*if (localElapsedTime >= rotationDelay) {

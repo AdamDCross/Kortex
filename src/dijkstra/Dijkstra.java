@@ -39,6 +39,12 @@ public class Dijkstra implements Render {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
         hud=parent;
         NPCHandle.getInstance().setHUD(hud);
+        float drawX=hud.getGameWindowRect().left;
+        float drawY=hud.getGameWindowRect().top;
+        //this is the width/height of the grid.
+        float drawW=(hud.getGameWindowRect().width/Pathfind.GRID_WIDTH);
+        float drawH=(hud.getGameWindowRect().height/Pathfind.GRID_HEIGHT);
+        Beacon.getInstance().spawn(true,100,new Vector2f(drawX+(7*drawW),drawY+(7*drawH)),new FloatRect(0,0,drawW,drawH));
 
         active=false;
         tiles=new Tilemap(asset.elementAt(0).getAssetPath(),"src/assets/Map3.csv",32,32,5,2);
@@ -97,7 +103,7 @@ public class Dijkstra implements Render {
         float drawW=(hud.getGameWindowRect().width/Pathfind.GRID_WIDTH);
         float drawH=(hud.getGameWindowRect().height/Pathfind.GRID_HEIGHT);
         //System.out.println(drawW+" - "+drawH);
-        Beacon.getInstance().spawn(true,100,new Vector2f(drawX+(4*drawW),drawY+(4*drawH)),new FloatRect(0,0,drawW,drawH));
+
         for (int y = 0; y < Pathfind.GRID_HEIGHT; y++) {
             for (int x = 0; x < Pathfind.GRID_WIDTH; x++) {
                 tiles.drawTile((int)(drawX+x*drawW),(int)(drawY+y*drawH),(int)drawW,(int)drawH,x,y);
