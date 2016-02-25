@@ -240,10 +240,8 @@ public class Turret implements Render {
                 explosion.update();
             } else if (visible) {
                 if(currentTime>shotTime){
-                    //System.out.println("Explosion animation to add later.");
                     if(NPCHandle.getInstance().turretShoot(this)) {
                         shotTime = Window.getInstance().getElapsedTime() + rechargeTime;
-                        System.out.println(shotTime);
                     }
                 }
 

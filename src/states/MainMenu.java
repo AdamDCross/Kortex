@@ -32,7 +32,7 @@ public class MainMenu extends State {
     private String lastPressButtonID;
     public static final float BUTTON_WIDTH = 150.0f;
     public static final float BUTTON_HEIGHT = 50.0f;
-    Music mainMusic;
+    private Music mainMusic;
     private Button background;
 
     public MainMenu() {

@@ -6,9 +6,11 @@ import graphics.Image;
 import main.Button;
 import main.Message;
 import main.Window;
+import org.jsfml.audio.Music;
 import org.jsfml.graphics.*;
 import org.jsfml.system.Vector2f;
 import org.jsfml.system.Vector2i;
+import org.jsfml.window.Keyboard;
 import org.jsfml.window.event.Event;
 import sun.applet.Main;
 
@@ -17,7 +19,8 @@ public class Pause extends State {
     private org.jsfml.graphics.Image capture;
     private Button resume;
     private Button mute;
-    private Button options;
+    private Button menu;
+
 
     /**
      * This is a constructor for the Pause class it doesn't take any parameters but instead captures an image of the
@@ -36,7 +39,7 @@ public class Pause extends State {
         mute = new Button("Mute", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"MUTE",true);
 
         x = (Window.getInstance().getScreenWidth() / 2) + (((Window.getInstance().getScreenWidth()) - (Window.getInstance().getScreenWidth() / 2)) / 2);
-        options = new Button("Options", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"OPTIONS",true);
+        menu = new Button("Menu", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"MAIN_MENU",true);
     }
 
     /**
@@ -52,7 +55,7 @@ public class Pause extends State {
 
         resume.render();
         mute.render();
-        options.render();
+        menu.render();
     }
 
     /**
@@ -75,10 +78,14 @@ public class Pause extends State {
                     else if(mute.isWithinRect(mousePos)){
                         //mute audio playback when config manager is fully up and running
                     }
-                    else if(options.isWithinRect(mousePos)){
-                        StateMachine.getInstance().setState("OPTIONS");
+                    else if(menu.isWithinRect(mousePos)){
+                        StateMachine.getInstance().setState("MAIN_MENU");
                     }
                     break;
+                case KEY_RELEASED:
+                    if(e.asKeyEvent().key == Keyboard.Key.ESCAPE){
+                        StateMachine.getInstance().setState("GAME");
+                    }
             }
         }
     }

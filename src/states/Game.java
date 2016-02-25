@@ -1,34 +1,25 @@
 package states;
 
-import assets.ArtAsset;
 import assets.AssetManager;
-import enemy.Enemy;
 import enemy.NPCHandle;
 import graphics.HUD;
 import main.*;
-import org.jsfml.graphics.FloatRect;
+import org.jsfml.audio.Music;
 import org.jsfml.system.Vector2i;
 import org.jsfml.window.Keyboard;
 import player.Player;
-import player.Turret;
-import test.Anite;
-import dijkstra.Dijkstra;
 import fsm.State;
 import fsm.StateMachine;
-import org.jsfml.system.Vector2f;
 import org.jsfml.window.event.Event;
 
 import java.util.Vector;
 
 public class Game extends State {
     private Vector<Render> gameObjects;
-    private Dijkstra test;
-    private Enemy red;
-    private Anite a;
     private int numOfRemainingWaves;
     private int currentWave;
-    NPCHandle handler;
     private HUD panel;
+    private Music inGameMusic;
 
     private Player player;
 
@@ -36,26 +27,18 @@ public class Game extends State {
     {
         super("GAME");
         gameObjects = new Vector<Render>(10);
-        a=new Anite();
-        //test = new Dijkstra();
-
-        red = new Enemy(new Vector2f(0,50), new Vector2f(250, 50), 5);
-        //gameObjects.addElement(test);
-        //gameObjects.addElement(red);
-        //gameObjects.addElement(a);
 
         setupGame();
 
         gameObjects.addElement(panel);
-        //handler=new NPCHandle(this,player);
 
-
+        inGameMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(1).getMusicObject();
     }
 
     private void setupGame(){
         numOfRemainingWaves = 10;
         currentWave = 0;
-        player = new Player("Abe ;)", 50);
+        player = new Player("Abe ;)", 150);
         NPCHandle.getInstance().setPlayer(player);
         panel = new HUD(0.10f, 0.1f, this,player);
     }
@@ -64,6 +47,7 @@ public class Game extends State {
     //and all clean up code can be executed in here
     private void quitGame(){
         player.gameQuit();
+        inGameMusic.stop();
         HighScoreManager.getInstance().writeScoresToFile();
     }
 
@@ -91,7 +75,6 @@ public class Game extends State {
                     break;
                 case MOUSE_MOVED:
                     Vector2i mPos = e.asMouseEvent().position;
-                    //test.updateCurrentMousePosition(mPos);
                     panel.mouseMove(mPos);
                     break;
                 case MOUSE_BUTTON_PRESSED:
@@ -125,19 +108,18 @@ public class Game extends State {
         }
 
         Beacon.getInstance().render();
-
-
     }
 
     @Override
     public void onEntry() {
         super.onEntry();
-
+        inGameMusic.play();
     }
 
     @Override
     public void onExit() {
         super.onExit();
+        inGameMusic.stop();
         quitGame();
     }
 }
