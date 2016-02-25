@@ -23,5 +23,4 @@ With familiar game controls (mouse and keyboard as well as full touch screen sup
 | Adam Cross         | Lead Producer and Testing   |
 | Vincent de Almeida | Lead Programmer             |
 | Philip de Sousa    | Game Programmer             |
-| Tom Brown          | Game Programmer             |
 | Tesfa Bedane       | Project and Time Management |
