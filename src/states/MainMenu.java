@@ -9,6 +9,7 @@ import org.jsfml.graphics.Color;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.graphics.Text;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import org.jsfml.window.Mouse;
 import org.jsfml.window.event.Event;
 
@@ -91,7 +92,9 @@ public class MainMenu extends State {
                     break;
                 case MOUSE_BUTTON_PRESSED:
                     for(int i = 0; i < btns.size(); i++) {
-                        if (btns.elementAt(i).isWithinRect(e.asMouseEvent().position)) {
+                        Vector2f temp=Window.getInstance().getGameWindow().mapPixelToCoords(e.asMouseEvent().position);
+
+                        if (btns.elementAt(i).isWithinRect(new Vector2i((int)temp.x,(int)temp.y))) {
                             lastPressButtonID = btns.elementAt(i).getButtonID();
                             break;
                         }

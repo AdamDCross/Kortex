@@ -3,6 +3,7 @@ package graphics;
 import assets.ArtAsset;
 import assets.AssetManager;
 import dijkstra.Dijkstra;
+import dijkstra.Pathfind;
 import enemy.NPCHandle;
 import fsm.StateMachine;
 import main.*;
@@ -246,7 +247,7 @@ public class HUD implements Render {
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
-                if(grid[i][j].isWithinRect(mousePos))
+                if(grid[i][j].isWithinRect(new Vector2i((int)currentMousePos.x,(int)currentMousePos.y)))
                 {
                     grid[i][j].setBorderActiver(true);
                 }
@@ -271,9 +272,11 @@ public class HUD implements Render {
         updateText();
 
         if(followMouse && selectedTurret != -1){
-            float x = (currentMousePos.x - (mouseBox.width / 2));
-            float y = (currentMousePos.y - (mouseBox.height / 2));
-            mouseBox = new FloatRect(x,y,mouseBox.width,mouseBox.height);
+            float w=(gameWindowRect.width/ Pathfind.GRID_WIDTH);
+            float h=(gameWindowRect.height/Pathfind.GRID_HEIGHT);
+            float x = (currentMousePos.x - (w / 2));
+            float y = (currentMousePos.y - (h / 2));
+            mouseBox = new FloatRect(x,y,w,h);
             turrets.elementAt(selectedTurret).setDimensions(mouseBox);
         }
 
@@ -298,7 +301,6 @@ public class HUD implements Render {
         renderBottomBar();
         renderTopBar();
 
-        if(followMouse) Line.drawRect(mouseBox);
 
     }
 }

@@ -45,20 +45,9 @@ public class Game extends State {
         //gameObjects.addElement(a);
 
         setupGame();
-        player = new Player("Abe ;)", 50);
-        NPCHandle.getInstance().setPlayer(player);
-        panel = new HUD(0.10f, 0.1f, this,player);
+
         gameObjects.addElement(panel);
         //handler=new NPCHandle(this,player);
-
-
-        Vector<ArtAsset> turrets = AssetManager.getInstance().getArtAssetByAssetType("TURRET");
-        Turret turretTest = new Turret(turrets.elementAt(0).getAssetPath(),
-                turrets.elementAt(1).getAssetPath(),true,100,0.0f,1.0f,110,
-                new FloatRect(panel.getGameWindowRect().left,  panel.getGameWindowRect().height - 128, 141.0f,128.0f),
-                0,0,0,0,false,0,"TEST","src/assets/explosions/explosiontilesheet.png",141,128,10,11,50);
-        //handler.addTurret(turretTest);
-        //gameObjects.addElement(turretTest);
 
 
     }
@@ -66,6 +55,9 @@ public class Game extends State {
     private void setupGame(){
         numOfRemainingWaves = 10;
         currentWave = 0;
+        player = new Player("Abe ;)", 50);
+        NPCHandle.getInstance().setPlayer(player);
+        panel = new HUD(0.10f, 0.1f, this,player);
     }
 
     //method called just before the game is due to quit from inside the game
