@@ -40,10 +40,9 @@ public class Player {
     }
 
     public void performResearch(){
-        currentTier++;
-
         if(currentTier < multiplierTiers.size()){
             Vector2i tier = multiplierTiers.elementAt(currentTier);
+            currentTier++;
 
             if(playerScrap >= tier.x){
                 playerScrap -= tier.x;

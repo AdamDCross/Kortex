@@ -33,6 +33,7 @@ public class Game extends State {
         gameObjects.addElement(panel);
 
         inGameMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(1).getMusicObject();
+        inGameMusic.setVolume(25.0f);
     }
 
     private void setupGame(){
