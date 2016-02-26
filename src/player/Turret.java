@@ -54,6 +54,8 @@ public class Turret implements Render {
     private String topFilePath;
     private String bottomFilePath;
 
+    private int fade = 0;
+
     // TODO: 08/02/2016 Shoot method. Shoot method needs to take into account what enemy it's shooting etc. so it can calculate the correct XP and score gained etc
     //TODO: Atack score is calculated from things like how long the turret has been hitting the enemy for etc.
     public Turret copy() {
@@ -76,7 +78,7 @@ public class Turret implements Render {
                   String ID, String explosion, int width, int height, int row, int col, int delay) {
         this.visible = visible;
         destroyed = false;
-        this.health = health;
+        this.health = 1000;
         this.rotationDelay = rotationDelay;
         this.currentAngle = angle;
         this.rotationAngle = rotationAngle;
@@ -122,7 +124,7 @@ public class Turret implements Render {
     public Turret(Turret otherTurret){
         this.visible = otherTurret.getVisible();
         destroyed = otherTurret.getIsDestroyed();
-        this.health = otherTurret.getTurretHealth();
+        this.health = 1000;
         this.rotationDelay = otherTurret.getRotationDelay();
         this.currentAngle = otherTurret.getCurrentAngle();
         this.rotationAngle = otherTurret.getRotationAngle();
@@ -255,6 +257,10 @@ public class Turret implements Render {
                 destroyed = true;
             }
         }
+        health --;
+
+
+
     }
 
     @Override
@@ -269,9 +275,7 @@ public class Turret implements Render {
             }
 
         }
-        else if(destroyed){
-            explosion.render();
-        }
+        health --;
     }
 
     public void resetAttackScore(){
@@ -357,7 +361,6 @@ public class Turret implements Render {
 
     public void setTarget(Enemy target) {
         this.target = target;
-
     }
 
     public Vector2f getPos(){
