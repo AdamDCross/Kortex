@@ -33,6 +33,7 @@ public class Dijkstra implements Render {
     private boolean active;
     private ArrayList<Cell> corners;
 
+
     public Dijkstra(HUD parent) {
         Vector<ArtAsset> asset = AssetManager.getInstance().getArtAssetByAssetType("TILE_MAP");
         hud=parent;
@@ -112,10 +113,16 @@ public class Dijkstra implements Render {
 
     @Override
     public void update() {
+        long score=NPCHandle.getInstance().getPlayer().getScore();
         //
-        if(Window.getInstance().getElapsedTime()%10==0){
+        int enemyOffset=Math.max((int)(100-score/1000),1);
+        int speedOffset=(int)(1+score/10000);
+        int healthOffset=(int)(1000+score/10000);
+        int attOffset=(int)(10+score/10000);
+
+        if(Window.getInstance().getElapsedTime()%enemyOffset==0){
             //NPCHandle.getInstance().addEnemy(new Enemy(Pathfind.getInstance().getCells()[(int)(Math.random()*Pathfind.MAX_TILES_X)][(int)(Math.random()*Pathfind.MAX_TILES_Y)],0.5f));
-            NPCHandle.getInstance().addEnemy(new Enemy(corners.get((int)(Math.random()*4)),1));
+            NPCHandle.getInstance().addEnemy(new Enemy(corners.get((int)(Math.random()*4)),speedOffset,healthOffset,attOffset));
         }
         NPCHandle.getInstance().update();
     }
@@ -126,5 +133,10 @@ public class Dijkstra implements Render {
 
     public void addEnemy(Enemy t){
         NPCHandle.getInstance().addEnemy(t);
+    }
+
+    public boolean getFree(int i){
+        System.out.println(tiles.getVal(i));
+        return tiles.getVal(i)!=2;
     }
 }

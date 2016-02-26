@@ -213,7 +213,7 @@ public class HUD implements Render {
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {
-                if(grid[i][j].isWithinRect(mousePos))
+                if(grid[i][j].isWithinRect(mousePos)&&dijkstra.getFree(j+i*Pathfind.GRID_WIDTH))
                 {
                     if(followMouse) {
                         followMouse = false;
@@ -233,6 +233,7 @@ public class HUD implements Render {
 
     public void mouseMove(Vector2i mousePos){
         currentMousePos=Window.getInstance().getGameWindow().mapPixelToCoords(mousePos);
+        //todo readd the active turret and boxes
 
         for(int i = 0; i < HUD_GRID_ROW_COUNT; i++) {
             for (int j = 0; j < HUD_GRID_COL_COUNT; j++) {

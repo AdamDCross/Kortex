@@ -91,4 +91,5 @@ public class Tilemap {
     public ArrayList<Integer> getMap(){
         return map;
     }
+    public int getVal(int i){return map.get(i);}
 }
