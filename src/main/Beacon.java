@@ -1,5 +1,6 @@
 package main;
 
+import fsm.StateMachine;
 import graphics.Animation;
 import org.jsfml.graphics.FloatRect;
 import org.jsfml.system.Vector2f;
@@ -94,5 +95,6 @@ public class Beacon implements Render {
         visible = false;
         destroyed = true;
         position = new Vector2f(0.0f, 0.0f);
+        StateMachine.getInstance().setState("MAIN_MENU");
     }
 }

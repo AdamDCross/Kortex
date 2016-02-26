@@ -88,7 +88,7 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.RED, 255) );
+        circle.setFillColor( new Color(Color.GREEN, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
@@ -126,6 +126,8 @@ public class Enemy implements Render{
             currentPosition=Vector2f.add(previous,Vector2f.mul(Vector2f.sub(heading,previous),lerpCurr));
             //System.out.println(oldCell.pos);
             circle.setPosition(currentPosition);
+            int HPCol=255*(health/1000);
+            circle.setFillColor(new Color(255-HPCol,HPCol,0,255));
         }
 
     }

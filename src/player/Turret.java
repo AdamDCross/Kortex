@@ -113,7 +113,7 @@ public class Turret implements Render {
         target=null;
         shotTime=0;
         rechargeTime=500;
-        att=100;
+        att=10;
         def=10;
         this.range=100;
         position=new Vector2f(dimensions.left,dimensions.top);
@@ -163,7 +163,7 @@ public class Turret implements Render {
         target=null;
         shotTime=0;
         rechargeTime=500;
-        att=100;
+        att=50;
         def=10;
         this.range=100;
         position=new Vector2f(this.dimensions.left,this.dimensions.top);
