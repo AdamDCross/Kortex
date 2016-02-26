@@ -11,7 +11,6 @@ import config.ConfigurationManager;
 public class Kortex {
     public static void main(String[] args)
     {
-        ConfigurationManager.getInstance().update();
         StateMachine.getInstance().addState(new Game());
         StateMachine.getInstance().addState(new MainMenu());
         StateMachine.getInstance().addState(new Pause());
