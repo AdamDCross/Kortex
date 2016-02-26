@@ -107,6 +107,10 @@ public class Button implements Render {
         buttonImage = null;
     }
 
+    public void setText(String str){
+        txt.setText(str);
+    }
+
     private boolean needsScaling(FloatRect imageDimensions, FloatRect borderDimensions){
         if( imageDimensions.width < borderDimensions.width
                 || imageDimensions.height < borderDimensions.height

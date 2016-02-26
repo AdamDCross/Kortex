@@ -42,9 +42,12 @@ public class Player {
     public void performResearch(){
         if(currentTier < multiplierTiers.size()){
             Vector2i tier = multiplierTiers.elementAt(currentTier);
-            currentTier++;
 
             if(playerScrap >= tier.x){
+                currentTier++;
+
+                if(currentTier == multiplierTiers.size()) currentTier = multiplierTiers.size() - 1;
+
                 playerScrap -= tier.x;
                 XPMultiplier = tier.y;
                 playerXP += 10 * XPMultiplier;
@@ -52,6 +55,10 @@ public class Player {
                 currentTier--;
             }
         }
+    }
+
+    public Vector2i getCurrentTier(){
+        return multiplierTiers.elementAt(currentTier);
     }
 
     //Will return a bool to indicate if it is possible or not.

@@ -125,8 +125,8 @@ public class HUD implements Render {
 
         topBarRect = new FloatRect(0.0f, 0.0f, screenW, topBarHeightAsPercent * screenH);
 
-        research = new Button("Research", new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "Research",true);
-        pause = new Button("Pause", new FloatRect(screenW - 150.0f, (topBarRect.top + topBarRect.height) / 2, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "PAUSE",true);
+        research = new Button("Research: "+NPCHandle.getInstance().getPlayer().getCurrentTier().x, new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 18, "Research",true);
+        pause = new Button("Pause", new FloatRect(screenW - 150.0f, (topBarRect.top + topBarRect.height) / 2, 150.0f, (topBarRect.top + topBarRect.height) / 2), 18, "PAUSE",true);
 
         btns.addElement(research);
         btns.addElement(pause);
@@ -185,6 +185,8 @@ public class HUD implements Render {
         XP.setText("Scrap: " + NPCHandle.getInstance().getPlayer().getPlayerScrap());
 
         score.setText("Score: "+NPCHandle.getInstance().getPlayer().getScore());
+
+        research.setText("Research: "+NPCHandle.getInstance().getPlayer().getCurrentTier().x);
     }
 
     public void mousePress(Vector2i mousePos){

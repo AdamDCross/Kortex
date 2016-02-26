@@ -2,6 +2,7 @@ package enemy;
 
 import dijkstra.Cell;
 import dijkstra.Pathfind;
+import main.Beacon;
 import main.GameMaths;
 import main.Render;
 import main.Window;
@@ -55,7 +56,7 @@ public class Enemy implements Render{
         //temp
         radius = 5;
         circle = new CircleShape(radius);
-        circle.setFillColor( new Color(Color.RED, 255) );
+        circle.setFillColor( new Color(Color.GREEN, 255) );
         circle.setOrigin(radius, radius);
         circle.setPosition(currentPosition);
 
@@ -115,7 +116,7 @@ public class Enemy implements Render{
                 }catch(NullPointerException n){
                     //dead clause
                     isDead=true;
-
+                    Beacon.getInstance().takeDamage(10);
 
                 }
                 lerpCurr=0;
