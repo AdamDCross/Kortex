@@ -114,6 +114,9 @@ public class Game extends State {
     public void onEntry() {
         super.onEntry();
         inGameMusic.play();
+        if(StateMachine.getInstance().getPreviousStateID().equals("MAIN_MENU")){
+            setupGame();
+        }
     }
 
     @Override
