@@ -33,6 +33,7 @@ public class Game extends State {
         gameObjects.addElement(panel);
 
         inGameMusic = AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(1).getMusicObject();
+        inGameMusic.setVolume(25.0f);
     }
 
     private void setupGame(){
@@ -79,6 +80,7 @@ public class Game extends State {
                     break;
                 case MOUSE_BUTTON_PRESSED:
                     panel.mousePress(e.asMouseButtonEvent().position);
+
                     break;
                 case RESIZED:
                     Window.getInstance().recalculateScreenRes(e.asSizeEvent().size);

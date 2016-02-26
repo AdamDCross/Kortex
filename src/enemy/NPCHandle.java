@@ -4,8 +4,10 @@ import graphics.HUD;
 import main.GameMaths;
 import main.Render;
 import org.jsfml.system.Vector2f;
+import org.jsfml.system.Vector2i;
 import player.Player;
 import player.Turret;
+import scrap.DropScrap;
 import states.Game;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class NPCHandle implements Render {
     private long totalAttackScore;
     private static NPCHandle instance=null;
     private HUD hud;
+    private ArrayList<DropScrap> scraps;
+
 
     /*public NPCHandle(Player player){
         //this.player = player;
@@ -37,6 +41,7 @@ public class NPCHandle implements Render {
         totalAttackScore = 0;
         enemies=new ArrayList<>();
         turrets=new ArrayList<>();
+        scraps=new ArrayList<>();
     }
 
     public static NPCHandle getInstance(){
@@ -61,6 +66,29 @@ public class NPCHandle implements Render {
     public HUD getHUD(){
         return hud;
     }
+    public void scrapClick(Vector2i mousePos){
+        /*Iterator<DropScrap> temp;
+        for(temp=scraps.iterator();temp.hasNext();) {
+            DropScrap next=temp.next();
+            if (next.isClicked().isWithinRect(mousePos)) {
+                player.increaseScrapBy(10);
+                scraps.remove(next);
+            }
+
+        }*/
+        ArrayList<Integer>  toRemove = new ArrayList<>();
+            for(int i = 0;scraps.size()>i;i++) {
+            if (scraps.get(i).isClicked().isWithinRect(mousePos)) {
+                   player.increaseScrapBy(10);
+                   toRemove.add(i);
+                    scraps.get(i).clickFeedBack();
+               }
+            }
+
+
+
+    }
+
 
     @Override
     public void render() {
@@ -70,6 +98,10 @@ public class NPCHandle implements Render {
         for(Turret t:turrets){
             t.render();
         }
+        for(DropScrap s:scraps) {
+            s.render();
+        }
+
     }
 
     @Override
@@ -95,6 +127,24 @@ public class NPCHandle implements Render {
 
         player.increaseXPBy(totalXPForEnemyKills);
         totalXPForEnemyKills = 0;
+
+
+
+        for (int i = 0; i < scraps.size(); i++) {
+
+            scraps.get(i).update();
+                if (scraps.get(i).getTimer() > 1000) {
+                    scraps.remove(i);
+                }
+
+            }
+
+
+
+
+
+
+
     }
 
     public void addEnemy(Enemy e){
@@ -120,8 +170,11 @@ public class NPCHandle implements Render {
         //System.out.println(enemies.size());
         try{
             if(t.getTarget().damage(t.getAtt())&&(t.getTarget().getState())){
+               DropScrap drop = new DropScrap(t.getTarget().getPos());
+              if(drop.isActive())scraps.add(drop);
 
                 enemies.remove(t.getTarget());
+
                 player.increaseScoreBy(100);
                 t.setTarget(null);
                 return true;

@@ -25,7 +25,7 @@ public class HUD implements Render {
     private FloatRect bottomBarRect;
     private FloatRect topBarRect;
     private FloatRect gameWindowRect;
-    private Button menu;
+    private Button research;
     private Button pause;
     private Game game;
 
@@ -125,17 +125,17 @@ public class HUD implements Render {
 
         topBarRect = new FloatRect(0.0f, 0.0f, screenW, topBarHeightAsPercent * screenH);
 
-        menu = new Button("Menu", new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "MAIN_MENU",true);
+        research = new Button("Research", new FloatRect(screenW - 150.0f, 0.0f, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "Research",true);
         pause = new Button("Pause", new FloatRect(screenW - 150.0f, (topBarRect.top + topBarRect.height) / 2, 150.0f, (topBarRect.top + topBarRect.height) / 2), 20, "PAUSE",true);
 
-        btns.addElement(menu);
+        btns.addElement(research);
         btns.addElement(pause);
 
         FloatRect wavesRect = new FloatRect(0.0f, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        waves = new Message("Remaining waves: "+game.getNumOfRemainingWaves(), Text.BOLD, wavesRect, Color.WHITE, 20);
+        waves = new Message("XP: " + NPCHandle.getInstance().getPlayer().getXP(), Text.BOLD, wavesRect, Color.WHITE, 20);
 
         FloatRect XPRect = new FloatRect(wavesRect.left + wavesRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
-        XP = new Message("XP: "+NPCHandle.getInstance().getPlayer().getXP(), Text.BOLD, XPRect, Color.WHITE, 20);
+        XP = new Message("Score: "+NPCHandle.getInstance().getPlayer().getScore(), Text.BOLD, XPRect, Color.WHITE, 20);
 
         FloatRect scoreRect = new FloatRect(XPRect.left + XPRect.width, 0.0f, (screenW - 150.0f) / 3, topBarRect.top + topBarRect.height);
         score = new Message("Score: "+game.getScore(), Text.BOLD, scoreRect, Color.WHITE, 20);
@@ -180,17 +180,9 @@ public class HUD implements Render {
             change = !change;
         }
 
-        if(change){
-            waves.setText("Remaining waves: " + game.getNumOfRemainingWaves());
-        }else{
-            waves.setText("Current wave: "+ game.getCurrentWave());
-        }
+        waves.setText("XP: " + NPCHandle.getInstance().getPlayer().getXP());
 
-        if(change) {
-            XP.setText("XP: " + NPCHandle.getInstance().getPlayer().getXP());
-        }else{
-            XP.setText("Scrap: " + NPCHandle.getInstance().getPlayer().getPlayerScrap());
-        }
+        XP.setText("Scrap: " + NPCHandle.getInstance().getPlayer().getPlayerScrap());
 
         score.setText("Score: "+NPCHandle.getInstance().getPlayer().getScore());
     }
@@ -199,14 +191,14 @@ public class HUD implements Render {
         Vector2f hold=Window.getInstance().getGameWindow().mapPixelToCoords(mousePos);
         mousePos=new Vector2i((int)hold.x,(int)hold.y);//TODO convert the Button.isWithinREct to take Vector2f too
 
-        if(menu.isWithinRect(mousePos)) {
-            StateMachine.getInstance().setState("MAIN_MENU");
-            return;
+        if(research.isWithinRect(mousePos)) {
+            NPCHandle.getInstance().getPlayer().performResearch();
         }
         else if(pause.isWithinRect(mousePos)){
             StateMachine.getInstance().setState("PAUSE");
             return;
         }
+        NPCHandle.getInstance().scrapClick(mousePos);
 
         for(int i = 0; i < btns.size(); i++){
             if(btns.elementAt(i).isWithinRect(mousePos) && (i <= turrets.size())){

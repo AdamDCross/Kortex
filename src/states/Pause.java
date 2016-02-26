@@ -1,5 +1,6 @@
 package states;
 
+import assets.AssetManager;
 import fsm.State;
 import fsm.StateMachine;
 import graphics.Image;
@@ -20,6 +21,7 @@ public class Pause extends State {
     private Button resume;
     private Button mute;
     private Button menu;
+    private boolean muted;
 
 
     /**
@@ -40,6 +42,8 @@ public class Pause extends State {
 
         x = (Window.getInstance().getScreenWidth() / 2) + (((Window.getInstance().getScreenWidth()) - (Window.getInstance().getScreenWidth() / 2)) / 2);
         menu = new Button("Menu", new FloatRect(x,y,MainMenu.BUTTON_WIDTH,MainMenu.BUTTON_HEIGHT),20,"MAIN_MENU",true);
+
+        muted = false;
     }
 
     /**
@@ -76,7 +80,14 @@ public class Pause extends State {
                         StateMachine.getInstance().setState("GAME");
                     }
                     else if(mute.isWithinRect(mousePos)){
+                        muted = !muted;
                         //mute audio playback when config manager is fully up and running
+                        if(muted){
+                            AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(1).getMusicObject().setVolume(0.0f);
+                        }
+                        else{
+                            AssetManager.getInstance().getAudioAssetByAssetType("MUSIC").elementAt(1).getMusicObject().setVolume(25.0f);
+                        }
                     }
                     else if(menu.isWithinRect(mousePos)){
                         StateMachine.getInstance().setState("MAIN_MENU");
